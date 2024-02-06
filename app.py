@@ -1,9 +1,11 @@
-from flask import Flask,render_template, request,redirect,jsonify, make_response
-from dotenv import load_dotenv
-import os 
-from Controller.database import db
-from Controller.models import User
+from app import create_app
 
+app = create_app()
+
+if __name__ == '__main__':
+    app.run(debug=True)
+
+'''
 # Allows you to load your .env file
 load_dotenv()
 
@@ -21,7 +23,6 @@ db.init_app(app)
 # Create tables that does not exist in the database
 app.app_context().push()
 db.create_all()
- 
 
 @app.route('/', methods = ["GET", "POST"])
 def homepage():
@@ -42,10 +43,5 @@ def registerPage():
         return render_template('userRegisterPage.html')
     else:
         pass
-    
+'''
 
-
-if __name__ == '__main__':
-    app.run(debug=True)
-    
-    
