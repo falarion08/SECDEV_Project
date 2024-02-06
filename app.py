@@ -1,8 +1,8 @@
 from flask import Flask,render_template, request,redirect,jsonify, make_response
 from dotenv import load_dotenv
 import os 
-from Contoller.database import db
-from Contoller.models import User
+from Controller.database import db
+from Controller.models import User
 
 # Allows you to load your .env file
 load_dotenv()
