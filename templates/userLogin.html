@@ -1,20 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <title>login</title>
-</head>
-<body>
-    <form action="/login" method = "POST">
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>    
+        <form action="/login" method = "POST">
         <label for="userEmail">Email:</label>
         <input type="text" name = "userEmail" type = "email" id = "userEmail">
 
         <label for="userPassword">Password</label>
         <input type="password" id = "userPassword" name="userPassword">
 
-    </form>
-    
-</body>
+        <button type="submit">Login</button>
+        </form>
+        <p>Don' have an account yet?<a href="/register">Register now</a></p>
+        
+        <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+    </body>
 </html>
