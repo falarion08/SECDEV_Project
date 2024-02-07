@@ -10,5 +10,7 @@ Instructions on how to run the project. (Make sure python is installed)
 6) Run the Flask web app by entering the command "python app.py"
 
 **Notes:**
+
 **Tutorial how to connect ElephantSQL in pgAdmin4**: https://www.elephantsql.com/docs/pgadmin.html
+
 **Development Website URL**: http://127.0.0.1:5000/
