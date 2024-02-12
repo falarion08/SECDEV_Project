@@ -1,30 +1,54 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Register</title>
-    </head>
-    <body>
+{% extends 'base.html' %}
 
-        <form action="/register" method="post">
+{% block title %} 
+    <title> Register Page </title> 
+{% endblock %}
 
-            <label for="profilePicture">Profile Picture</label>
-            <input type="file" name="profilePicture" id="profilePicture">
-            <p>Please upload your profile picture:</p>
+{% block styles %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/register.css')}}"/> 
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <form action="/register" method="post" class="form">
+            <h1 class="form-title"> Sign Up </h1>
+
+            <div id="picture-group">
+                <div id="picture-inner-div">
+                    <input id="picture-input" type="file" accept="image/png, image/jpeg, image/jpg" name="profilePicture">
+                    <label id="picture-label" for="profilePicture">Profile Picture</label>
+                </div>
+                <div id="picture-preview"></div>
+            </div>
             
-            <label for="userFullName">Full Name:</label>
-            <input type="text" name="userFullName" id="userFullName" required>
+            <div class="form-group">
+                <input class="form-input" type="text" name="userFullName" id="userFullName" required>
+                <label class="form-label" for="userFullName">Full Name</label>
+            </div>
 
-            <label for="userEmail">Email Address</label>
-            <input type="email" name="userEmail" id="userEmail">
+            <div class="form-group">
+                <input class="form-input" type="email" name="userEmail" id="userEmail" required>
+                <label class="form-label" for="userEmail">Email Address</label>
+            </div>
 
-            <label for="password">Password</label>
-            <input type="password" required>
+            <div class="form-group">
+                <input class="form-input" type="number" required>
+                <label class="form-label" for="phoneNumber">Phone Number</label>
+            </div>
 
-            <label for="phoneNumber">Phone Number:</label>
-            <input type="number" required>
+            <div class="form-group">
+                <input class="form-input" type="password" name="password" required>
+                <label class="form-label" for="password">Password</label>
+            </div>
+
+            <div class="form-group">
+                <input class="form-input" type="password" name="confirm-password" required>
+                <label class="form-label" for="confirm-password">Confirm Password</label>
+            </div>
+
+            <p> Already have an account? <a id="redirect-link" href="/login"> Login now </a> </p>
+
+            <button class="form-btn" type="submit"> Register </button>
         </form>
-        
-    </body>
-</html>
+    </div>
+{% endblock %}
