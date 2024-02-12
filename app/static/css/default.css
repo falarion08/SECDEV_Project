@@ -47,12 +47,12 @@ body {
     font-size: 1.2rem;
     text-decoration: none;
     padding: 2rem;
-    color: var(--secondary-color);
+    color: var(--bg-color);
     transition:
         background-color 200ms ease-in,
         color 200ms ease-in;
     &:hover {
-        color: var(--text-color);
         background-color: var(--secondary-color);
+        color: var(--text-color);
     }
 }
