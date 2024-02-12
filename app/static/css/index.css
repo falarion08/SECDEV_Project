@@ -1,0 +1,23 @@
+@import url('default.css');
+
+.container {
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.content-group {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: var(--text-color);
+    width: 42rem;
+}
+
+.content-group h1 {
+    font-size: 4rem;
+    margin-bottom: 1.5rem;
+}

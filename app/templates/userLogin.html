@@ -1,21 +1,30 @@
-<!doctype html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>    
-        <form action="/login" method = "POST">
-        <label for="userEmail">Email:</label>
-        <input type="text" name = "userEmail" type = "email" id = "userEmail">
+{% extends 'base.html' %}
 
-        <label for="userPassword">Password</label>
-        <input type="password" id = "userPassword" name="userPassword">
+{% block title %} 
+    <title> Login Page </title> 
+{% endblock %}
 
-        <button type="submit">Login</button>
+{% block styles %} 
+    <link rel="stylesheet" href="{{url_for('static', filename='css/register.css')}}"/> 
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <form action="/login" method="post" class="form">
+            <h1 class="form-title"> Log In</h1>
+
+            <div class="form-group">
+                <label class="form-label" for="userEmail">Email:</label>
+                <input class="form-input" type="text" name = "userEmail" type = "email" id = "userEmail">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="userPassword">Password</label>
+                <input class="form-input" type="password" id = "userPassword" name="userPassword">
+            </div>
+            <p>Don't have an account yet? <a id="redirect-link" href="/register">Register now</a></p>
+
+            <button class="form-btn" type="submit">Login</button>
         </form>
-        <p>Don' have an account yet?<a href="/register">Register now</a></p>
-        
-        <!-- <script src="https://cdn.tailwindcss.com"></script> -->
-    </body>
-</html>
+    </div>
+{% endblock %}

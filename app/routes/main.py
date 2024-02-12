@@ -13,6 +13,13 @@ def homepage():
     # except Exception as e:
     #     print(e)
     if request.method == "GET":
+        return render_template('index.html')
+    else:
+        pass
+
+@main_bp.route('/login', methods = ["GET", "POST"])
+def loginPage():
+    if request.method == "GET":
         return render_template('userLogin.html')
     else:
         
