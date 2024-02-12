@@ -1,33 +1,4 @@
-:root {
-    --bg-color: #070e04;
-    --primary-color: #abe291;
-    --secondary-color: #248653;
-    --accent-color: #39caaf;
-    --text-color: #e6f7e0;
-}
-
-*,
-*::before,
-*::after {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-body {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 500;
-    background-color:var(--bg-color);
-    background-image: linear-gradient(
-        315deg,
-        var(--secondary-color) 0%,
-        var(--accent-color) 100%
-    );
-    margin: 0;
-    padding: 0;
-    height: 100vh;
-    color: var(--secondary-color);
-}
+@import url('default.css');
 
 .container {
     display: grid;
@@ -144,16 +115,13 @@ body {
     grid-area: picture-preview;
 }
 
-.form p, a {
+.form p {
     margin-bottom: 1.5rem;
-    color: var(--secondary-color);
-    text-decoration: none;
-    transition: color 200ms ease-in;
 }
 
 #redirect-link {
     color: var(--bg-color);
-    
+    transition: color 200ms ease-in;
     &:hover {
         color: var(--accent-color);
     }
