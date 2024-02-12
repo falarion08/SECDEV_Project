@@ -1,6 +1,7 @@
 from flask import Flask
 from app.models.user import db
 from app.routes import register_blueprints
+from app.configs import setup_db
 from dotenv import load_dotenv
 import os
 
@@ -12,10 +13,10 @@ def create_app():
     app = Flask(__name__)
 
     # Connect to the database hosted online
-    #DB_URL = os.environ.get("DATABASE_URL")
-    #app.config['SQLALCHEMY_DATABASE_URI'] = DB_URL
-    #app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False # Set to false to use less memory
-    #app.config['SQLALCHEMY_ECHO'] = True
+    DB_URL = os.environ.get("DATABASE_URL")
+
+    # set app db configs
+    # setup_db(app, DB_URL)
 
     #db.init_app(app)
 
