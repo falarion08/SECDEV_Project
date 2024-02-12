@@ -5,7 +5,7 @@ from app.controllers import userController
 
 
 @main_bp.route('/', methods = ["GET", "POST"])
-def homepage():
+def home_page():
     # try:
     #     new_user = User(username='LAMOS', email='lalamove@gmail.com')
     #     db.session.add(new_user)
@@ -18,14 +18,14 @@ def homepage():
         pass
 
 @main_bp.route('/login', methods = ["GET", "POST"])
-def loginPage():
+def login_page():
     if request.method == "GET":
         return render_template('userLogin.html')
     else:
         pass
 
 @main_bp.route('/register', methods = ["GET","POST"])
-def registerPage():
+def register_page():
     if request.method == "GET":
         return render_template('userRegisterPage.html')
     else:
@@ -38,14 +38,14 @@ def registerPage():
         return redirect('/register')
 
 @errors.app_errorhandler(404)
-def page_not_found(e):
+def error_404(e):
     return render_template(
         'errorPage.html',
         error_num=404,
         error_text="Page Not Found"), 404
 
 @errors.app_errorhandler(500)
-def internal_server_error(e):
+def error_500(e):
     return render_template(
         'errorPage.html',
         error_num=500,
