@@ -18,7 +18,7 @@ def create_app():
     # set app db configs
     setup_db(app, DB_URL)
 
-    #db.init_app(app)
+    db.init_app(app)
 
     register_blueprints(app)
 
