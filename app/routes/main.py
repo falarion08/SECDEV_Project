@@ -1,5 +1,5 @@
 from flask import render_template, request, redirect, jsonify, url_for, make_response
-from app.models.User import db, User
+from app.models.user import db, User
 from . import main_bp
 from app.controllers import userController
 
@@ -22,7 +22,6 @@ def loginPage():
     if request.method == "GET":
         return render_template('userLogin.html')
     else:
-        
         pass
 
 @main_bp.route('/register', methods = ["GET","POST"])

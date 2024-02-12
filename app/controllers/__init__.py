@@ -11,15 +11,15 @@ def verify_password(user_password):
         
         Return value: None or a matched string
     """
-    return re.match(r'\A(?=.*?[a-z]+)(?=.*?[A-Z]+)(?=.*?\d+)(?=.*\W+)[^s]{12,64}$',
-                               user_password)
-    
+    return re.match(
+        r'\A(?=.*?[a-z]+)(?=.*?[A-Z]+)(?=.*?\d+)(?=.*\W+)[^s]{12,64}$', 
+        user_password
+        )
+
 def hashPassword(user_password):
     bytes = user_password.encode('utf-8')
     salt = bcrypt.gensalt()
-    
+
     hash = bcrypt.hashpw(bytes,salt)
-    
+
     return (salt,hash)
-    
-    

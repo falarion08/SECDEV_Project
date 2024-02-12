@@ -1,5 +1,5 @@
 from app.controllers import verify_password,hashPassword
-from app.models.User import User,db
+from app.models.user import User,db
 
 def create(user_email,password,phone_number,full_name):
     isPasswordValid = verify_password(password)
