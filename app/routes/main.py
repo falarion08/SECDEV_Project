@@ -1,6 +1,8 @@
 from flask import render_template, request, redirect, jsonify, url_for, make_response
-from app.models.user import db, User
+from app.models.User import db, User
 from . import main_bp
+from app.controllers import userController
+
 
 @main_bp.route('/', methods = ["GET", "POST"])
 def homepage():
@@ -13,6 +15,7 @@ def homepage():
     if request.method == "GET":
         return render_template('userLogin.html')
     else:
+        
         pass
 
 @main_bp.route('/register', methods = ["GET","POST"])
@@ -20,4 +23,8 @@ def registerPage():
     if request.method == "GET":
         return render_template('userRegisterPage.html')
     else:
-        pass
+        userController.create(user_email=request.form['userEmail'], password=request.form['password'],
+                              full_name=request.form['userFullName'],phone_number=request.form['phone_number'])
+        
+        return redirect('/register')
+
