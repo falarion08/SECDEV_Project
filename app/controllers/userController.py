@@ -33,6 +33,11 @@ def check_phone_number_valid(phone_number):
         return False
     return True
 
+def check_password_match(password, confirm_password):
+    if password != confirm_password:
+        return False
+    return True
+
 def check_picture_valid(profile_picture):
     is_valid = verify_image(profile_picture)
     return is_valid

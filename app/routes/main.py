@@ -25,6 +25,7 @@ def register_page():
     form = RegistrationForm()
     if form.validate_on_submit():
         print(form.email.data, form.password.data, form.full_name.data, form.phone_number.data)
+        # TODO: put all checks into 1 function
         # Check db if email already in use
         if not userController.check_email_valid(form.email.data):
             print("EMAIL ADDRESS WAS NOT VALID!")
@@ -34,8 +35,16 @@ def register_page():
             print("PASSWORD WAS NOT VALID!")
             flash('Password is invalid.', 'danger')
             return redirect('/register')
+        if not userController.check_phone_number_valid(form.phone_number.data):
+            print("PHONE NUMBER WAS NOT VALID!")
+            flash('Phone number is invalid.', 'danger')
+            return redirect('/register')
+        if not userController.check_password_match(form.password.data, form.confirm_password.data):
+            print('PASSWORD DID NOT MATCH!')
+            flash('Passwords did not match.', 'danger')
+            return redirect('/register')
         # Proceed if email is not in use
-        print("REGISTRATION INPUT WAS VALID")
+        print("REGISTRATION INPUT WAS VALID!")
         userController.create(
             user_email=form.email.data,
             password=form.password.data,
