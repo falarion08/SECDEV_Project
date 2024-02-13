@@ -9,7 +9,7 @@ class User(db.Model):
     hash = db.Column(db.String(255),nullable = False)
     salt = db.Column(db.String(255),nullable=False)
     full_name = db.Column(db.String(120), nullable=False)
-
+    profile_picture_id = db.Column(db.Integer,forg)
     def __init__(self,email,hash,salt,phone_number,full_name):
         self.email=email
         self.hash = hash
