@@ -14,30 +14,24 @@ def create(user_email,password,phone_number,full_name,profile_picture):
     db.session.add(new_user)
     db.session.commit()
 
-def check_email_valid(user_email):
+# TODO: Add profile picture validation
+def validate_registration(user_email, password, confirm_password, phone_number, full_name):
+    # Check email validity
     existing_user = User.query.filter_by(email=user_email).first()
     is_email_valid = verify_email(user_email)
-    if existing_user or not is_email_valid:
-        return False
-    return True
-
-def check_password_valid(password):
+    if existing_user:
+        return 'Email address is already in use.'
+    if not is_email_valid:
+        return 'Email address is invalid.'
+    # Check password validity
     is_password_valid = verify_password(password)
     if not is_password_valid:
-        return False
-    return True
-
-def check_phone_number_valid(phone_number):
+        return 'Password is invalid.'
+    # Check phone number validity
     is_phone_number_valid = verify_phone_number(phone_number)
     if not is_phone_number_valid:
-        return False
-    return True
-
-def check_password_match(password, confirm_password):
+        return 'Phone number is invalid.'
+    # Check if password matches
     if password != confirm_password:
-        return False
-    return True
-
-def check_picture_valid(profile_picture):
-    is_valid = verify_image(profile_picture)
-    return is_valid
+        return 'Passwords did not match.'
+    return None

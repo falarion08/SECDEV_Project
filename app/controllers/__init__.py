@@ -26,7 +26,7 @@ def verify_password(user_password):
         Return value: None or a matched string
     """
     return re.match(
-        r'\A(?=.*?[a-z]+)(?=.*?[A-Z]+)(?=.*?\d+)(?=.*\W+)[^s]{12,64}$', 
+        r"^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[`~!@#$%^&*()\-_=+\[\]\\|;:'\",<.>/?])[A-Za-z\d`~!@#$%^&*()\-_=+\[\]\\|;:'\",<.>/?]{12,64}$", 
         user_password
         )
 
