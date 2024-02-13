@@ -1,5 +1,5 @@
 from flask import render_template, request, redirect, jsonify, url_for, make_response
-from app.models.user import db, User
+from app.models.User import db, User
 from . import main_bp
 from app.controllers import userController
 
@@ -30,7 +30,7 @@ def registerPage():
         return render_template('userRegisterPage.html')
     else:
         userController.create(user_email=request.form['userEmail'], password=request.form['password'],
-                              full_name=request.form['userFullName'],phone_number=request.form['phone_number'])
-        
+                              full_name=request.form['userFullName'],phone_number=request.form['phone_number'],
+                              profile_picture=request.files['profilePicture'])
         return redirect('/register')
 
