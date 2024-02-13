@@ -126,13 +126,20 @@
     }
 }
 
-.error-group {
+.message-group {
     display: flex;
     justify-content: center;
     align-items: center;
     margin-top: 1rem;
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
     height: 2rem;
-    color: #fe3e3e;
     text-align: center;
+}
+
+.error-msg {
+    color: #fe3e3e;
+}
+
+.success-msg {
+    color: var(--secondary-color);
 }

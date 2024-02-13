@@ -35,7 +35,7 @@ def register_page():
             form.full_name.data
         )
         if validation_msg is not None:
-            flash(validation_msg, 'danger')
+            flash(validation_msg, 'error-msg')
             return redirect('/register')
         userController.create(
             user_email=form.email.data,
@@ -44,6 +44,7 @@ def register_page():
             phone_number=form.phone_number.data,
             profile_picture=form.profile_picture.data
         )
+        flash('Registration successful', 'success-msg')
         return redirect('/login')
     return render_template('userRegisterPage.html', form=form)
 
