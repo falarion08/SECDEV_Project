@@ -1,7 +1,7 @@
 from flask import render_template, request, flash, redirect, jsonify, url_for, make_response
 from app.models.User import db, User
 from app.controllers import userController
-from app.utils.forms import RegistrationForm
+from app.utils.forms import RegistrationForm, LoginForm
 from . import main_bp, errors
 
 
@@ -15,10 +15,12 @@ def home_page():
 
 @main_bp.route('/login', methods = ["GET", "POST"])
 def login_page():
-    if request.method == "GET":
-        return render_template('userLogin.html')
-    else:
-        pass
+    form = LoginForm()
+    if form.validate_on_submit():
+        print(form.email.data, form.password.data)
+        # TODO: DO LOGIN STUFF (auth)?
+        return redirect('/')
+    return render_template('userLogin.html', form=form)
 
 @main_bp.route('/register', methods = ["GET","POST"])
 def register_page():

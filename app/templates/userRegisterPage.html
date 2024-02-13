@@ -14,47 +14,47 @@
             {{ form.hidden_tag() }}
             <h1 class="form-title"> Sign Up </h1>
 
+            <div class="error-group">
+                {% for message in get_flashed_messages() %}
+                    {{ message }}
+                {% endfor %} 
+            </div>
+
             <div id="picture-group">
                 <div id="picture-inner-div">
-                    <!-- <input id="picture-input" type="file" accept="image/png, image/jpeg, image/jpg" name="profilePicture"> -->
                     {{ form.profile_picture(id="picture-input") }}
-                    <label id="picture-label" for="profilePicture"> {{ form.profile_picture.label }} </label>
+                    {{ form.profile_picture.label(id="picture-label") }}
                 </div>
                 <div id="picture-preview"></div>
             </div>
             
             <div class="form-group">
-                <!-- <input class="form-input" type="text" name="userFullName" id="userFullName" required> -->
                 {{ form.full_name(class="form-input")}}
-                <label class="form-label" for="userFullName"> {{ form.full_name.label }} </label>
+                {{ form.full_name.label(class="form-label") }}
             </div>
 
             <div class="form-group">
-                <!-- <input class="form-input" type="email" name="userEmail" id="userEmail" required> -->
                 {{ form.email(class="form-input")}}
-                <label class="form-label" for="userEmail"> {{ form.email.label }} </label>
+                {{ form.email.label(class="form-label") }}
             </div>
 
             <div class="form-group">
-                <!-- <input class="form-input" type="number" name="phone_number" required> -->
                 {{ form.phone_number(class="form-input")}}
-                <label class="form-label" for="phone_number"> {{ form.phone_number.label }} </label>
+                {{ form.phone_number.label(class="form-label") }}
             </div>
 
             <div class="form-group">
-                <!-- <input class="form-input" type="password" name="password" required> -->
                 {{ form.password(class="form-input")}}
-                <label class="form-label" for="password"> {{ form.password.label }} </label>
+                {{ form.password.label(class="form-label") }}
             </div>
 
             <div class="form-group">
                 {{ form.confirm_password(class="form-input")}}
-                <label class="form-label" for="confirm-password"> {{ form.confirm_password.label }} </label>
+                {{ form.confirm_password.label(class="form-label") }}
             </div>
 
             <p> Already have an account? <a id="redirect-link" href="/login"> Login now </a> </p>
 
-            <!-- <button class="form-btn" type="submit"> Sign Up </button> -->
             {{ form.submit(class="form-btn") }}
         </form>
     </div>

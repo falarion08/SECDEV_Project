@@ -10,6 +10,7 @@
 .form {
     width: 28rem;
     padding: 2rem;
+    margin-top: 3rem;
     border-radius: 1rem;
     display: grid;
     background-color: var(--text-color);
@@ -17,9 +18,7 @@
     border-color: var(--primary-color);
 }
 
-.form-title {
-    margin-bottom: 2.5rem;
-}
+
 
 .form-group {
     position: relative;
@@ -125,4 +124,15 @@
     &:hover {
         color: var(--accent-color);
     }
+}
+
+.error-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    height: 2rem;
+    color: #fe3e3e;
+    text-align: center;
 }

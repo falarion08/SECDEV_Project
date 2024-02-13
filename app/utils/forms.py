@@ -17,10 +17,15 @@ def is_small_enough(form, field):
             raise ValidationError('Image size exceeds the maximum allowed (1MB)')
 
 class RegistrationForm(FlaskForm):
-    profile_picture = FileField('Profile Picture')
+    profile_picture = FileField('Profile Picture', validators=[FileAllowed(['jpg', 'jpeg', 'png', 'gif'])])
     full_name = StringField('Full Name', validators=[DataRequired(), Length(max=100)])
     email = StringField('Email Address', validators=[DataRequired(), Email()])
     phone_number = StringField('Phone Number', validators=[DataRequired(), Length(min=10, max=20)])
     password = PasswordField('Password', validators=[DataRequired(), Length(min=12, max=64)])
     confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), Length(min=12, max=64)])
-    submit = SubmitField('Sign Up', validators=[FileAllowed(['jpg', 'jpeg', 'png', 'gif'])])
+    submit = SubmitField('Sign Up')
+
+class LoginForm(FlaskForm):
+    email = StringField('Email Address', validators=[DataRequired(), Email()])
+    password = PasswordField('Password', validators=[DataRequired()])
+    submit = SubmitField('Login')
