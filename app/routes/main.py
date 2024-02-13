@@ -1,7 +1,8 @@
 from flask import render_template, request, redirect, jsonify, url_for, make_response
 from app.models.User import db, User
-from . import main_bp, errors
 from app.controllers import userController
+from . import main_bp, errors
+
 
 
 @main_bp.route('/', methods = ["GET", "POST"])

@@ -1,9 +1,10 @@
 import os
 from flask import Flask
+from dotenv import load_dotenv
 from app.models import db
 from app.routes import register_blueprints
 from app.configs import setup_db
-from dotenv import load_dotenv
+
 
 from app.models.Files import Files
 
@@ -19,9 +20,9 @@ def create_app():
     upload_folder = os.getenv("FOLDER_UPLOAD")
 
     # set app db configs
-    setup_db(app, DB_URL,upload_folder)
+    #setup_db(app, DB_URL,upload_folder)
 
-    db.init_app(app)
+    #db.init_app(app)
     
     register_blueprints(app)
 
