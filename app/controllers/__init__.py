@@ -42,10 +42,14 @@ def hashPassword(user_password):
 def verify_image(uploaded_image):
     ALLOWED_EXTENSIONS = {"png", "jpeg", "jpg", "gif"}    
     FOLDER_UPLOAD = os.environ.get("FOLDER_UPLOAD")
-    if uploaded_image.filename != '':
 
+    #TODO: if user doesn't upload an image, use a placeholder image
+    if not uploaded_image:
+        return
+    
+    if uploaded_image.filename != '':
         filename = secure_filename(uploaded_image.filename).lower()
-        uploaded_image.save(os.path.join(FOLDER_UPLOAD,filename))  
+        uploaded_image.save(os.path.join(FOLDER_UPLOAD,filename)) #FIXME: FileNotFoundError No such file or directory occurs when a file is uploaded
         
         try:
             img = Image.open(FOLDER_UPLOAD + filename)            

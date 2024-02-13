@@ -2,7 +2,7 @@ from app.controllers import verify_password, hashPassword, verify_image, verify_
 from app.models.User import User,db
 
 def create(user_email,password,phone_number,full_name,profile_picture):
-    #verify_image(profile_picture)
+    verify_image(profile_picture)
     hashedResult = hashPassword(password)
     new_user = User(
         email=user_email,
