@@ -1,5 +1,5 @@
-import os
 from flask import Flask
+from flask_wtf import CSRFProtect
 from dotenv import load_dotenv
 from app.models import db
 from app.routes import register_blueprints
@@ -14,13 +14,10 @@ def create_app():
 
     # Create an instance of flask to run application
     app = Flask(__name__)
-
-    # Connect to the database hosted online
-    DB_URL = os.getenv("DATABASE_URL")
-    upload_folder = os.getenv("FOLDER_UPLOAD")
+    csrf = CSRFProtect(app)
 
     # set app db configs
-    #setup_db(app, DB_URL,upload_folder)
+    setup_db(app)
 
     #db.init_app(app)
     

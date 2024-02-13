@@ -11,44 +11,51 @@
 {% block content %}
     <div class="container">
         <form action="/register" method="post" class="form" enctype=multipart/form-data>
+            {{ form.hidden_tag() }}
             <h1 class="form-title"> Sign Up </h1>
 
             <div id="picture-group">
                 <div id="picture-inner-div">
-                    <input id="picture-input" type="file" accept="image/png, image/jpeg, image/jpg" name="profilePicture">
-                    <label id="picture-label" for="profilePicture">Profile Picture</label>
+                    <!-- <input id="picture-input" type="file" accept="image/png, image/jpeg, image/jpg" name="profilePicture"> -->
+                    {{ form.profile_picture(id="picture-input") }}
+                    <label id="picture-label" for="profilePicture"> {{ form.profile_picture.label }} </label>
                 </div>
                 <div id="picture-preview"></div>
             </div>
             
             <div class="form-group">
-                <input class="form-input" type="text" name="userFullName" id="userFullName" required>
-                <label class="form-label" for="userFullName">Full Name</label>
+                <!-- <input class="form-input" type="text" name="userFullName" id="userFullName" required> -->
+                {{ form.full_name(class="form-input")}}
+                <label class="form-label" for="userFullName"> {{ form.full_name.label }} </label>
             </div>
 
             <div class="form-group">
-                <input class="form-input" type="email" name="userEmail" id="userEmail" required>
-                <label class="form-label" for="userEmail">Email Address</label>
+                <!-- <input class="form-input" type="email" name="userEmail" id="userEmail" required> -->
+                {{ form.email(class="form-input")}}
+                <label class="form-label" for="userEmail"> {{ form.email.label }} </label>
             </div>
 
             <div class="form-group">
-                <input class="form-input" type="number" name="phone_number" required>
-                <label class="form-label" for="phone_number">Phone Number</label>
+                <!-- <input class="form-input" type="number" name="phone_number" required> -->
+                {{ form.phone_number(class="form-input")}}
+                <label class="form-label" for="phone_number"> {{ form.phone_number.label }} </label>
             </div>
 
             <div class="form-group">
-                <input class="form-input" type="password" name="password" required>
-                <label class="form-label" for="password">Password</label>
+                <!-- <input class="form-input" type="password" name="password" required> -->
+                {{ form.password(class="form-input")}}
+                <label class="form-label" for="password"> {{ form.password.label }} </label>
             </div>
 
             <div class="form-group">
                 <input class="form-input" type="password" name="confirm-password" required>
-                <label class="form-label" for="confirm-password">Confirm Password</label>
+                <label class="form-label" for="confirm-password"> Confirm Password </label>
             </div>
 
             <p> Already have an account? <a id="redirect-link" href="/login"> Login now </a> </p>
 
-            <button class="form-btn" type="submit"> Register </button>
+            <!-- <button class="form-btn" type="submit"> Sign Up </button> -->
+            {{ form.submit(class="form-btn") }}
         </form>
     </div>
 {% endblock %}
