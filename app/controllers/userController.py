@@ -1,21 +1,30 @@
 from app.controllers import verify_password,hashPassword,verify_image
 from app.models.User import User,db
+from app.controllers.fileController import uploadFile 
+import os
 
 def create(user_email,password,phone_number,full_name,profile_picture):
     isPasswordValid = verify_password(password)
     
-    print('hey')
     if isPasswordValid:
         userList = User.query.filter_by(email= user_email).first()
+        print('hey')
 
-        verify_image(profile_picture)
         if(userList is None):
-            hashedResult = hashPassword(password)
-            new_user = User(email=user_email,hash= hashedResult[1], salt = hashedResult[0],
-                            full_name = full_name,phone_number=phone_number)       
-            
-            db.session.add(new_user)
-            db.session.commit()
+            if verify_image(profile_picture):
+                
+                profilePictureId = uploadFile(profile_picture)
+                
+                hashedResult = hashPassword(password)
+                new_user = User(email=user_email,hash= hashedResult[1], salt = hashedResult[0],
+                                full_name = full_name,phone_number=phone_number,profile_picture_id=profilePictureId)       
+                
+                db.session.add(new_user)
+                db.session.commit()
+                
+                os.remove(os.environ.get("FOLDER_UPLOAD")+profile_picture.filename)
+            else:
+                print('Image uploaded does not meet required file extenisons')
         else:
             print('User record already exist')
     else:

@@ -9,7 +9,7 @@ def homepage():
     # try:
     #     new_user = User(username='LAMOS', email='lalamove@gmail.com')
     #     db.session.add(new_user)
-    #     db.session.commit()
+    #     db.session.commit()1
     # except Exception as e:
     #     print(e)
     if request.method == "GET":
