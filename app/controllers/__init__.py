@@ -3,6 +3,7 @@ import bcrypt
 from werkzeug.utils import secure_filename
 import os
 from PIL import Image
+import uuid as uuid
 
 
 def verify_email(user_email):
@@ -50,7 +51,7 @@ def verify_image(uploaded_image):
     
     if uploaded_image.filename != '':
         filename = secure_filename(uploaded_image.filename).lower()
-        uploaded_image.save(os.path.join(FOLDER_UPLOAD,filename)) #FIXME: FileNotFoundError No such file or directory occurs when a file is uploaded
+        uploaded_image.save(os.path.join(FOLDER_UPLOAD,filename))
         
         try:
             img = Image.open(FOLDER_UPLOAD + filename)            
@@ -59,9 +60,16 @@ def verify_image(uploaded_image):
                 return True
             else:
                 False
-        
         except:
             print("File is not an image")
             return False
-        
+
+def verify_image_test(uploaded_image):
+    if not uploaded_image:
+        return None
+    FOLDER_UPLOAD = os.environ.get('FOLDER_UPLOAD')
+    picture_filename = secure_filename(uploaded_image.filename)
+    new_filename = str(uuid.uuid1()) + '_' + picture_filename
+    uploaded_image.save(os.path.join(FOLDER_UPLOAD, new_filename))
+    return new_filename
 

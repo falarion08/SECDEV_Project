@@ -28,8 +28,8 @@ def create_app():
     register_blueprints(app)
 
     # Create tables that does not exist in the database
-    app.app_context().push()
-    db.create_all()
+    with app.app_context():
+        db.create_all()
 
 
     return app

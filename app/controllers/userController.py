@@ -1,13 +1,12 @@
-from app.controllers import verify_password, hashPassword, verify_image, verify_email, verify_phone_number
+from app.controllers import verify_password, hashPassword, verify_image, verify_email, verify_phone_number, verify_image_test
 from app.models.User import User,db
 from app.controllers.fileController import uploadFile 
 import os
 import bcrypt
 
 def create(user_email,password,phone_number,full_name,profile_picture):
-    print(profile_picture)
-    if verify_image(profile_picture):
-        profilePictureId = uploadFile(profile_picture)   
+        profilePictureId = verify_image_test(profile_picture)
+        #profilePictureId = uploadFile(profile_picture)   
         hashedResult = hashPassword(password)
         new_user = User(
             email=user_email,
@@ -19,9 +18,7 @@ def create(user_email,password,phone_number,full_name,profile_picture):
         )
         db.session.add(new_user)
         db.session.commit()
-        os.remove(os.environ.get("FOLDER_UPLOAD")+profile_picture.filename)
-    else:
-        print('Image uploaded does not meet required file extenisons')
+        #os.remove(os.environ.get("FOLDER_UPLOAD")+profile_picture.filename)
 
 
 # : Add profile picture validation

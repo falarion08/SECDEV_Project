@@ -22,16 +22,20 @@
             {% endwith %}
 
             <h1> Dashboard </h1>
-
             <div class="info-group">
                 <div id="text-section">
                     <p class="info-text"> User ID: {{ current_user.id }}</p>
                     <p class="info-text"> Email: {{ current_user.email }} </p>
                     <p class="info-text"> Full Name: {{ current_user.full_name }}</p>
                     <p class="info-text"> Phone Number: {{ current_user.phone_number }}</p>
+                    {{ current_user.profile_picture_id }}
                 </div>
                 <div id="img-section">
-                    <img id="preview-img" src="{{ url_for('static', filename='images/placeholder.jpg') }}">
+                    {% if current_user.profile_picture_id %}
+                        <img id="preview-img" src="{{ url_for('static', filename='upload/'+current_user.profile_picture_id) }}">
+                    {% else %}
+                        <img id="preview-img" src="{{ url_for('static', filename='images/placeholder.jpg') }}">
+                    {% endif %}
                 </div>
             </div>
         </div>
