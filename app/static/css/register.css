@@ -147,10 +147,3 @@
     text-align: center;
 }
 
-.error-msg {
-    color: #fe3e3e;
-}
-
-.success-msg {
-    color: var(--secondary-color);
-}

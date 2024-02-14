@@ -1,0 +1,70 @@
+@import url('default.css');
+
+.container {
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.content-group {
+    width: 42rem;
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.content-group h1 {
+    font-size: 4rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    color: var(--text-color);
+}
+
+.message-group h2 {
+    text-align: center;
+}
+
+.info-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: "text image";
+    background-color: var(--text-color);
+    font-weight: 700;
+    border-style: solid;
+    border-color: var(--primary-color);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.info-text {
+    margin: 0.2rem;
+}
+
+#text-section {
+    grid-area: text;
+    display: grid;
+    justify-content: center;
+}
+
+#img-section{
+    grid-area: image;
+    display: block;
+    justify-content: center;
+    align-items: center;
+    margin-left: auto;
+    overflow: hidden;
+    width: 8rem;
+    height: 8rem;
+    border-radius: 1rem;
+    border-style: solid;
+    border-color: var(--primary-color);
+}
+
+#preview-img {
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+}

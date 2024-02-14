@@ -56,3 +56,11 @@ body {
         color: var(--text-color);
     }
 }
+
+.error-msg {
+    color: #fe3e3e;
+}
+
+.success-msg {
+    color: var(--secondary-color);
+}
