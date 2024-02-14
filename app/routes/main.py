@@ -22,8 +22,8 @@ def login_page():
         
         # Check if the user is in the database
         existing_user = User.query.filter_by(email = form.email.data).first()
-        
-        if existing_user and checkPassword(form.password.data,existing_user['hash']):
+
+        if existing_user and checkPassword(form.password.data,existing_user.hash):
             # Authenticate user
             login_user(existing_user)
             return redirect('/default')
