@@ -4,6 +4,7 @@ from app.controllers.fileController import uploadFile
 import os
 
 def create(user_email,password,phone_number,full_name,profile_picture):
+    print(profile_picture)
     if verify_image(profile_picture):
         profilePictureId = uploadFile(profile_picture)   
         hashedResult = hashPassword(password)
@@ -22,7 +23,7 @@ def create(user_email,password,phone_number,full_name,profile_picture):
         print('Image uploaded does not meet required file extenisons')
 
 
-# TODO: Add profile picture validation
+# : Add profile picture validation
 def validate_registration(user_email, password, confirm_password, phone_number, full_name):
     # Check email validity
     existing_user = User.query.filter_by(email=user_email).first()

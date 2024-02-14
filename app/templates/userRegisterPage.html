@@ -13,7 +13,6 @@
         <form action="/register" method="post" class="form" enctype=multipart/form-data>
             {{ form.hidden_tag() }}
             <h1 class="form-title"> Sign Up </h1>
-
             <div class="message-group">
                 {%  with messages = get_flashed_messages(with_categories=true) %}
                     {% if messages %}
