@@ -40,12 +40,13 @@ def hashPassword(user_password):
 
 
 def verify_image(uploaded_image):
-    ALLOWED_EXTENSIONS = {"png", "jpeg", "jpg", "gif"}    
+    ALLOWED_EXTENSIONS = {"png", "jpeg", "jpg", "gif"}
     FOLDER_UPLOAD = os.environ.get("FOLDER_UPLOAD")
+    #PLACEHOLDER = "../static/images/PLACEHOLDER.jpg"
 
-    #TODO: if user doesn't upload an image, use a placeholder image
-    if not uploaded_image:
-        return
+    # #TODO: if user doesn't upload an image, use a placeholder image
+    # if not uploaded_image:
+    #     return 
     
     if uploaded_image.filename != '':
         filename = secure_filename(uploaded_image.filename).lower()

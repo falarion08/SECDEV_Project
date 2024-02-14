@@ -15,12 +15,9 @@ def create_app():
     # Create an instance of flask to run application
     app = Flask(__name__)
     csrf = CSRFProtect(app)
-    DB_URL = os.getenv('DATABASE_URL')
-    MAX_FILE_UPLOAD_SIZE = os.getenv('MAX_IMAGE_SIZE')
-    FOLDER_UPLOAD = os.getenv('FOLDER_UPLOAD')
 
     # set app db configs
-    setup_db(app,DB_URL,FOLDER_UPLOAD,MAX_FILE_UPLOAD_SIZE)
+    setup_db(app)
 
     db.init_app(app)
     
