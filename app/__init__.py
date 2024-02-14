@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 from app.models import db
 from app.routes import register_blueprints
 from app.configs import setup_db
-
+import os
 
 from app.models.Files import Files
 
@@ -15,9 +15,12 @@ def create_app():
     # Create an instance of flask to run application
     app = Flask(__name__)
     csrf = CSRFProtect(app)
+    DB_URL = os.getenv('DATABASE_URL')
+    MAX_FILE_UPLOAD_SIZE = os.getenv('MAX_IMAGE_SIZE')
+    FOLDER_UPLOAD = os.getenv('FOLDER_UPLOAD')
 
     # set app db configs
-    setup_db(app)
+    setup_db(app,DB_URL,FOLDER_UPLOAD,MAX_FILE_UPLOAD_SIZE)
 
     db.init_app(app)
     
