@@ -13,7 +13,7 @@ def verify_email(user_email):
 
 def verify_phone_number(phone_number):
     # FIXME: DO PHONE NUMBER REGEX HERE
-    return re.match(r"\d{1,13}", phone_number)
+    return re.match(r"\d{13}", phone_number)
 
 def verify_password(user_password):
     """
