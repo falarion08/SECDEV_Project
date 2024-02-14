@@ -2,9 +2,8 @@ from flask import Flask
 from flask_wtf.csrf import CSRFProtect
 from dotenv import load_dotenv
 from app.models import db
-from app.routes import register_blueprints
+from app.routes import register_blueprints, setup_login
 from app.configs import setup_db
-import os
 
 from app.models.Files import Files
 
@@ -17,6 +16,10 @@ def create_app():
     csrf = CSRFProtect()
     
     csrf.init_app(app)
+
+    setup_login(app)
+
+
     # set app db configs
     setup_db(app)
 

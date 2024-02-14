@@ -2,6 +2,7 @@ from app.controllers import verify_password, hashPassword, verify_image, verify_
 from app.models.User import User,db
 from app.controllers.fileController import uploadFile 
 import os
+import bcrypt
 
 def create(user_email,password,phone_number,full_name,profile_picture):
     print(profile_picture)
@@ -44,3 +45,8 @@ def validate_registration(user_email, password, confirm_password, phone_number, 
     if password != confirm_password:
         return 'Passwords did not match.'
     return None
+
+def check_password_hash(hashed_password, password):
+    user_bytes = password.encode('utf-8')
+    hashed_pw = hashed_password.encode('utf-8')
+    return bcrypt.checkpw(user_bytes, hashed_pw)

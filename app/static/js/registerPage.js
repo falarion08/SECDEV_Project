@@ -69,13 +69,13 @@ function is_valid_email(email) {
 }
 
 function is_valid_password(password) {
-    let password_regex = new RegExp("^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[`~!@#$%^&*()\-_=+\[\]\\|;:'\",<.>/?])[A-Za-z\d`~!@#$%^&*()\-_=+\[\]\\|;:'\",<.>/?]{12,64}$")
+    let password_regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[`~!@#$%^&*()\-_=+\[\]\\|;:'\",<.>/?])[A-Za-z\d`~!@#$%^&*()\-_=+\[\]\\|;:'\",<.>/?]{12,64}$/
     if (!password_regex.test(password)) { return false; }
     return true;
 }
 
 function is_valid_phone_number(phone_number) {
-    let phone_number_regex = new RegExp("\d{13}")
+    let phone_number_regex = /\d{13}/
     if (!phone_number_regex.test(phone_number)) { return false; }
     return true;
 }
