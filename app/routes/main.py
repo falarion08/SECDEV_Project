@@ -52,12 +52,7 @@ def register_page():
             profile_picture=form.profile_picture.data
         )
         flash('Registration successful', 'success-msg')
-<<<<<<< Updated upstream
         return redirect('/login')
-=======
-        return redirect('/')
-
->>>>>>> Stashed changes
     return render_template('userRegisterPage.html', form=form)
 
 @errors.app_errorhandler(404)
