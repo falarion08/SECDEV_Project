@@ -6,5 +6,5 @@ def setup_db(app):
     app.config['SQLALCHEMY_ECHO'] = True
     app.config['SECRET_KEY'] = 'cssecdvSECRETKEY'
     app.config['UPLOAD_FOLDER'] = os.getenv('FOLDER_UPLOAD')
-    app.config['MAX_CONTENT_LENGTH'] = os.getenv('MAX_IMAGE_SIZE') # 1MB Max
+    app.config['MAX_CONTENT_LENGTH'] = 1000 * 1000 # 1MB Max
     
