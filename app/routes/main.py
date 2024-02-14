@@ -25,11 +25,13 @@ def login_page():
 
 @main_bp.route('/register', methods = ["GET","POST"])
 def register_page():
+
     form = RegistrationForm()
+
     if form.validate_on_submit():
-        print(form.email.data, form.password.data, form.full_name.data, form.phone_number.data)
+
         validation_msg = userController.validate_registration(
-            form.email.data,
+            form.email.data,    
             form.password.data,
             form.confirm_password.data,
             form.phone_number.data,
@@ -38,6 +40,7 @@ def register_page():
         if validation_msg is not None:
             flash(validation_msg, 'error-msg')
             return redirect('/register')
+        
         userController.create(
             user_email=form.email.data,
             password=form.password.data,
@@ -47,7 +50,9 @@ def register_page():
         )
         flash('Registration successful', 'success-msg')
         return redirect('/login')
+
     return render_template('userRegisterPage.html', form=form)
+
 
 @errors.app_errorhandler(404)
 def error_404(e):
