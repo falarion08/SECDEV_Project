@@ -18,13 +18,13 @@ def checkPassword(userPassword, hash):
     return bcrypt.checkpw(userBytes,hash)
     
 
-
 # do not remove this, it will cause all routes to result in 404 error
 from . import main
 
 def register_blueprints(app):
+    app.register_blueprint(defaultUser_bp)
+
     app.register_blueprint(main_bp)
     app.register_blueprint(errors)
-    app.register_blueprint(defaultUser_bp)
     # app.register_blueprint(admin_bp)
     

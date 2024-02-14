@@ -13,10 +13,6 @@ def create_app():
 
     # Create an instance of flask to run application
     app = Flask(__name__)
-<<<<<<< Updated upstream
-    csrf = CSRFProtect(app)
-
-=======
     
     # Allows the action to log-in and log-out users
     login_manager.init_app(app)
@@ -24,7 +20,6 @@ def create_app():
     csrf = CSRFProtect()
     csrf.init_app(app)
     
->>>>>>> Stashed changes
     # set app db configs
     setup_db(app)
     db.init_app(app)
