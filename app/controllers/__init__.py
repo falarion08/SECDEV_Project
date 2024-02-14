@@ -34,7 +34,8 @@ def hashPassword(user_password):
     bytes = user_password.encode('utf-8')
     salt = bcrypt.gensalt()
 
-    hash = bcrypt.hashpw(bytes,salt)
+    hash = bcrypt.hashpw(bytes,salt).decode('utf-8')
+    salt = salt.decode('utf-8')
 
     return (salt,hash)
 

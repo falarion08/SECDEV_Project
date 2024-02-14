@@ -9,8 +9,8 @@ from . import main_bp, errors,login_manager,checkPassword
 
 # Creates a user loader callback that returns the user object given an email
 @login_manager.user_loader
-def load_user(user_email):
-    return User.query.filter_by(email=user_email)
+def loader_user(id):
+    return User.query.get(id)
 
 @main_bp.route('/', methods = ["GET", "POST"])
 def login_page():
@@ -25,6 +25,7 @@ def login_page():
 
         if existing_user and checkPassword(form.password.data,existing_user.hash):
             # Authenticate user
+            print('login success!')
             login_user(existing_user)
             return redirect('/default')
     return render_template('userLogin.html', form=form)
@@ -52,8 +53,23 @@ def register_page():
             profile_picture=form.profile_picture.data
         )
         flash('Registration successful', 'success-msg')
-        return redirect('/login')
+        return redirect('/register')
     return render_template('userRegisterPage.html', form=form)
+
+@main_bp.route('/default', methods=["GET", "POST"])
+@flask_login.login_required
+def defaultUserHomepage():
+    print(current_user.is_authenticated)
+    if (current_user.is_authenticated):
+        return render_template('index.html')
+    else:
+        return redirect('/')
+
+@main_bp.route('/logout', methods=["GET", "POST"])
+def logoutUser():
+    logout_user()
+    
+    return redirect('/')
 
 @errors.app_errorhandler(404)
 def error_404(e):
@@ -68,3 +84,5 @@ def error_500(e):
         'errorPage.html',
         error_num=500,
         error_text="Internal Server Error"), 500
+    
+

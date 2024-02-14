@@ -10,11 +10,12 @@ login_manager = LoginManager()
 #  Creating blueprints for routes
 main_bp = Blueprint('main', __name__)
 errors = Blueprint('errors', __name__)
-defaultUser_bp = Blueprint('defaultUser', __name__)
+# defaultUser_bp = Blueprint('defaultUser', __name__,url_prefix='/default')
 # admin_bp = Blueprint('admin', __name__)
 
 def checkPassword(userPassword, hash):
     userBytes = userPassword.encode('utf-8')
+    hash = hash.encode('utf-8')
     return bcrypt.checkpw(userBytes,hash)
     
 
@@ -22,8 +23,9 @@ def checkPassword(userPassword, hash):
 from . import main
 
 def register_blueprints(app):
-    app.register_blueprint(defaultUser_bp)
     app.register_blueprint(main_bp)
     app.register_blueprint(errors)
+    # app.register_blueprint(defaultUser_bp)
+
     # app.register_blueprint(admin_bp)
     
