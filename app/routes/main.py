@@ -7,6 +7,7 @@ from . import main_bp, errors
 
 
 @main_bp.route('/', methods = ["GET", "POST"])
+
 def home_page():
     if request.method == "GET":
         return render_template('index.html')

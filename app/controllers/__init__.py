@@ -54,7 +54,7 @@ def verify_image(uploaded_image):
         try:
             img = Image.open(FOLDER_UPLOAD + filename)            
         
-            if img.format.lower() in  ALLOWED_EXTENSIONS:
+            if img.format.lower() in ALLOWED_EXTENSIONS:
                 return True
             else:
                 False

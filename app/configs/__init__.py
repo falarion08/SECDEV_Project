@@ -1,8 +1,6 @@
-import os
-
-def setup_db(app):
-    app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
+def setup_db(app, url, upload_folder):
+    app.config['SQLALCHEMY_DATABASE_URI'] = url
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False # Set to false to use less memory
     app.config['SQLALCHEMY_ECHO'] = True
-    app.config['SECRET_KEY'] = 'cssecdvSECRETKEY'
-    app.config['UPLOAD_FOLDER'] = os.getenv('FOLDER_UPLOAD')
+    app.config['UPLOAD_FOLDER'] = upload_folder
+    app.config['MAX_CONTENT_LENGTH'] = 1000 * 1000 # 1MB Max
