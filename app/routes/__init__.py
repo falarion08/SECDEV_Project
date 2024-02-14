@@ -23,7 +23,6 @@ from . import main
 
 def register_blueprints(app):
     app.register_blueprint(defaultUser_bp)
-
     app.register_blueprint(main_bp)
     app.register_blueprint(errors)
     # app.register_blueprint(admin_bp)
