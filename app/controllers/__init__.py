@@ -13,7 +13,7 @@ def verify_email(user_email):
 
 def verify_phone_number(phone_number):
     # FIXME: DO PHONE NUMBER REGEX HERE
-    return re.match(r"\d{10,20}", phone_number)
+    return re.match(r"\d{1,13}", phone_number)
 
 def verify_password(user_password):
     """
@@ -42,7 +42,6 @@ def hashPassword(user_password):
 def verify_image(uploaded_image):
     ALLOWED_EXTENSIONS = {"png", "jpeg", "jpg", "gif"}
     FOLDER_UPLOAD = os.environ.get("FOLDER_UPLOAD")
-    #PLACEHOLDER = "../static/images/PLACEHOLDER.jpg"
 
     # #TODO: if user doesn't upload an image, use a placeholder image
     # if not uploaded_image:
