@@ -77,7 +77,7 @@ def register_page():
             profile_picture=form.profile_picture.data
         )
         flash('Registration successful', 'success-msg')
-        return redirect(url_for('login_page'))
+        return redirect(url_for('main.login_page'))
 
     return render_template('userRegisterPage.html', form=form)
 
