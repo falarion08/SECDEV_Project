@@ -11,20 +11,31 @@
 {% block content %}
     <div class="container">
         <form action="/login" method="post" class="form">
+            {{ form.hidden_tag() }}
             <h1 class="form-title"> Log In</h1>
 
-            <div class="form-group">
-                <label class="form-label" for="userEmail">Email:</label>
-                <input class="form-input" type="text" name = "userEmail" type = "email" id = "userEmail">
+            <div class="message-group">
+                {%  with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <span class="{{ category }}"> {{ message }} </span>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
             </div>
 
             <div class="form-group">
-                <label class="form-label" for="userPassword">Password</label>
-                <input class="form-input" type="password" id = "userPassword" name="userPassword">
+                {{ form.email.label(class="form-label") }}
+                {{  form.email(class="form-input") }}
+            </div>
+
+            <div class="form-group">
+                {{ form.password.label(class="form-label") }}
+                {{  form.password(class="form-input") }}
             </div>
             <p>Don't have an account yet? <a id="redirect-link" href="/register">Register now</a></p>
 
-            <button class="form-btn" type="submit">Login</button>
+            {{ form.submit(class="form-btn") }}
         </form>
     </div>
 {% endblock %}

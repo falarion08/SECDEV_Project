@@ -10,6 +10,7 @@
 .form {
     width: 28rem;
     padding: 2rem;
+    margin-top: 3rem;
     border-radius: 1rem;
     display: grid;
     background-color: var(--text-color);
@@ -17,9 +18,7 @@
     border-color: var(--primary-color);
 }
 
-.form-title {
-    margin-bottom: 2.5rem;
-}
+
 
 .form-group {
     position: relative;
@@ -125,4 +124,22 @@
     &:hover {
         color: var(--accent-color);
     }
+}
+
+.message-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    height: 2rem;
+    text-align: center;
+}
+
+.error-msg {
+    color: #fe3e3e;
+}
+
+.success-msg {
+    color: var(--secondary-color);
 }

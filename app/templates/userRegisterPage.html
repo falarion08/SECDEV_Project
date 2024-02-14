@@ -11,44 +11,55 @@
 {% block content %}
     <div class="container">
         <form action="/register" method="post" class="form" enctype=multipart/form-data>
+            {{ form.hidden_tag() }}
             <h1 class="form-title"> Sign Up </h1>
+
+            <div class="message-group">
+                {%  with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <span class="{{ category }}"> {{ message }} </span>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+            </div>
 
             <div id="picture-group">
                 <div id="picture-inner-div">
-                    <input id="picture-input" type="file" accept="image/png, image/jpeg, image/jpg" name="profilePicture">
-                    <label id="picture-label" for="profilePicture">Profile Picture</label>
+                    {{ form.profile_picture(id="picture-input") }}
+                    {{ form.profile_picture.label(id="picture-label") }}
                 </div>
                 <div id="picture-preview"></div>
             </div>
             
             <div class="form-group">
-                <input class="form-input" type="text" name="userFullName" id="userFullName" required>
-                <label class="form-label" for="userFullName">Full Name</label>
+                {{ form.full_name(class="form-input")}}
+                {{ form.full_name.label(class="form-label") }}
             </div>
 
             <div class="form-group">
-                <input class="form-input" type="email" name="userEmail" id="userEmail" required>
-                <label class="form-label" for="userEmail">Email Address</label>
+                {{ form.email(class="form-input")}}
+                {{ form.email.label(class="form-label") }}
             </div>
 
             <div class="form-group">
-                <input class="form-input" type="number" name="phone_number" required>
-                <label class="form-label" for="phone_number">Phone Number</label>
+                {{ form.phone_number(class="form-input")}}
+                {{ form.phone_number.label(class="form-label") }}
             </div>
 
             <div class="form-group">
-                <input class="form-input" type="password" name="password" required>
-                <label class="form-label" for="password">Password</label>
+                {{ form.password(class="form-input")}}
+                {{ form.password.label(class="form-label") }}
             </div>
 
             <div class="form-group">
-                <input class="form-input" type="password" name="confirm-password" required>
-                <label class="form-label" for="confirm-password">Confirm Password</label>
+                {{ form.confirm_password(class="form-input")}}
+                {{ form.confirm_password.label(class="form-label") }}
             </div>
 
             <p> Already have an account? <a id="redirect-link" href="/login"> Login now </a> </p>
 
-            <button class="form-btn" type="submit"> Register </button>
+            {{ form.submit(class="form-btn") }}
         </form>
     </div>
 {% endblock %}
