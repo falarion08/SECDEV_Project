@@ -34,8 +34,19 @@
                 {{  form.password(class="form-input") }}
             </div>
             <p>Don't have an account yet? <a id="redirect-link" href="/register">Register now</a></p>
-
+            {{form.recaptcha}}
             {{ form.submit(class="form-btn") }}
         </form>
     </div>
+    <script src='https://www.google.com/recaptcha/api.js' async defer></script>
+
+    <script>
+        window.addEventListener('load', () => {
+            const $recaptcha = document.querySelector('#g-recaptcha-response');
+            if ($recaptcha) {
+              $recaptcha.setAttribute('required', 'required');
+            }
+          })
+    </script>
+
 {% endblock %}
