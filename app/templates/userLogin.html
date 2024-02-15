@@ -9,6 +9,7 @@
 {% endblock %}
 
 {% block scripts %}
+    <script src="{{url_for('static', filename='js/loginPage.js')}}" async></script>
     <script src='https://www.google.com/recaptcha/api.js' async defer></script>
 {% endblock %}
 
@@ -48,12 +49,7 @@
     
 
     <script>
-        window.addEventListener('load', () => {
-            const $recaptcha = document.querySelector('#g-recaptcha-response');
-            if ($recaptcha) {
-              $recaptcha.setAttribute('required', 'required');
-            }
-          })
+
     </script>
 
 {% endblock %}
