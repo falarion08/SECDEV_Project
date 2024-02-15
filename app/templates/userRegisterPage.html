@@ -10,6 +10,7 @@
 
 {% block scripts %}
     <script src="{{url_for('static', filename='js/registerPage.js')}}" async></script>
+    <script src='https://www.google.com/recaptcha/api.js' async defer></script>
 {% endblock %}
 
 {% block content %}
@@ -66,7 +67,22 @@
 
             <p> Already have an account? <a id="redirect-link" href="/login"> Login now </a> </p>
 
-            {{ form.submit(class="form-btn") }}
+            <div class="btn-group">
+                {{ form.recaptcha }}
+                {{ form.submit(class="form-btn") }}
+            </div>
+            
         </form>
     </div>
+
+    
+
+    <script>
+        window.addEventListener('load', () => {
+            const $recaptcha = document.querySelector('#g-recaptcha-response');
+            if ($recaptcha) {
+              $recaptcha.setAttribute('required', 'required');
+            }
+          })
+    </script>
 {% endblock %}

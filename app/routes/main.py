@@ -5,6 +5,7 @@ from app.controllers import userController
 from app.utils.forms import RegistrationForm, LoginForm
 from . import admin_bp, main_bp, errors, login_manager, limiter
 
+
 @login_manager.user_loader
 def load_user(id):
     return User.query.get(int(id))
@@ -30,8 +31,9 @@ def home_page():
 def dashboard_page():
     return render_template('dashboard.html')
 
+
 @main_bp.route('/login', methods=["GET", "POST"])
-@limiter.limit("5 per hour")
+@limiter.limit("5 per minute", methods=["POST"])
 def login_page():
     form = LoginForm()
     if current_user.is_authenticated:
@@ -59,8 +61,8 @@ def logout():
     flash("You have been logged out.", "success-msg")
     return redirect(url_for('main.login_page'))
 
-@limiter.limit("3 per day")
 @main_bp.route('/register', methods = ["GET","POST"])
+@limiter.limit("5 per minute", methods=["POST"])
 def register_page():
     form = RegistrationForm()
     if current_user.is_authenticated:
@@ -112,3 +114,11 @@ def error_413(e):
         'errorPage.html',
         error_num=413,
         error_text="Request Entity Too Large"), 413
+
+@errors.app_errorhandler(429)
+def error_429(e):
+    return render_template(
+        'errorPage.html',
+        error_num=429,
+        error_text="Too Many Requests"), 429
+

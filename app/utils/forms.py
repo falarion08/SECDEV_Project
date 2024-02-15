@@ -6,6 +6,7 @@ from flask_wtf.recaptcha import RecaptchaField
 from PIL import Image
 
 class RegistrationForm(FlaskForm):
+    recaptcha = RecaptchaField()
     profile_picture = FileField('Profile Picture', validators=[FileAllowed(['jpg', 'jpeg', 'png', 'gif']), FileSize(max_size=1000000)])
     full_name = StringField('Full Name', validators=[DataRequired(), Length(max=120)])
     email = StringField('Email Address', validators=[DataRequired(), Email(), Length(max=120)])

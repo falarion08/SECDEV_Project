@@ -24,7 +24,6 @@ def create_app():
     limiter.init_app(app)
 
     db.init_app(app)
-    
     register_blueprints(app)
 
     # Create tables that does not exist in the database
