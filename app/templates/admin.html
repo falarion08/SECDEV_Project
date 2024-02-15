@@ -29,6 +29,9 @@
                         <p class="info-text"> Email: {{ user.email }} </p>
                         <p class="info-text"> Full Name: {{ user.full_name }}</p>
                         <p class="info-text"> Phone Number: {{ user.phone_number }}</p>
+                        <div id="delete-btn">
+                            <a href="{{ url_for('admin.delete_user', id=user.id) }}"> Delete User </a>
+                        </div>
                     </div>
                     <div id="img-section">
                         {% if user.profile_picture %}

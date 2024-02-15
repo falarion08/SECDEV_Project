@@ -10,6 +10,27 @@ from . import admin_bp, main_bp, errors, login_manager, limiter
 def load_user(id):
     return User.query.get(int(id))
 
+
+@admin_bp.route('/admin/delete/<int:id>')
+@login_required
+def delete_user(id):
+    curr_role = current_user.role
+    if (curr_role != 'admin'):
+        session.pop('_flashes', None)
+        flash('You must be the admin to perform this action!', 'error-msg')
+        return redirect(url_for('main.dashboard_page'))
+    user_to_delete = User.query.get_or_404(id)
+    try:
+        db.session.delete(user_to_delete)
+        db.session.commit()
+        session.pop('_flashes', None)
+        flash('User was successfully deleted!', 'success-msg')
+        return redirect(url_for('admin.admin_page'))
+    except:
+        flash('Oops! There was an error deletin the user.', 'error-msg')
+        return redirect(url_for('admin.admin_page'))
+
+
 @admin_bp.route('/admin', methods=["GET", "POST"])
 @login_required
 def admin_page():
