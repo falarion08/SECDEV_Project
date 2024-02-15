@@ -31,7 +31,11 @@
                         <p class="info-text"> Phone Number: {{ user.phone_number }}</p>
                     </div>
                     <div id="img-section">
-                        <img id="preview-img" src="{{ url_for('static', filename='images/placeholder.jpg') }}">
+                        {% if user.profile_picture %}
+                            <img id="preview-img" src="{{ url_for('static', filename='upload/'+user.profile_picture) }}">
+                        {% else %}
+                            <img id="preview-img" src="{{ url_for('static', filename='images/placeholder.jpg') }}">
+                        {% endif %}
                     </div>
                 </div>
             {% endfor %}

@@ -1,5 +1,5 @@
-from app.models import db
 from flask_login import UserMixin
+from app.models import db
 
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
@@ -10,15 +10,15 @@ class User(db.Model, UserMixin):
     hash = db.Column(db.String(255),nullable = False)
     salt = db.Column(db.String(255),nullable=False)
     full_name = db.Column(db.String(120), nullable=False)
-    profile_picture_id = db.Column(db.String(), nullable=True)
+    profile_picture = db.Column(db.String(), nullable=True)
     
-    def __init__(self,email,hash,salt,phone_number,full_name,profile_picture_id):
+    def __init__(self,email,hash,salt,phone_number,full_name,profile_picture):
         self.email=email
         self.hash = hash
         self.salt = salt
         self.phone_number=phone_number
         self.full_name = full_name
-        self.profile_picture_id = profile_picture_id
+        self.profile_picture = profile_picture
         
     def json(self):
         return {'id': self.id, 'email': self.email, 'phone_number':self.phone_number, 'full_name':self.full_name}

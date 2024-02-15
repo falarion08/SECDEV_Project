@@ -59,11 +59,11 @@ def register_page():
     form = RegistrationForm()
     if form.validate_on_submit():
         validation_msg = userController.validate_registration(
-            form.email.data,    
+            form.email.data,
             form.password.data,
             form.confirm_password.data,
             form.phone_number.data,
-            form.full_name.data
+            form.profile_picture.data
         )
         if validation_msg is not None:
             flash(validation_msg, 'error-msg')
@@ -95,3 +95,10 @@ def error_500(e):
         'errorPage.html',
         error_num=500,
         error_text="Internal Server Error"), 500
+
+@errors.app_errorhandler(413)
+def error_413(e):
+    return render_template(
+        'errorPage.html',
+        error_num=413,
+        error_text="Request Entity Too Large"), 413

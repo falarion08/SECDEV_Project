@@ -32,6 +32,7 @@ function validate_form() {
     let password_input = document.getElementById("password-input");
     let phone_input = document.getElementById("phone-number-input");
     let confirm_password_input = document.getElementById("confirm-password-input");
+    let picture_input = document.getElementById("picture-input");
 
     if (!error_text || !email_input || !password_input || !phone_input || !confirm_password_input)
         return false;
@@ -57,7 +58,12 @@ function validate_form() {
         error_text.textContent = "Password did not match.";
         return false;
     }
-    // validate img(?)
+    // validate picture
+    if (!is_valid_picture(picture_input)) {
+        error_text.textContent = "Profile picture is not valid.";
+        return false;
+    }
+
     error_text.textContent = "";
     return true;
 }
@@ -81,7 +87,19 @@ function is_valid_phone_number(phone_number) {
 }
 
 function is_password_matching(confirm_password, password) {
-    if (confirm_password ===  password) { return true }
+    if (confirm_password ===  password) { return true; }
     return false;
 }
 
+function is_valid_picture(picture) {
+    let allowed_extensions = ['png', 'jpg', 'jpeg', 'gif'];
+    let max_size = 1000 * 1000;
+
+    let file_name = picture.files[0].name;
+    let file_size = picture.files[0].size;
+    let file_ext = file_name.split('.').pop().toLowerCase();
+
+    if (!allowed_extensions.includes(file_ext)) { return false; }
+    if (file_size > max_size) { return false; }
+    return true;
+}

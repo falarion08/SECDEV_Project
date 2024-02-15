@@ -5,8 +5,6 @@ from app.models import db
 from app.routes import register_blueprints, setup_login
 from app.configs import setup_db
 
-from app.models.Files import Files
-
 def create_app():
     # Allows you to load your .env file
     load_dotenv()
@@ -18,7 +16,6 @@ def create_app():
     csrf.init_app(app)
 
     setup_login(app)
-
 
     # set app db configs
     setup_db(app)

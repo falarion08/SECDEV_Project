@@ -40,36 +40,16 @@ def hashPassword(user_password):
 
     return (salt,hash)
 
-
 def verify_image(uploaded_image):
-    ALLOWED_EXTENSIONS = {"png", "jpeg", "jpg", "gif"}
-    FOLDER_UPLOAD = os.environ.get("FOLDER_UPLOAD")
-
-    # #TODO: if user doesn't upload an image, use a placeholder image
-    # if not uploaded_image:
-    #     return 
-    
-    if uploaded_image.filename != '':
-        filename = secure_filename(uploaded_image.filename).lower()
-        uploaded_image.save(os.path.join(FOLDER_UPLOAD,filename))
-        
-        try:
-            img = Image.open(FOLDER_UPLOAD + filename)            
-        
-            if img.format.lower() in ALLOWED_EXTENSIONS:
-                return True
-            else:
-                False
-        except:
-            print("File is not an image")
-            return False
-
-def verify_image_test(uploaded_image):
+    ALLOWED_MIMETYPES = {"image/png", "image/jpeg", "image/jpg", "image/gif"}
+    MAX_SIZE = int(os.getenv('MAX_IMAGE_SIZE'))
+    print(MAX_SIZE)
     if not uploaded_image:
-        return None
-    FOLDER_UPLOAD = os.environ.get('FOLDER_UPLOAD')
-    picture_filename = secure_filename(uploaded_image.filename)
-    new_filename = str(uuid.uuid1()) + '_' + picture_filename
-    uploaded_image.save(os.path.join(FOLDER_UPLOAD, new_filename))
-    return new_filename
-
+        return True
+    
+    if not uploaded_image.mimetype in ALLOWED_MIMETYPES:
+        return False
+    print(len(uploaded_image.read()))
+    if len(uploaded_image.read()) > MAX_SIZE:
+        return False
+    return True
