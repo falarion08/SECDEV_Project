@@ -3,7 +3,7 @@ from flask_login import login_user, login_required, logout_user, current_user
 from app.models.User import db, User
 from app.controllers import userController
 from app.utils.forms import RegistrationForm, LoginForm
-from . import admin_bp, main_bp, errors, login_manager
+from . import admin_bp, main_bp, errors, login_manager, limiter
 
 @login_manager.user_loader
 def load_user(id):
@@ -31,6 +31,7 @@ def dashboard_page():
     return render_template('dashboard.html')
 
 @main_bp.route('/login', methods=["GET", "POST"])
+@limiter.limit("5 per hour")
 def login_page():
     form = LoginForm()
     if form.validate_on_submit():
@@ -54,6 +55,7 @@ def logout():
     flash("You have been logged out.", "success-msg")
     return redirect(url_for('main.login_page'))
 
+@limiter.limit("3 per day")
 @main_bp.route('/register', methods = ["GET","POST"])
 def register_page():
     form = RegistrationForm()
