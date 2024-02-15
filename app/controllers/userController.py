@@ -5,7 +5,6 @@ from werkzeug.utils import secure_filename
 from app.controllers import verify_password, hashPassword, verify_image, verify_email, verify_phone_number
 from app.models.User import User,db
 
-
 def create(user_email,password,phone_number,full_name,profile_picture):
         profile_picture_file_name = upload_file(profile_picture)  
         hashedResult = hashPassword(password)
@@ -15,13 +14,30 @@ def create(user_email,password,phone_number,full_name,profile_picture):
             salt = hashedResult[0],
             full_name = full_name,
             phone_number=phone_number,
-            profile_picture=profile_picture_file_name
+            profile_picture=profile_picture_file_name,
+            role="user"
         )
         db.session.add(new_user)
         db.session.commit()
 
+def create_admin():
+    admin_user = User.query.filter_by(role="admin").first()
 
-# : Add profile picture validation
+    if admin_user:
+        return
+    password = hashPassword('asdfQWERTY1357!')
+    admin_user = User(
+        email='admin@admin.com',
+        hash= password[1],
+        salt = password[0],
+        full_name = "Admin Account",
+        phone_number='123456789012',
+        profile_picture=None,
+        role="admin"
+    )
+    db.session.add(admin_user)
+    db.session.commit()
+
 def validate_registration(user_email, password, confirm_password, phone_number, profile_picture):
     # Check email validity
     existing_user = User.query.filter_by(email=user_email).first()

@@ -2,7 +2,7 @@
     <ul class="navbar-list">
         <li class="navbar-item"> <a class="navbar-link" href="{{ url_for('main.home_page')}}"> HOME </a> </li>
         {% if current_user.is_authenticated %}
-            {% if current_user.email == "admin@admin.com" %}
+            {% if current_user.role == "admin" %}
                 <li class="navbar-item"> <a class="navbar-link" href="{{ url_for('admin.admin_page') }}"> ADMIN </a> </li>
             {% endif %}
             <li class="navbar-item"> <a class="navbar-link" href="{{ url_for('main.dashboard_page') }}"> DASHBOARD </a> </li>

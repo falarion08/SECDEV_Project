@@ -12,12 +12,12 @@ def load_user(id):
 @admin_bp.route('/admin', methods=["GET", "POST"])
 @login_required
 def admin_page():
-    curr_email = current_user.email
-    if (curr_email != 'admin@admin.com'):
+    curr_role = current_user.role
+    if (curr_role != 'admin'):
         session.pop('_flashes', None)
         flash('You must be the admin to access the admin page!', 'error-msg')
         return redirect(url_for('main.dashboard_page'))
-    users = User.query.filter(User.email != curr_email).all()
+    users = User.query.filter(User.role != 'admin').all()
     return render_template('admin.html', users=users)
 
 @main_bp.route('/', methods=["GET", "POST"])
@@ -33,6 +33,10 @@ def dashboard_page():
 @main_bp.route('/login', methods=["GET", "POST"])
 def login_page():
     form = LoginForm()
+    if current_user.is_authenticated:
+        session.pop('_flashes', None)
+        flash('You are already logged in!', 'error-msg')
+        return redirect(url_for('main.dashboard_page'))
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
         if user:
@@ -57,6 +61,10 @@ def logout():
 @main_bp.route('/register', methods = ["GET","POST"])
 def register_page():
     form = RegistrationForm()
+    if current_user.is_authenticated:
+        session.pop('_flashes', None)
+        flash('You are already logged in!', 'error-msg')
+        return redirect(url_for('main.dashboard_page'))
     if form.validate_on_submit():
         validation_msg = userController.validate_registration(
             form.email.data,
