@@ -2,6 +2,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, FileField
 from wtforms.validators import DataRequired, Email, Length, ValidationError
 from flask_wtf.file import FileAllowed, FileField, FileSize
+from flask_wtf.recaptcha import RecaptchaField
 from PIL import Image
 
 def is_image(form, field):
@@ -30,4 +31,5 @@ class RegistrationForm(FlaskForm):
 class LoginForm(FlaskForm):
     email = StringField('Email Address', validators=[DataRequired(), Email()])
     password = PasswordField('Password', validators=[DataRequired()])
+    recaptcha = RecaptchaField()
     submit = SubmitField('Login')

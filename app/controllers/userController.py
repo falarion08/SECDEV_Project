@@ -5,7 +5,6 @@ import os
 import bcrypt
 
 def create(user_email,password,phone_number,full_name,profile_picture):
-    print(profile_picture)
     if verify_image(profile_picture):
         profilePictureId = uploadFile(profile_picture)   
         hashedResult = hashPassword(password)
