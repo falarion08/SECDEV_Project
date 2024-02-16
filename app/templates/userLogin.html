@@ -17,6 +17,7 @@
     <div class="container">
         <form action="/login" method="post" class="form">
             {{ form.hidden_tag() }}
+            {{ form.csrf_token }}
             <h1 class="form-title"> Log In</h1>
             
             <div class="message-group">

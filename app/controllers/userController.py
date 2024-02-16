@@ -2,7 +2,7 @@ import os
 import bcrypt
 import uuid
 from werkzeug.utils import secure_filename
-from app.controllers import verify_password, hashPassword, verify_image, verify_email, verify_phone_number
+from app.controllers import verify_password, hashPassword, verify_image, verify_email, verify_phone_number, verify_full_name
 from app.models.User import User,db
 
 def create(user_email,password,phone_number,full_name,profile_picture):
@@ -38,7 +38,7 @@ def create_admin():
     db.session.add(admin_user)
     db.session.commit()
 
-def validate_registration(user_email, password, confirm_password, phone_number, profile_picture):
+def validate_registration(user_email, password, confirm_password, phone_number, profile_picture, full_name):
     # Check email validity
     existing_user = User.query.filter_by(email=user_email).first()
     is_email_valid = verify_email(user_email)
@@ -61,6 +61,10 @@ def validate_registration(user_email, password, confirm_password, phone_number, 
     is_picture_valid = verify_image(profile_picture)
     if not is_picture_valid:
         return 'Profile picture is invalid'
+    is_full_name_valid = verify_full_name(full_name)
+    if not is_full_name_valid:
+        return 'Full name is invalid.'
+
     return None
 
 def check_password_hash(hashed_password, password):

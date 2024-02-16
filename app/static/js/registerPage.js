@@ -35,6 +35,7 @@ function picture_preview() {
 
 function validate_form() {
     let error_text = document.getElementById("message-text");
+    let name_input = document.getElementById("name-input");
     let email_input = document.getElementById("email-input");
     let password_input = document.getElementById("password-input");
     let phone_input = document.getElementById("phone-number-input");
@@ -71,7 +72,18 @@ function validate_form() {
         return false;
     }
 
+    if (!is_valid_name(name_input)) {
+        error_text.textContent = "Full name is not valid.";
+        return false;
+    }
+
     error_text.textContent = "";
+    return true;
+}
+
+function is_valid_name(name) {
+    let name_regex = /^[a-zA-Z]+(?:[\s.'-][a-zA-Z]+)*$/
+    if (!name_regex.test(name)) { return false; }
     return true;
 }
 
@@ -88,7 +100,7 @@ function is_valid_password(password) {
 }
 
 function is_valid_phone_number(phone_number) {
-    let phone_number_regex = /\d{13}/
+    let phone_number_regex = /\d{1,13}/
     if (!phone_number_regex.test(phone_number)) { return false; }
     return true;
 }

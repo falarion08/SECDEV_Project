@@ -96,7 +96,8 @@ def register_page():
             form.password.data,
             form.confirm_password.data,
             form.phone_number.data,
-            form.profile_picture.data
+            form.profile_picture.data,
+            form.full_name.data
         )
         if validation_msg is not None:
             flash(validation_msg, 'error-msg')
