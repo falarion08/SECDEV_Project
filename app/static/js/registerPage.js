@@ -47,6 +47,10 @@ function validate_form() {
 
     error_text.style.color = "#fe3e3e";
     // validate email
+    if (!is_valid_name(name_input.value)) {
+        error_text.textContent = "Full name is not valid.";
+        return false;
+    }
     if (!is_valid_email(email_input.value)) {
         error_text.textContent = 'Email address is invalid.';
         return false;
@@ -72,17 +76,12 @@ function validate_form() {
         return false;
     }
 
-    if (!is_valid_name(name_input)) {
-        error_text.textContent = "Full name is not valid.";
-        return false;
-    }
-
     error_text.textContent = "";
     return true;
 }
 
 function is_valid_name(name) {
-    let name_regex = /^[a-zA-Z]+(?:[\s.'-][a-zA-Z]+)*$/
+    let name_regex = /^[A-Za-z -]+$/
     if (!name_regex.test(name)) { return false; }
     return true;
 }

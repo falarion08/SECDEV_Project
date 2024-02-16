@@ -6,7 +6,7 @@ from PIL import Image
 import uuid as uuid
 
 def verify_full_name(full_name):
-    return re.match(r"^[a-zA-Z]+(?:[\s.'-][a-zA-Z]+)*$", full_name)
+    return re.match(r"^[A-Za-z -]+$", full_name)
 
 def verify_email(user_email):
     return re.match(
