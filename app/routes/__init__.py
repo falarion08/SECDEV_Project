@@ -3,6 +3,7 @@ from flask import Blueprint
 from flask_login import LoginManager
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
+from flask_principal import Permission, RoleNeed
 
 main_bp = Blueprint('main', __name__)
 admin_bp = Blueprint('admin', __name__)
@@ -15,12 +16,15 @@ limiter = Limiter(
     storage_uri="memory://",
 )
 
+admin_permission = Permission(RoleNeed('admin'))
+
 # do not remove this, it will cause all routes to result in 404 error
 from . import main
 
 def setup_login(app):
     login_manager.init_app(app)
     login_manager.login_view = 'main.login_page'
+    login_manager.session_protection = 'strong'
 
 def register_blueprints(app):
     app.register_blueprint(main_bp)

@@ -3,7 +3,7 @@ from flask_login import login_user, login_required, logout_user, current_user
 from app.models.User import db, User
 from app.controllers import userController
 from app.utils.forms import RegistrationForm, LoginForm
-from . import admin_bp, main_bp, errors, login_manager, limiter
+from . import admin_bp, main_bp, errors, login_manager, limiter, admin_permission
 
 
 @login_manager.user_loader
@@ -15,7 +15,7 @@ def load_user(id):
 @login_required
 def delete_user(id):
     curr_role = current_user.role
-    if (curr_role != 'admin'):
+    if curr_role != 'admin':
         session.pop('_flashes', None)
         flash('You must be the admin to perform this action!', 'error-msg')
         return redirect(url_for('main.dashboard_page'))
@@ -26,8 +26,9 @@ def delete_user(id):
         session.pop('_flashes', None)
         flash('User was successfully deleted!', 'success-msg')
         return redirect(url_for('admin.admin_page'))
-    except:
-        flash('Oops! There was an error deletin the user.', 'error-msg')
+    except Exception as e:
+        print(e)
+        flash('Oops! There was an error deleting the user.', 'error-msg')
         return redirect(url_for('admin.admin_page'))
 
 
@@ -35,7 +36,7 @@ def delete_user(id):
 @login_required
 def admin_page():
     curr_role = current_user.role
-    if (curr_role != 'admin'):
+    if curr_role != 'admin':
         session.pop('_flashes', None)
         flash('You must be the admin to access the admin page!', 'error-msg')
         return redirect(url_for('main.dashboard_page'))
@@ -102,7 +103,7 @@ def register_page():
         if validation_msg is not None:
             flash(validation_msg, 'error-msg')
             return redirect(url_for('main.register_page'))
-        
+
         userController.create(
             user_email=form.email.data,
             password=form.password.data,

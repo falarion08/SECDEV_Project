@@ -1,9 +1,8 @@
 import re
-import bcrypt
-from werkzeug.utils import secure_filename
-import os
-from PIL import Image
 import uuid as uuid
+import bcrypt
+import os
+
 
 def verify_full_name(full_name):
     return re.match(r"^[A-Za-z -]+$", full_name)
@@ -48,7 +47,7 @@ def verify_image(uploaded_image):
     print(MAX_SIZE)
     if not uploaded_image:
         return True
-    
+
     if not uploaded_image.mimetype in ALLOWED_MIMETYPES:
         return False
 
