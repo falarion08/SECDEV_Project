@@ -1,24 +1,33 @@
 {% extends 'base.html' %}
 
 {% block title %} 
-    <title> Index Page </title> 
+    <title> Welcome to Workbox </title> 
 {% endblock %}
 
 {% block styles %}
-    <link rel="stylesheet" href="{{url_for('static', filename='css/index.css')}}"/>
-{% endblock %} -->
+{% endblock %} 
+
 
 {% block content %}
-    <div class="container">
-        <div class="content-group">
-            <h1> Index Page </h1>
-            <p> {{ users }} users registered!</p>
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
-                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris 
-                nisi ut aliquip ex ea commodo.
-            </p>
+
+<div class="flex">
+    <div class="flex size-full">
+
+        <div class="flex-1 flex justify-center items-center">
+            <div class="">
+                <h1 class="font-extrabold text-6xl mb-4">Your Work Platform</h1>
+                <p class="text-xl mb-4">Run and manage your all your work in one place</p>
+    
+                <button class="bg-sky-800  hover:bg-sky-700 hover:underline active:bg-sky-800 w-32 h-12 rounded-full text-white"><a href="/register">Get Started</a></button>
+            </div>
+        </div>
+
+        <div class="flex-1 flex items-center justify-center">
+                <img class="size-3/4 rounded-3xl" src="{{url_for('static', filename = './images/teamwork.jpg')}}" alt="">
         </div>
     </div>
+</div>
+
+
+
 {% endblock %}
