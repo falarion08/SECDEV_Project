@@ -11,13 +11,15 @@
 </head>
 
 <body>
-    <div class="bg-bg-theme size-full">
 
-      {% include 'navbar.html' %}
-      {% block content %}
-      <!-- Captcha integration -->
-      {% endblock %}
-    </div> 
+  <div class="size-full overflow-hidden">
+    
+    {% include 'navbar.html' %}
+    {% block content %}
+    <!-- Captcha integration -->
+    {% endblock %}
+  </div>
+
 
     <noscript>
       <h3>Your web browser does not support javascript or it is disabled.</h3>

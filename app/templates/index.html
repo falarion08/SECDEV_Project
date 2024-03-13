@@ -9,21 +9,23 @@
 
 
 {% block content %}
+<div class="bg-bg-theme h-full">
 
-<div class="flex">
-    <div class="flex size-full">
+    <div class="flex">
+        <div class="flex size-full">
 
-        <div class="flex-1 flex justify-center items-center">
-            <div class="">
-                <h1 class="font-extrabold text-6xl mb-4">Your Work Platform</h1>
-                <p class="text-xl mb-4">Run and manage your all your work in one place</p>
-    
-                <button class="bg-sky-800  hover:bg-sky-700 hover:underline active:bg-sky-800 w-32 h-12 rounded-full text-white"><a href="/register">Get Started</a></button>
+            <div class="flex-1 flex justify-center items-center">
+                <div>
+                    <h1 class="font-extrabold text-6xl mb-4">Your Work Platform</h1>
+                    <p class="text-xl mb-4">Run and manage your all your work in one place</p>
+        
+                    <button class="bg-sky-800  hover:bg-sky-700 hover:underline active:bg-sky-800 w-32 h-12 rounded-full text-white"><a href="/register">Get Started</a></button>
+                </div>
             </div>
-        </div>
 
-        <div class="flex-1 flex items-center justify-center">
-                <img class="size-3/4 rounded-3xl shadow-2xl" src="{{url_for('static', filename = './images/teamwork.jpg')}}" alt="">
+            <div class="flex-1 flex items-center justify-center">
+                    <img class="size-3/4 rounded-3xl shadow-2xl" src="{{url_for('static', filename = './images/teamwork.jpg')}}" alt="">
+            </div>
         </div>
     </div>
 </div>

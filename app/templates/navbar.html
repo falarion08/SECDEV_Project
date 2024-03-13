@@ -1,20 +1,21 @@
-<nav class="flex bg-white p-3 border-b-2 border-black shadow-xl">
+<nav class="flex bg-white p-3 border-b-2 border-black shadow-md">
     <div class="flex-1 text-5xl font-extrabold">
         WORKBOX
     </div>
 
     <div class="flex-1">
         <ul class="navbar-list text-xl flex justify-end h-full">
-            <li class="ml-5 align-middle flex items-center"> <a class="hover:underline" href="{{ url_for('main.home_page')}}"> Home </a> </li>
             {% if current_user.is_authenticated %}
                 {% if current_user.role == "admin" %}
-                    <li class="navbar-item"> <a class="navbar-link" href="{{ url_for('admin.admin_page') }}"> ADMIN </a> </li>
-                {% endif %}
-                <li class="ml-5 align-middle flex items-center"> <a class="navbar-link" href="{{ url_for('main.dashboard_page') }}"> DASHBOARD </a> </li>
+                    <li class="navbar-item"> <a class="navbar-link" href="{{ url_for('admin.admin_page') }}"> Home </a> </li>
+                {% else %}
                 <li class="ml-5 align-middle flex items-center"> <a class="rounded-full bg-btn-dflt text-white hover:bg-sky-500 hover:underline active:bg-btn-dflt p-2" href="{{ url_for('main.logout') }}"> LOGOUT </a> </li>
-            {% else %} 
-                <li class="ml-5 align-middle flex items-center"><a class="hover:underline" href="{{ url_for('main.login_page') }}"> Login </a> </li>
-                <li class="ml-5 align-middle flex items-center"> <a class = "rounded-full bg-btn-dflt text-white hover:bg-sky-500 hover:underline active:bg-btn-dflt p-2" href="{{ url_for('main.register_page') }}"> Get Started </a> </li>
+                
+                {% endif %}
+                {% else %} 
+                <li class="ml-5 align-middle flex items-center"> <a class="hover:underline" href="{{ url_for('landingRoutes.home_page')}}"> Home </a> </li> 
+                <li class="ml-5 align-middle flex items-center"><a class="hover:underline" href="{{ url_for('landingRoutes.login_page') }}"> Login </a> </li>
+                <li class="ml-5 align-middle flex items-center"> <a class = "rounded-full bg-btn-dflt text-white hover:bg-sky-500 hover:underline active:bg-btn-dflt p-2" href="{{ url_for('landingRoutes.register_page') }}"> Get Started </a> </li>
             {% endif %}
             
         </ul>

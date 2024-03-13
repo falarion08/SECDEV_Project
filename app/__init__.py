@@ -20,12 +20,12 @@ def create_app():
     app = Flask(__name__)
     csrf = CSRFProtect(app)
     migrate = Migrate()
-    talisman = Talisman(app)
+    # talisman = Talisman(app)  
     principals = Principal(app)
 
     # set app db configs
     setup_configs(app)
-    setup_talisman(talisman)
+    # setup_talisman(talisman)
     setup_login(app)
     db.init_app(app)
     
@@ -33,7 +33,7 @@ def create_app():
     limiter.init_app(app)
     register_blueprints(app)
 
-    # Create tables that does not exist in the database
+    # Create tables that does not exist in the database and fill the database with a given seed if any.
     with app.app_context():
         db.create_all()
         create_admin()

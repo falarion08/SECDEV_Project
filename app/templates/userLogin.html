@@ -5,48 +5,53 @@
 {% endblock %}
 
 {% block styles %} 
-    <link rel="stylesheet" href="{{url_for('static', filename='css/register.css')}}"/> 
 {% endblock %}
 
 {% block scripts %}
     <script src="{{url_for('static', filename='js/loginPage.js')}}" async></script>
-    <script src='https://www.google.com/recaptcha/api.js' async defer></script>
 {% endblock %}
 
 {% block content %}
-    <div class="container">
-        <form action="/login" method="post" class="form" id="login-form">
-            {{ form.hidden_tag() }}
-            {{ form.csrf_token }}
-            <h1 class="form-title"> Log In</h1>
+    <div class="flex justify-center items-center border h-full bg-bg-theme">
+        <div class="border-2 border-black rounded-lg p-16 bg-slate-50 shadow-2xl">
             
-            <div class="message-group">
-                {%  with messages = get_flashed_messages(with_categories=true) %}
-                    {% if messages %}
-                        {% for category, message in messages %}
-                            <span class="{{ category }}" id="message-text"> {{ message }} </span>
-                        {% endfor %}
-                    {% else %}
-                        <span id="message-text"></span>
-                    {% endif %}
-                {% endwith %}
-            </div>
+            <form action="/login" method="post" class="form" id="login-form">
+                {{ form.csrf_token }}
+                <h1 class=" text-center font-extrabold text-3xl"> Log In</h1>
 
-            <div class="form-group">
-                {{ form.email.label(class="form-label") }}
-                {{  form.email(class="form-input", id="email-input") }}
-            </div>
+                <div class="text-red-700 text-center text-sm">
+                    {%  with messages = get_flashed_messages(with_categories=true) %}
+                        {% if messages %}
+                            {% for category, message in messages %}
+                                <span class="{{ category }}" id="message-text"> {{ message }} </span>
+                            {% endfor %}
+                        {% else %}
+                            <span id="message-text"></span>
+                        {% endif %}
+                    {% endwith %}
+                </div>
+    
+                <div class="form-group my-5">
+                    {{ form.email.label(class="form-label") }}<br>
+                    {{  form.email(class="form-input border w-72 h-8 border-black rounded-md", id="email-input") }}
+                </div>
+            
+                <div class="form-group my-5">
+                    {{ form.password.label(class="form-label") }} <br>
+                    {{  form.password(class="form-input  border w-72 h-8 border-black rounded-md", id="password-input") }}
+                </div>    
 
-            <div class="form-group">
-                {{ form.password.label(class="form-label") }}
-                {{  form.password(class="form-input", id="password-input") }}
-            </div>
-            <p>Don't have an account yet? <a id="redirect-link" href="/register">Register now</a></p>
+                <div class="btn-group ">
+                    {{ form.recaptcha(class="hidden") }}
 
-            <div class="btn-group">
-                {{ form.recaptcha }}
-                {{ form.submit(class="form-btn") }}
-            </div>
-        </form>
+                    <div class=" my-3 text-center">
+                        {{ form.submit(class="form-btn border rounded-2xl bg-bg-theme text-white w-48 h-8 hover:bg-btn-dflt hover:cursor-pointer active:bg-bg-theme") }}
+                    </div>
+                </div>
+            </form>
+            <p>Don't have an account yet? <a id="redirect-link" class =" text-blue-800 underline" href="/register">Register now</a></p>
+
+        </div>
+
     </div>
 {% endblock %}
