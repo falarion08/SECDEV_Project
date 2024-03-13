@@ -11,8 +11,8 @@ def load_user(id):
 
 @admin_bp.route('/', methods=["GET", "POST"])
 @login_required
-def admin_page():
-    
+def admin_homepage():
+    print("helloooo")
     curr_role = current_user.role
     
     if curr_role != 'admin':
@@ -20,8 +20,17 @@ def admin_page():
         session.pop('_flashes', None)
         flash('You must be the admin to access the admin page!', 'error-msg')
         
-        return redirect(url_for('main.dashboard_page'))
+        return redirect(url_for('landingRoutes.login_page'))
     
     users = User.query.filter(User.role != 'admin').all()
     
     return render_template('admin.html', users=users)
+
+@admin_bp.route('/logout', methods=["GET", "POST"])
+@login_required
+def logout():
+    logout_user()
+    session.pop('_flashes', None)
+    flash("You have been logged out.", "success-msg")
+    
+    return redirect(url_for('main.login_page'))

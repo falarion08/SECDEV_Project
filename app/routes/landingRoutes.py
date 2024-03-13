@@ -38,7 +38,8 @@ def login_page():
         session.pop('_flashes', None)
         flash('You are already logged in!', 'error-msg')
         
-        return redirect(url_for('main.dashboard_page'))
+        if current_user.role == 'admin':
+            return redirect('/admin/')
     
     if form.validate_on_submit():
         
@@ -49,23 +50,16 @@ def login_page():
                 login_user(user)
                 flash("Login successful", "success-msg")
                 
-                return redirect(url_for('main.dashboard_page'))
+                if current_user.role == 'admin':
+                    return redirect('/admin/')
+                
+                
             else:
-                flash("Login failed", 'error-msg')
+                flash("Email address or password incorrect", 'error-msg')
         else:
-            flash("User not found", 'error-msg')
+            flash("Email address or password incorrect", 'error-msg')
             
     return render_template('userLogin.html', form=form)
-
-@landing_bp.route('/logout', methods=["GET", "POST"])
-@login_required
-def logout():
-    logout_user()
-    session.pop('_flashes', None)
-    flash("You have been logged out.", "success-msg")
-    
-    return redirect(url_for('main.login_page'))
-
 
 @landing_bp.route('/register', methods = ["GET","POST"])
 @limiter.limit("5 per minute", methods=["POST"])
