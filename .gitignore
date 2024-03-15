@@ -6,4 +6,5 @@ __pycache__/
 *.pyd
 *.pyo
 cert.pem
+node_modules/
 key.pem
