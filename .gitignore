@@ -5,3 +5,5 @@ __pycache__/
 *.pyc
 *.pyd
 *.pyo
+cert.pem
+key.pem

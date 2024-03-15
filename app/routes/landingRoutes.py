@@ -17,13 +17,7 @@ def load_user(id):
 
 @landing_bp.route('/', methods=["GET", "POST"])
 def home_page():
-    users = User.query.count()
-    return render_template('index.html', users=users)
-
-@landing_bp.route('/dashboard', methods=["GET", "POST"])
-@login_required
-def dashboard_page():
-    return render_template('dashboard.html')
+    return render_template('index.html')
 
 
 @landing_bp.route('/login', methods=["GET", "POST"])

@@ -2,17 +2,16 @@ from flask import render_template, flash, redirect, url_for, session
 from flask_login import login_user, login_required, logout_user, current_user
 from app.models.User import db, User
 from . import admin_bp,login_manager
+from app.utils.forms import createWorkspace 
 
 # Required decorator when using flask-login to find authenticated user
 @login_manager.user_loader
 def load_user(id):
     return User.query.get(int(id))
 
-
 @admin_bp.route('/', methods=["GET", "POST"])
 @login_required
 def admin_homepage():
-    print("helloooo")
     curr_role = current_user.role
     
     if curr_role != 'admin':
@@ -24,7 +23,7 @@ def admin_homepage():
     
     users = User.query.filter(User.role != 'admin').all()
     
-    return render_template('admin.html', users=users)
+    return render_template('adminDashboard.html', users=users)
 
 @admin_bp.route('/logout', methods=["GET", "POST"])
 @login_required
@@ -33,4 +32,13 @@ def logout():
     session.pop('_flashes', None)
     flash("You have been logged out.", "success-msg")
     
-    return redirect(url_for('main.login_page'))
+    return redirect(url_for('landingRoues.login_page'))
+
+@admin_bp.route("/create_workspace", methods =["GET","POST"])
+@login_required
+def create_workspace():
+    
+    form = createWorkspace()
+    
+    
+    return redirect(url_for('adminRoutes.create'))

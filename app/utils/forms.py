@@ -15,10 +15,12 @@ class RegistrationForm(FlaskForm):
     confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), Length(min=12, max=64)])
     submit = SubmitField('Sign Up')
     
-    
-
 class LoginForm(FlaskForm):
     email = StringField('Email Address', validators=[DataRequired(), Email()])
     password = PasswordField('Password', validators=[DataRequired()])
     recaptcha = RecaptchaField()
     submit = SubmitField('Login')
+
+class createWorkspace(FlaskForm):
+    workspace_name = StringField('Workspace Name', validators=[DataRequired(), Length(min=1,max=120)])
+    submit = SubmitField('Save Workspace')
