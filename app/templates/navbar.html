@@ -4,7 +4,7 @@
     </div>
 
     <div class="flex-1">
-        <ul class="navbar-list text-xl flex justify-end h-full font-bold">
+        <ul class="navbar-list text-xl flex justify-end h-full">
             {% if current_user.is_authenticated %}
                 {% if current_user.role == "admin" %}
                     <li class="ml-5 align-middle flex items-center"> <a class="hover:underline"  href="{{ url_for('adminRoutes.admin_homepage') }}"> Home </a> </li> 
