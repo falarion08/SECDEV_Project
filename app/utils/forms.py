@@ -22,5 +22,5 @@ class LoginForm(FlaskForm):
     submit = SubmitField('Login')
 
 class createWorkspace(FlaskForm):
-    workspace_name = StringField('Workspace Name', validators=[DataRequired(), Length(min=1,max=120)])
+    workspace_name = StringField('Workspace Name:', validators=[DataRequired(), Length(min=1,max=120)])
     submit = SubmitField('Save Workspace')

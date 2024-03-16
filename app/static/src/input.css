@@ -9,4 +9,8 @@
         @apply font-mono;
     }
 
+    a {
+        @apply cursor-pointer
+    }
+
 }
