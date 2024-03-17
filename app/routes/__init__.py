@@ -49,8 +49,8 @@ def register_blueprints(app):
     
     # Adding middleware functions to blueprints
     # app.before_request_funcs = {
-    #     'adminRoutes':[],
-    #     'clientRoutes':[]
+    #     'adminRoutes':[login_required(current_user)],
+    #     'clientRoutes':[login_required(current_user)]
     # }
     
     app.register_blueprint(landing_bp)

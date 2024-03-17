@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %} 
+    <title> Dashboard </title> 
+{% endblock %}
+
+{% block styles %}
+{% endblock %} 
+
+{% block content %}
+    <div class="flex justify-center items-center h-full bg-bg-theme">
+        <div class="bg-white border-2 border-black w-3/4 h-2/4 rounded-xl shadow-2xl flex flex-col overflow-auto p-5">
+            <div class="flex flex-row flex-wrap">
+                <h1 class=" flex-1 text-5xl font-extrabold p-0 text-center h-16 text-wrap">My Workspace</h1>
+                <span class=" flex-1 flex justify-center">
+                    <a href="{{ url_for('adminRoutes.create_workspace') }}">
+                        <button class="bg-btn-dflt rounded-lg font-bold text-white w-60 h-12 text-xl text-center">Add Workspace</button>
+                    </a>
+                </span>
+            </div>
+              
+            <hr class="bg-black border-2 border-black">
+            <div class="overflow-y-auto">
+                {% for workspace in workspaces %}
+                <div class="bg-workspace-item-bg border-2 border-black p-3 m-2 flex rounded-md">
+                    <div class="font-bold text-xl flex-1">
+                        {{workspace.workspace_name}}
+                    </div>
+                    <div class="flex-1">
+                        <a href="/admin/w/{{workspace.workspace_id}}"><button class="bg-btn-dflt rounded-lg font-bold text-white w-40 h-8 text-center">Open Workspace</button></a>
+                        <a href="/admin/edit/{{workspace.workspace_id}}"><button class="bg-btn-dflt rounded-lg font-bold text-white w-40 h-8 text-center">Edit Workspace</button></a>
+                        <form action="{{url_for('adminRoutes.delete_workspace', workspace_id = workspace.workspace_id)}}" method="post" class="inline-block">
+                            {{delete_form.csrf_token()}}
+                            {{delete_form.submit(class="bg-btn-dflt rounded-lg font-bold text-white w-40 h-8 text-center")}}
+                        </form>
+                    </div>
+                </div>
+
+                {%endfor%}
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

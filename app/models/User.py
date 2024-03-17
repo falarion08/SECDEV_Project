@@ -1,5 +1,6 @@
 from flask_login import UserMixin
-from app.models import db
+from . import db,Workspace
+
 
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
@@ -12,6 +13,7 @@ class User(db.Model, UserMixin):
     full_name = db.Column(db.String(120), nullable=False)
     profile_picture = db.Column(db.String(), nullable=True)
     role = db.Column(db.String(50), nullable=False)
+    workspaces = db.relationship('Workspace', backref='owner')
 
     def __init__(self, email, hash, salt, phone_number, full_name, profile_picture, role):
         self.email=email
@@ -24,3 +26,4 @@ class User(db.Model, UserMixin):
 
     def json(self):
         return {'id': self.id, 'email': self.email, 'phone_number':self.phone_number, 'full_name':self.full_name}
+
