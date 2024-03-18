@@ -4,11 +4,21 @@ class Workspace(db.Model):
     __tablename__ = 'workspace'
     workspace_id = db.Column(db.Integer, primary_key = True, autoincrement = True,unique=True)
     workspace_name = db.Column(db.String(100), nullable=False)
+    
+    # Reference id in Users model as foreign key
     owner_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    
+    # Create a one-to-many relationship with WorkspaceMembers model and put an invisible columns 'workspace' to the WorkspaceMembers model and 'members' to the Workspace Model accessible only via flask
+    # Calling this attribute will return an array of all membes of the workspace
     members = db.relationship('WorkspaceMembers', backref='workspace')
 
         
     def __init__(self, workspace_name,owner):
+        """
+        DataTypes
+            workspace_name : String
+            owner: User 
+        """
         self.workspace_name = workspace_name
         self.owner = owner
     

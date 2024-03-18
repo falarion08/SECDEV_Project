@@ -73,6 +73,14 @@ def delete_workspace(workspace_id):
 @login_required
 def edit_workspace(workspace_id):
     
+    """
+        This route is responsible for editing the workspace of the admin. An admin can 
+        update the name of the workspace, add an existing user in the workspace, remove
+        a member of the workspace.
+        
+        Post requests for add and remove members are on a different route
+    """
+    
     # Query all current members of the workspace given an 
     current_workspace_members = WorkspaceMembers.query.filter(workspace_id = workspace_id).all()
     
@@ -80,8 +88,9 @@ def edit_workspace(workspace_id):
     _updateNameForm = form.createWorkspace()
     _new_member_form = form.addMemberWorkspaceForm()
     
-    remove_member = form.deleteForm()
-    remove_member.submit.label = Label(remove_member.submit.id, 'Remove member')
+    # Dynamically change the submit button for the delete form button
+    _remove_member = form.deleteForm()
+    _remove_member.submit.label = Label(_remove_member.submit.id, 'Remove member')
 
     # Validate if the user tries to modify the workspace name
     if _updateNameForm.validate_on_submit():
@@ -90,12 +99,17 @@ def edit_workspace(workspace_id):
         db.session.commit()
 
     return render_template('editWorkspace',workspace_id = workspace_id, updateWorkspaceNameForm = _updateNameForm, new_member_form = _new_member_form, 
-                           workspace_members = current_workspace_members)
+                           workspace_members = current_workspace_members,remove_member = _remove_member)
     
 @admin_bp.post('/edit_workspace/add_member/<int:workspace_id>')
 @login_required
 def add_member(workspace_id):
     
+    """
+        Post validation to add a member in the workspace
+    """
+    
+    # Get the form submitted for new_member_form
     add_member_form = form.addMemberWorkspaceForm(request.form)
     
     # Validate if the user tries to add a new member to the workspace  
@@ -115,7 +129,14 @@ def add_member(workspace_id):
 @admin_bp.post('/edit_workspace/remove_member/<int:member_id>')
 @login_required
 def remove_member(member_id):
+
+    """
+        Post validation to remove a member in the workspace
+    """
     
+    
+    # Get the form submitted for new_member_form
+
     if form.deleteForm(request.form).validate_on_submit():
         member = User.query.get(int(member_id))
         db.session.delete(member)

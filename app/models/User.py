@@ -13,7 +13,13 @@ class User(db.Model, UserMixin):
     full_name = db.Column(db.String(120), nullable=False)
     profile_picture = db.Column(db.String(), nullable=True)
     role = db.Column(db.String(50), nullable=False)
+    
+    # Create a one-to-many relationship with Workspace model and put an invisible columns 'owner' to the workspace model and 'workspaces' in the User model accessible only via python
+    # Calling this attribute will show the workspaces owned by a user (ADMIN ONLY)
     workspaces = db.relationship('Workspace', backref='owner')
+    
+    # Create a one-to-many relationship with WorkspaceMembers model and put an invisible columns 'member_details' to the workspace model and 'workspace_member_of'in the User Model accessible only via flask
+    # Calling this attribute will return an array of all workspaces the users are a member of 
     workspaces_member_of = db.relationship('WorkspaceMembers', backref = 'member_details')
 
     def __init__(self, email, hash, salt, phone_number, full_name, profile_picture, role):
