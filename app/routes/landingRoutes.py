@@ -17,6 +17,12 @@ def load_user(id):
 
 @landing_bp.route('/', methods=["GET", "POST"])
 def home_page():
+    if current_user.is_authenticated:
+        if current_user.role == 'admin':
+            if current_user.role == 'admin':
+                return redirect(url_for('adminRoutes.admin_homepage'))
+            else:
+                return redirect(url_for('clientRoutes.client_homepage'))  
     return render_template('index.html')
 
 
@@ -33,7 +39,9 @@ def login_page():
         flash('You are already logged in!', 'error-msg')
         
         if current_user.role == 'admin':
-            return redirect('/admin/')
+            return redirect(url_for('adminRoutes.admin_homepage'))
+        else:
+           return redirect(url_for('clientRoutes.client_homepage'))  
     
     if form.validate_on_submit():
         
@@ -45,7 +53,9 @@ def login_page():
                 flash("Login successful", "success-msg")
                 
                 if current_user.role == 'admin':
-                    return redirect('/admin/')
+                    return redirect(url_for('adminRoutes.admin_homepage'))
+                else:
+                   return redirect(url_for('clientRoutes.client_homepage'))
                 
                 
             else:
@@ -63,8 +73,10 @@ def register_page():
     if current_user.is_authenticated:
         session.pop('_flashes', None)
         flash('You are already logged in!', 'error-msg')
-        
-        return redirect(url_for('landingRoutes.dashboard_page'))
+        if current_user.role == 'admin':
+            return redirect(url_for('adminRoutes.admin_homepage'))
+        else:
+            return redirect(url_for('clientRoutes.client_homepage'))
     
     if form.validate_on_submit():
         validation_msg = userController.validate_registration(

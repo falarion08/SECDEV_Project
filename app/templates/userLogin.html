@@ -15,15 +15,19 @@
     <div class="flex grow justify-center items-center">
         <div class="border-2 border-black rounded-lg p-16 bg-slate-50 shadow-2xl">
             
-            <form action="/login" method="post" class="form" id="login-form">
+            <form action="/login" method="post" class="form flex flex-col items-center justify-center" id="login-form">
                 {{ form.csrf_token }}
-                <h1 class=" text-center font-extrabold text-3xl"> Log In</h1>
+                <h1 class="text-center font-extrabold text-3xl"> Login</h1>
 
-                <div class="text-red-700 text-center text-sm">
+                <div class="text-center text-lg font-bold p-6 h-8">
                     {%  with messages = get_flashed_messages(with_categories=true) %}
                         {% if messages %}
                             {% for category, message in messages %}
-                                <span class="{{ category }}" id="message-text"> {{ message }} </span>
+                                {% if category == 'success-msg' %}
+                                    <span class="text-green-500" id="message-text"> {{ message }} </span>
+                                {% else %}
+                                    <span class="text-red-700" id="message-text"> {{ message }} </span>
+                                {% endif %}
                             {% endfor %}
                         {% else %}
                             <span id="message-text"></span>
@@ -32,24 +36,29 @@
                 </div>
     
                 <div class="form-group my-5">
-                    {{ form.email.label(class="form-label") }}<br>
-                    {{  form.email(class="form-input border w-72 h-8 border-black rounded-md", id="email-input") }}
+                    {{ form.email.label(class="form-label font-bold text-lg") }}<br>
+                    {{ form.email(class="form-input bg-gray-300 outline-none w-72 h-10 border-black rounded-md p-2", id="email-input") }}
                 </div>
             
                 <div class="form-group my-5">
-                    {{ form.password.label(class="form-label") }} <br>
-                    {{  form.password(class="form-input  border w-72 h-8 border-black rounded-md", id="password-input") }}
+                    {{ form.password.label(class="form-label font-bold text-lg") }} <br>
+                    {{  form.password(class="form-input bg-gray-300 outline-none w-72 h-10 border-black rounded-md p-2", id="password-input") }}
                 </div>    
 
-                <div class="btn-group ">
+                <div class="btn-group pt-4">
                     {{ form.recaptcha(class="hidden") }}
 
-                    <div class=" my-3 text-center">
-                        {{ form.submit(class="form-btn border rounded-2xl bg-bg-theme text-white w-48 h-8 hover:bg-btn-dflt hover:cursor-pointer active:bg-bg-theme") }}
+                    <div class=" my-4 text-center">
+                        {{ form.submit(class="form-btn text-xl px-16 py-2 rounded-full bg-btn-dflt text-white ease-linear duration-100 hover:cursor-pointer hover:bg-sky-500 active:bg-btn-dflt") }}
                     </div>
                 </div>
             </form>
-            <p>Don't have an account yet? <a id="redirect-link" class =" text-blue-800 underline" href="{{ url_for('landingRoutes.register_page') }}"">Register now</a></p>
+            <p class="font-bold text-base pt-8">
+                Don't have an account yet? 
+                <a id="redirect-link" class="text-blue-400 ease-linear duration-100 hover:text-blue-600 hover:underline" href="{{ url_for('landingRoutes.register_page') }}""> 
+                    Sign up 
+                </a>
+            </p>
 
         </div>
 

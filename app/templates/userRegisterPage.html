@@ -19,12 +19,18 @@
             <form action="/register" method="post" class="form flex flex-col justify-center w-full" id="register-form" enctype=multipart/form-data>
                 {{ form.hidden_tag() }}
                 {{ form.csrf_token }}
+
                 <h1 class="form-title text-4xl font-bold"> Create Account </h1>
-                <div class="message-group">
+
+                <div class="text-center text-lg font-bold p-6 h-8">
                     {%  with messages = get_flashed_messages(with_categories=true) %}
                         {% if messages %}
                             {% for category, message in messages %}
-                                <span class="{{ category }}" id="message-text"> {{ message }} </span>
+                                {% if category == 'success-msg' %}
+                                    <span class="text-green-500" id="message-text"> {{ message }} </span>
+                                {% else %}
+                                    <span class="text-red-700" id="message-text"> {{ message }} </span>
+                                {% endif %}
                             {% endfor %}
                         {% else %}
                             <span id="message-text"></span>
@@ -76,7 +82,7 @@
 
                 <div class="flex flex-row items-center gap-4 py-6 btn-group">
                     {{ form.recaptcha }}
-                    {{ form.submit(class="form-btn text-2xl px-8 py-3 rounded-full bg-btn-dflt text-white ease-linear duration-100 hover:cursor-pointer hover:underline hover:bg-sky-500 active:bg-btn-dflt") }}
+                    {{ form.submit(class="form-btn text-2xl px-8 py-3 rounded-full bg-btn-dflt text-white ease-linear duration-100 hover:cursor-pointer hover:bg-sky-500 active:bg-btn-dflt") }}
                 </div>
                 
             </form>
