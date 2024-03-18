@@ -11,6 +11,8 @@ from app.configs import setup_configs
 from app.controllers.userController import create_admin
 from flask import render_template
 
+import app.models
+
 def create_app():
     # Allows you to load your .env file
     load_dotenv()

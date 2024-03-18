@@ -1,5 +1,5 @@
 from flask_login import UserMixin
-from . import db,Workspace
+from . import db,Workspace,WorkspaceMembers
 
 
 class User(db.Model, UserMixin):
@@ -14,6 +14,7 @@ class User(db.Model, UserMixin):
     profile_picture = db.Column(db.String(), nullable=True)
     role = db.Column(db.String(50), nullable=False)
     workspaces = db.relationship('Workspace', backref='owner')
+    workspaces_member_of = db.relationship('WorkspaceMembers', backref = 'member_details')
 
     def __init__(self, email, hash, salt, phone_number, full_name, profile_picture, role):
         self.email=email

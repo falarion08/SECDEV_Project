@@ -29,7 +29,7 @@
                     <div class="flex-1">
                         <a href="/admin/w/{{workspace.workspace_id}}"><button class="bg-btn-dflt rounded-lg font-bold text-white w-40 h-8 text-center">Open Workspace</button></a>
                         <a href="/admin/edit/{{workspace.workspace_id}}"><button class="bg-btn-dflt rounded-lg font-bold text-white w-40 h-8 text-center">Edit Workspace</button></a>
-                        <form action="{{url_for('adminRoutes.delete_workspace', workspace_id = workspace.workspace_id)}}" method="post" class="inline-block">
+                        <form action="{{url_for('adminRoutes.delete_workspace', workspace_id = workspace.workspace_id)}}" method="POST" class="inline-block">
                             {{delete_form.csrf_token()}}
                             {{delete_form.submit(class="bg-btn-dflt rounded-lg font-bold text-white w-40 h-8 text-center")}}
                         </form>
