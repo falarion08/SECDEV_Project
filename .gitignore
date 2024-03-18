@@ -8,3 +8,4 @@ __pycache__/
 cert.pem
 node_modules/
 key.pem
+.env.bak

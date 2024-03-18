@@ -1,6 +1,15 @@
-<nav class="flex bg-white p-3 border-b-2 border-black z-10">
-    <div class="flex-1 text-5xl font-extrabold">
-        WORKBOX
+<nav class="flex bg-slate-100 py-3 px-12 z-10">
+    <div class="flex-1 text-5xl font-extrabold underline">
+        {% if current_user.is_authenticated %}
+            {% if current_user.role == "admin" %}
+                <a href="{{ url_for('adminRoutes.admin_homepage') }}"> workbox </a>
+            {% else %}
+            <a href="{{ url_for('landingRoutes.home_page')}}"> workbox </a>
+            {% endif %}
+        {% else %} 
+            <a href="{{ url_for('landingRoutes.home_page')}}"> workbox </a>
+        {% endif %}
+        
     </div>
 
     <div class="flex-1">
@@ -9,12 +18,10 @@
                 {% if current_user.role == "admin" %}
                     <li class="ml-5 align-middle flex items-center"> <a class="hover:underline"  href="{{ url_for('adminRoutes.admin_homepage') }}"> Home </a> </li> 
                     <li class="ml-5 align-middle flex items-center"> <a class="rounded-full bg-btn-dflt text-white hover:bg-sky-500 hover:underline active:bg-btn-dflt p-2 w-32 text-center" href="{{ url_for('adminRoutes.logout') }}"> LOGOUT </a> </li>
-
                 {% else %}
-                <li class="ml-5 align-middle flex items-center"> <a class="rounded-full bg-btn-dflt text-white hover:bg-sky-500 hover:underline active:bg-btn-dflt p-2" href="{{ url_for('adminRoutes.logout') }}"> LOGOUT </a> </li>
-                
+                    <li class="ml-5 align-middle flex items-center"> <a class="rounded-full bg-btn-dflt text-white hover:bg-sky-500 hover:underline active:bg-btn-dflt p-2" href="{{ url_for('adminRoutes.logout') }}"> LOGOUT </a> </li>
                 {% endif %}
-                {% else %} 
+            {% else %} 
                 <li class="ml-5 align-middle flex items-center"> <a class="hover:underline" href="{{ url_for('landingRoutes.home_page')}}"> Home </a> </li> 
                 <li class="ml-5 align-middle flex items-center"><a class="hover:underline" href="{{ url_for('landingRoutes.login_page') }}"> Login </a> </li>
                 <li class="ml-5 align-middle flex items-center"> <a class = "rounded-full bg-btn-dflt text-white hover:bg-sky-500 hover:underline active:bg-btn-dflt p-2" href="{{ url_for('landingRoutes.register_page') }}"> Get Started </a> </li>
