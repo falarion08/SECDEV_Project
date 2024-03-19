@@ -67,7 +67,7 @@ def delete_workspace(workspace_id):
 
         if not workspace:
             session.pop('_flashes', None)
-            flash("Error occurred while deleting workspace", 'error-msg')
+            flash("Error occurred while deleting a workspace", 'error-msg')
             return redirect(url_for('adminRoutes.admin_homepage'))
         
         try:
@@ -88,6 +88,12 @@ def delete_workspace(workspace_id):
 @admin_bp.route('/<int:workspace_id>/edit_workspace', methods = ["GET","POST"])
 @login_required
 def edit_workspace(workspace_id):
+    workspace = Workspace.query.get(int(workspace_id))
+
+    if not workspace:
+        session.pop('_flashes', None)
+        flash("Error occurred while editing a workspace", 'error-msg')
+        return redirect(url_for('adminRoutes.admin_homepage'))
     """
         This route is responsible for editing the workspace of the admin. An admin can 
         update the name of the workspace, add an existing user in the workspace, remove
@@ -98,44 +104,51 @@ def edit_workspace(workspace_id):
 
     # Query all current members of the workspace given an 
     current_workspace_members = WorkspaceMembers.query.filter(workspace_id==workspace_id).all()
-    
+
+
     # All forms for this page are instantiated here
     _updateNameForm = form.createWorkspace()
-    _updateNameForm.submit.label = Label(_updateNameForm.submit.id, 'Save Name')
+    _updateNameForm.submit.label = Label(_updateNameForm.submit.id, 'Save Workspace Name')
 
     _new_member_form = form.addMemberWorkspaceForm()
     
     # Dynamically change the submit button for the delete form button
     _remove_member = form.deleteForm()
-    _remove_member.submit.label = Label(_remove_member.submit.id, 'Remove member')
+    _remove_member.submit.label = Label(_remove_member.submit.id, 'Remove Member')
 
     # Validate if the user tries to modify the workspace name
     if _updateNameForm.validate_on_submit():
-        workspace = Workspace.query.get(int(workspace_id))
+        # TODO: workspace name input validation
         workspace.workspace_name = _updateNameForm.workspace_name.data
         db.session.commit()
-        return redirect(url_for('adminRoutes.admin_homepage'))
+        session.pop('_flashes', None)
+        flash("Successfully changed the workspace name", 'success-msg')
+        return redirect(url_for('adminRoutes.edit_workspace', workspace_id=workspace_id))
     
-    return render_template('editWorkspace.html',workspace_id = workspace_id, updateWorkspaceNameForm = _updateNameForm, new_member_form = _new_member_form, 
-                          workspace_members = current_workspace_members,remove_member = _remove_member)
-    
+    return render_template('editWorkspace.html',workspace=workspace, workspace_id=workspace_id, updateWorkspaceNameForm = _updateNameForm, new_member_form = _new_member_form, 
+                          workspace_members = current_workspace_members, remove_member_form = _remove_member)
+
 @admin_bp.post('/<int:workspace_id>/edit_workspace/add_member')
 @login_required
 def add_member(workspace_id):
-    
     """
         Post validation to add a member in the workspace
     """
-    
+    workspace = Workspace.query.get(int(workspace_id))
+    if not workspace:
+        session.pop('_flashes', None)
+        flash("Error occurred while editing a workspace", 'error-msg')
+        return redirect(url_for('adminRoutes.admin_homepage'))
+
     # Get the form submitted for new_member_form
     add_member_form = form.addMemberWorkspaceForm(request.form)
     
     # Validate if the user tries to add a new member to the workspace  
     if add_member_form.validate_on_submit():
+        # TODO: Input validation
         
         # Get the new user that the admin is trying to add
         user = User.query.filter_by(email=add_member_form.email_address.data).first()
-        workspace = Workspace.query.get(int(workspace_id))
 
         if not user:
             session.pop('_flashes', None)
@@ -145,7 +158,7 @@ def add_member(workspace_id):
         
         # If the entered email address is already in the workspace, flash an error
         for member in workspace.members:
-            print(member.member_id)
+            #print(member.member_id)
             if member.member_id == user.id:
                 session.pop('_flashes', None)
                 flash("Cannot add a user that is already part of the workspace.", 'error-msg')
@@ -159,26 +172,29 @@ def add_member(workspace_id):
         flash("Successfully added a user to the workspace.", 'success-msg')
     return redirect(url_for('adminRoutes.edit_workspace', workspace_id=workspace_id))
 
-@admin_bp.post('/<int:member_id>/edit_workspace/remove_member')
+@admin_bp.post('/<int:workspace_id>/edit_workspace/remove_member/<int:member_id>')
 @login_required
-def remove_member(member_id):
-
+def remove_member(workspace_id, member_id):
+    #print(member_id)
     """
         Post validation to remove a member in the workspace
     """
-    
-    
-    # Get the form submitted for new_member_form
+    remove_member_form = form.deleteForm()
+    if remove_member_form.validate_on_submit():
+        workspace = Workspace.query.get(int(workspace_id))
 
-    if form.deleteForm(request.form).validate_on_submit():
-        member = User.query.get(int(member_id))
-        db.session.delete(member)
-        db.session.commit()
-    
-    return redirect(url_for('adminRoutes.edit_workspace'))
-    
+        if not workspace:
+            session.pop('_flashes', None)
+            flash("Error occurred while editing a workspace", 'error-msg')
+            return redirect(url_for('adminRoutes.admin_homepage'))
 
-
-        
-    
-    
+        try:
+            member = WorkspaceMembers.query.filter(member_id==member_id, workspace_id==workspace.workspace_id).first()
+            db.session.delete(member)
+            db.session.commit()
+            session.pop('_flashes', None)
+            flash("Successfully removed a member", 'success-msg')
+        except:
+            session.pop('_flashes', None)
+            flash("Error occurred while removing a member", 'error-msg')
+    return redirect(url_for('adminRoutes.edit_workspace', workspace_id=workspace_id))

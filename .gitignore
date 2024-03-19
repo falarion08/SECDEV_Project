@@ -9,3 +9,4 @@ cert.pem
 node_modules/
 key.pem
 .env.bak
+*.gif

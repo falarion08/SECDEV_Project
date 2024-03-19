@@ -30,7 +30,7 @@ class deleteForm(FlaskForm):
 
 class addMemberWorkspaceForm(FlaskForm):
     email_address = StringField('Add Member', validators=[DataRequired(),Length(min = 12,max=64)])
-    submit = SubmitField('Add')
+    submit = SubmitField('Add Member')
 
 
     
