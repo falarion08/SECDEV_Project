@@ -8,8 +8,8 @@ from app.utils.talisman import setup_talisman
 from app.models import db
 from app.routes import register_blueprints, setup_login, limiter
 from app.configs import setup_configs
-from app.controllers.userController import create_admin
 from flask import render_template
+import app.db_seed.seed as seed
 
 import app.models
 
@@ -38,6 +38,7 @@ def create_app():
     # Create tables that does not exist in the database and fill the database with a given seed if any.
     with app.app_context():
         db.create_all()
-        create_admin()
+        seed.create_admin()
+        seed.create_user()
 
     return app

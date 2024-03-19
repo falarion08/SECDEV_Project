@@ -14,7 +14,7 @@ def create_admin():
         return
     password = hashPassword('asdfQWERTY1357!')
     admin_user = User(
-        email='admin@admin.com',
+        email='admin@workspace.com',
         hash= password[1],
         salt = password[0],
         full_name = "Admin Account",
@@ -24,3 +24,20 @@ def create_admin():
     )
     db.session.add(admin_user)
     db.session.commit()
+
+def create_user():
+    try:         
+        password = hashPassword('asdfQWERTY1357!')
+        admin_user = User(
+            email='john@workspace.com',
+            hash= password[1],
+            salt = password[0],
+            full_name = "John Doe",
+            phone_number='123456789012',
+            profile_picture=None,
+            role="user"
+        )
+        db.session.add(admin_user)
+        db.session.commit()
+    except:
+        pass
