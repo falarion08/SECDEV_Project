@@ -11,14 +11,12 @@
 </head>
 
 <body>
-
-  <div class="size-full overflow-hidden">
-    
-    {% include 'navbar.html' %}
-    {% block content %}
-    <!-- Captcha integration -->
-    {% endblock %}
-  </div>
+    <div class="flex flex-col bg-bg-theme h-screen">
+        {% include 'navbar.html' %}
+        {% block content %}
+        <!-- Captcha integration -->
+        {% endblock %}
+    </div>
     <noscript>
       <h3>Your web browser does not support javascript or it is disabled.</h3>
     </noscript>
