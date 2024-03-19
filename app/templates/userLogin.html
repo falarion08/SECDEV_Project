@@ -15,7 +15,7 @@
     <div class="flex grow justify-center items-center">
         <div class="border-2 border-black rounded-lg p-16 bg-slate-50 shadow-2xl">
             
-            <form action="/login" method="post" class="form flex flex-col items-center justify-center" id="login-form">
+            <form action="{{ url_for('landingRoutes.login_page') }}" method="post" class="form flex flex-col items-center justify-center" id="login-form">
                 {{ form.csrf_token }}
                 <h1 class="text-center font-extrabold text-3xl"> Login</h1>
 

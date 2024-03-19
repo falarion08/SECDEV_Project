@@ -29,8 +29,8 @@ class deleteForm(FlaskForm):
     submit = SubmitField()
 
 class addMemberWorkspaceForm(FlaskForm):
-    email_address = StringField('Email Address', validators=[DataRequired(),Length(min = 12,max=64)])
-    submit = SubmitField('Save Workspace Name')
+    email_address = StringField('Add Member', validators=[DataRequired(),Length(min = 12,max=64)])
+    submit = SubmitField('Add')
 
 
     
