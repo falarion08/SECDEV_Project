@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block title %} 
-    <title> Workspace </title> 
+    <title> {{ workspace.workspace_name }} </title> 
 {% endblock %}
 
 {% block styles %}
@@ -20,11 +20,15 @@
     <div class="flex flex-col bg-slate-200 gap-8 grow">
         <div class="flex flex-col items-start w-1/2 pl-12 pt-12 gap-4"> 
             <h1 class="font-bold text-black text-4xl"> {{workspace.workspace_name}} </h1>
-            <span class="w-1/4 h-16">  
-                <a class="" href="#">
-                    <button class="w-5/6 h-4/5 rounded-lg bg-btn-dflt font-bold text-white text-xl duration-100 hover:cursor-pointer hover:bg-sky-500 active:bg-btn-dflt"> New Task </button>
-                </a>
-            </span>
+            {% if current_user.is_authenticated %}
+                {% if current_user.role == 'admin' %}
+                    <span class="w-1/4 h-16">  
+                        <a class="" href="#">
+                            <button class="w-5/6 h-4/5 rounded-lg bg-btn-dflt font-bold text-white text-xl duration-100 hover:cursor-pointer hover:bg-sky-500 active:bg-btn-dflt"> New Task </button>
+                        </a>
+                    </span>
+                {% endif %}
+            {% endif %}
         </div>
 
         <div class="flex flex-col justify-center items-center gap-8">
