@@ -22,6 +22,11 @@ class User(db.Model, UserMixin):
     # Calling this attribute will return an array of all workspaces the users are a member of 
     workspaces_member_of = db.relationship('WorkspaceMembers', backref = 'member_details')
 
+    # Create a one-to-many relationship with Task model and put an invisible columns 'user_assigned_details' to the Task model and 'tasks'in the User Model accessible only via flask
+    # Calling this attribute will return an array of all tasks a non-admin user have 
+    tasks = db.relationship('Task', backref = 'user_assigned_details')
+
+
     def __init__(self, email, hash, salt, phone_number, full_name, profile_picture, role):
         self.email=email
         self.hash = hash

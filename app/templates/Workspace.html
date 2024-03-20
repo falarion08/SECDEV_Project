@@ -23,7 +23,7 @@
             {% if current_user.is_authenticated %}
                 {% if current_user.role == 'admin' %}
                     <span class="w-1/4 h-16">  
-                        <a class="" href="#">
+                        <a class="" href="{{url_for('adminRoutes.create_task', workspace_id=workspace_id)}}">
                             <button class="w-5/6 h-4/5 rounded-lg bg-btn-dflt font-bold text-white text-xl duration-100 hover:cursor-pointer hover:bg-sky-500 active:bg-btn-dflt"> New Task </button>
                         </a>
                     </span>

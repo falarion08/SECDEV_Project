@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block title %} 
+    <title> Create Task </title> 
+{% endblock %}
+
+{% block styles %}
+{% endblock %} 
+
+{% block scripts %}
+
+{% endblock %}
+
+
+{% block content %}
+
+<div class="flex flex-col bg-slate-200 gap-8 grow justify-center items-center">
+    <div class="border-2 border-black border-blackrounded-lg rounded-xl shadow-sm w-3/4 bg-white">
+        <h1 class="text-4xl font-bold text-center my-3"> Create Task </h1>
+
+        <div class="text-center text-lg font-bold">
+            {%  with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        {% if category == 'success-msg' %}
+                            <span class="text-green-500" id="message-text"> {{ message }} </span>
+                        {% else %}
+                            <span class="text-red-700" id="message-text"> {{ message }} </span>
+                        {% endif %}
+                        
+                    {% endfor %}
+                {% else %}
+                    <span id="message-text"></span>
+                {% endif %}
+            {% endwith %}
+        </div>
+        
+
+    <div class = "p-3">
+        <form action="{{url_for('adminRoutes.create_task', workspace_id = workspace_id)}}" method="POST">
+            {{new_task_form.csrf_token}}
+            <div class="flex flex-row my-3">
+                <span class=" font-bold w-1/4 text-center">{{new_task_form.task_name.label(class = "text-3xl")}}</span>
+                <span class="flex-1 flex justify-start"> {{new_task_form.task_name(class="w-3/4 h-8 border border-black rounded-lg bg-gray-200")}}</span>
+            </div>
+            <div class="my-3 flex flex-row">
+                <span class="font-bold w-1/4 text-center">
+                    {{new_task_form.due_date.label(class = "text-3xl")}}
+                </span>
+                <span class="flex-1 flex justify-start">
+                    {{new_task_form.due_date(class="border border-black w-32")}}
+                </span>
+            </div>
+            <div class ="flex w-3/4 justify-center">
+                <a href="{{url_for('adminRoutes.')}}"></a>
+            </div>
+        </form>
+    </div>
+    </div>
+</div>
+
+{% endblock %}

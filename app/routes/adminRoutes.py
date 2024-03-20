@@ -188,7 +188,7 @@ def add_member(workspace_id):
 @admin_bp.post('/<int:workspace_id>/edit_workspace/remove_member/<int:member_id>')
 @login_required
 def remove_member(workspace_id, member_id):
-    #print(member_id)
+
     """
         Post validation to remove a member in the workspace
     """
@@ -211,3 +211,24 @@ def remove_member(workspace_id, member_id):
             session.pop('_flashes', None)
             flash("Error occurred while removing a member", 'error-msg')
     return redirect(url_for('adminRoutes.edit_workspace', workspace_id=workspace_id))
+
+@admin_bp.route('/<int:workspace_id>/new_task', methods=["GET","POST"])
+@login_required 
+def create_task(workspace_id):
+    
+    _new_task_form = form.NewTask()
+    
+    if _new_task_form.validate_on_submit():
+        assigned_user =  User.query.filter_by(email=_new_task_form.data.email_address)
+    
+        if assigned_user:
+            session.pop('_flashes', None)
+            flash('Successfully created a task', 'success-msg')
+            return redirect(url_for('adminRoutes.open_workspace',workspace_id = workspace_id))
+        else:
+            session.pop('_flashes',None)
+            flash('User does not exist','error-msg')
+            return redirect(url_for('adminRoutes.create_task', workspace_id = workspace_id))
+    
+    return render_template('createTask.html',new_task_form = _new_task_form,
+                           workspace_id = workspace_id)
