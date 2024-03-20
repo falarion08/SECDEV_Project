@@ -51,8 +51,8 @@
                 {{ new_task_form.due_date(class="border border-black h-8 col-span-1") }}
             </div>
             <div class="w-1/2 self-center grid grid-cols-2 pt-16">
-                <a class="w-4/5 p-3 rounded-lg bg-btn-dflt font-bold text-white text-center text-lg duration-100 hover:cursor-pointer hover:bg-sky-500 active:bg-btn-dflt" href="{{url_for('adminRoutes.open_workspace', workspace_id=workspace_id)}}"> Back </a>
                 {{ new_task_form.submit(class="w-4/5 p-3 rounded-lg bg-btn-dflt font-bold text-white text-lg duration-100 hover:cursor-pointer hover:bg-sky-500 active:bg-btn-dflt") }}
+                <a class="w-4/5 p-3 rounded-lg bg-btn-dflt font-bold text-white text-center text-lg duration-100 hover:cursor-pointer hover:bg-sky-500 active:bg-btn-dflt" href="{{url_for('adminRoutes.open_workspace', workspace_id=workspace_id)}}"> Back </a>
             </div>
         </form>
     </div>

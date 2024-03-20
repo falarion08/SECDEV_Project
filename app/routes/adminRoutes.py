@@ -18,13 +18,18 @@ def load_user(id):
 def admin_homepage():
     curr_role = current_user.role
     
-    if curr_role != 'admin':
-        
+    if not current_user.is_authenticated:
         session.pop('_flashes', None)
         flash('You must be the admin to access the admin page!', 'error-msg')
-        
         return redirect(url_for('landingRoutes.login_page'))
     
+    if curr_role != 'admin':
+        session.pop('_flashes', None)
+        flash('You must be the admin to access the admin page!', 'error-msg')
+        return redirect(url_for('clientRoutes.client_homepage'))
+    
+    print(current_user.workspaces)
+
     users = User.query.filter(User.role != 'admin').all()
     
     _delete_form = form.deleteForm()
@@ -87,7 +92,7 @@ def delete_workspace(workspace_id):
             return redirect(url_for('adminRoutes.admin_homepage'))
         
         try:
-            current_workspace_members = WorkspaceMembers.query.filter(workspace_id==workspace_id).all()
+            current_workspace_members = WorkspaceMembers.query.filter(WorkspaceMembers.workspace_id==workspace_id).all()
             for member in current_workspace_members:
                 db.session.delete(member)
             db.session.delete(workspace)
@@ -119,7 +124,9 @@ def edit_workspace(workspace_id):
     """
 
     # Query all current members of the workspace given an 
-    current_workspace_members = WorkspaceMembers.query.filter(workspace_id==workspace_id).all()
+    current_workspace_members = WorkspaceMembers.query.filter(WorkspaceMembers.workspace_id==workspace_id)
+    print(workspace_id)
+    print(current_workspace_members)
 
 
     # All forms for this page are instantiated here
@@ -205,7 +212,7 @@ def remove_member(workspace_id, member_id):
             return redirect(url_for('adminRoutes.admin_homepage'))
 
         try:
-            member = WorkspaceMembers.query.filter(member_id==member_id, workspace_id==workspace.workspace_id).first()
+            member = WorkspaceMembers.query.filter(WorkspaceMembers.member_id==member_id, WorkspaceMembers.workspace_id==workspace.workspace_id).first()
             db.session.delete(member)
             db.session.commit()
             session.pop('_flashes', None)
@@ -227,7 +234,7 @@ def create_task(workspace_id):
             return redirect(url_for('adminRoutes.admin_homepage'))
     
     if _new_task_form.validate_on_submit():
-        assigned_user =  User.query.filter_by(email=_new_task_form.email_address.data)
+        assigned_user =  User.query.filter_by(User.email==_new_task_form.email_address.data)
     
         if not assigned_user:
             session.pop('_flashes',None)
