@@ -22,14 +22,16 @@
                     <img id="preview-img" class="w-16 h-16 border-none outline-none" src="{{url_for('static', filename='./images/placeholder.jpg')}}" alt="">
                     {% endif %}
                     <p class="cursor-default"> {{ current_user.full_name }} </p> 
-                </li> 
+                </li>
+
                 {% if current_user.role == "admin" %}
                     <li class="ml-5 align-middle flex items-center"> <a class="hover:underline"  href="{{ url_for('adminRoutes.admin_homepage') }}"> Home </a> </li> 
-                    <li class="ml-5 align-middle flex items-center"> <a class="rounded-full bg-btn-dflt text-white hover:bg-sky-500 ease-linear duration-100 active:bg-btn-dflt p-2 w-32 text-center" href="{{ url_for('adminRoutes.logout') }}"> Logout </a> </li>
                 {% else %}
                     <li class="ml-5 align-middle flex items-center"> <a class="hover:underline"  href="{{ url_for('clientRoutes.client_homepage') }}"> Home </a> </li> 
-                    <li class="ml-5 align-middle flex items-center"> <a class="rounded-full bg-btn-dflt text-white ease-linear duration-100 hover:bg-sky-500 active:bg-btn-dflt p-2" href="{{ url_for('clientRoutes.logout') }}"> Logout </a> </li>
                 {% endif %}
+
+                <li class="ml-5 align-middle flex items-center"> <a class="rounded-full bg-btn-dflt text-white ease-linear duration-100 hover:bg-sky-500 active:bg-btn-dflt p-2" href="{{ url_for('landingRoutes.logout') }}"> Logout </a> </li>
+
             {% else %} 
                 <li class="ml-5 align-middle flex items-center"> <a class="hover:underline" href="{{ url_for('landingRoutes.home_page')}}"> Home </a> </li> 
                 <li class="ml-5 align-middle flex items-center"><a class="hover:underline" href="{{ url_for('landingRoutes.login_page') }}"> Login </a> </li>

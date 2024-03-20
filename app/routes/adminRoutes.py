@@ -1,5 +1,5 @@
 from flask import render_template, flash, redirect, url_for, session,request
-from flask_login import login_user, login_required, logout_user, current_user
+from flask_login import login_required, current_user
 from app.models.User import db, User
 from . import admin_bp,login_manager
 from app.models.Task import Task
@@ -8,28 +8,25 @@ from app.models.WorkspaceMembers import WorkspaceMembers
 from  wtforms import Label
 import app.utils.forms as form
 
+
 # Required decorator when using flask-login to find authenticated user
 @login_manager.user_loader
 def load_user(id):
     return User.query.get(int(id))
 
-@admin_bp.route('/', methods=["GET", "POST"])
+@admin_bp.route('/admin', methods=["GET", "POST"])
 @login_required
 def admin_homepage():
-    curr_role = current_user.role
-    
     if not current_user.is_authenticated:
         session.pop('_flashes', None)
-        flash('You must be the admin to access the admin page!', 'error-msg')
+        flash('You must be logged in to access this page!', 'error-msg')
         return redirect(url_for('landingRoutes.login_page'))
     
-    if curr_role != 'admin':
+    if current_user.role != 'admin':
         session.pop('_flashes', None)
-        flash('You must be the admin to access the admin page!', 'error-msg')
+        flash('You must be authorized to access this page!', 'error-msg')
         return redirect(url_for('clientRoutes.client_homepage'))
     
-    print(current_user.workspaces)
-
     users = User.query.filter(User.role != 'admin').all()
     
     _delete_form = form.deleteForm()
@@ -40,18 +37,18 @@ def admin_homepage():
     return render_template('dashboard.html', user_fullName = current_user.full_name, workspaces = current_user.workspaces,
                            delete_form = _delete_form)
 
-@admin_bp.route('/logout', methods=["GET", "POST"])
-@login_required
-def logout():
-    logout_user()
-    session.pop('_flashes', None)
-    flash("You have been logged out.", "success-msg")
-    
-    return redirect(url_for('landingRoutes.login_page'))
-
 @admin_bp.route("/create_workspace", methods =["GET","POST"])
 @login_required
 def create_workspace():
+    if not current_user.is_authenticated:
+        session.pop('_flashes', None)
+        flash('You must be logged in to access this page!', 'error-msg')
+        return redirect(url_for('landingRoutes.login_page'))
+    
+    if current_user.role != 'admin':
+        session.pop('_flashes', None)
+        flash('You must be authorized to access this page!', 'error-msg')
+        return redirect(url_for('clientRoutes.client_homepage'))
     
     _form = form.createWorkspace() 
     
@@ -64,24 +61,18 @@ def create_workspace():
     
     return render_template('createWorkspace.html', form = _form)
 
-@admin_bp.route("/<int:workspace_id>", methods =["GET","POST"])
-@login_required
-def open_workspace(workspace_id):
-    workspace = Workspace.query.get(int(workspace_id))
-    if not workspace:
-        session.pop('_flashes', None)
-        flash("Error occurred while accessing a workspace", 'error-msg')
-        return redirect(url_for('adminRoutes.admin_homepage'))
-    
-    #TODO: get task data and pass it to frontend
-
-
-    return render_template('Workspace.html', workspace_id=workspace_id, workspace=workspace)
-
-
 @admin_bp.post('/<int:workspace_id>/delete')
 @login_required
 def delete_workspace(workspace_id):
+    if not current_user.is_authenticated:
+        session.pop('_flashes', None)
+        flash('You must be logged in to access this page!', 'error-msg')
+        return redirect(url_for('landingRoutes.login_page'))
+    
+    if current_user.role != 'admin':
+        session.pop('_flashes', None)
+        flash('You must be authorized to access this page!', 'error-msg')
+        return redirect(url_for('clientRoutes.client_homepage'))
 
     if form.deleteForm(request.form).validate_on_submit():
         workspace = Workspace.query.get(int(workspace_id))
@@ -109,12 +100,7 @@ def delete_workspace(workspace_id):
 @admin_bp.route('/<int:workspace_id>/edit_workspace', methods = ["GET","POST"])
 @login_required
 def edit_workspace(workspace_id):
-    workspace = Workspace.query.get(int(workspace_id))
 
-    if not workspace:
-        session.pop('_flashes', None)
-        flash("Error occurred while editing a workspace", 'error-msg')
-        return redirect(url_for('adminRoutes.admin_homepage'))
     """
         This route is responsible for editing the workspace of the admin. An admin can 
         update the name of the workspace, add an existing user in the workspace, remove
@@ -123,11 +109,25 @@ def edit_workspace(workspace_id):
         Post requests for add and remove members are on a different route
     """
 
+    if not current_user.is_authenticated:
+        session.pop('_flashes', None)
+        flash('You must be logged in to access this page!', 'error-msg')
+        return redirect(url_for('landingRoutes.login_page'))
+    
+    if current_user.role != 'admin':
+        session.pop('_flashes', None)
+        flash('You must be authorized to access this page!', 'error-msg')
+        return redirect(url_for('clientRoutes.client_homepage'))
+
+    workspace = Workspace.query.get(int(workspace_id))
+
+    if not workspace:
+        session.pop('_flashes', None)
+        flash("Error occurred while editing a workspace", 'error-msg')
+        return redirect(url_for('adminRoutes.admin_homepage'))
+
     # Query all current members of the workspace given an 
     current_workspace_members = WorkspaceMembers.query.filter(WorkspaceMembers.workspace_id==workspace_id)
-    print(workspace_id)
-    print(current_workspace_members)
-
 
     # All forms for this page are instantiated here
     _updateNameForm = form.createWorkspace()
@@ -157,6 +157,17 @@ def add_member(workspace_id):
     """
         Post validation to add a member in the workspace
     """
+
+    if not current_user.is_authenticated:
+        session.pop('_flashes', None)
+        flash('You must be logged in to access this page!', 'error-msg')
+        return redirect(url_for('landingRoutes.login_page'))
+    
+    if current_user.role != 'admin':
+        session.pop('_flashes', None)
+        flash('You must be authorized to access this page!', 'error-msg')
+        return redirect(url_for('clientRoutes.client_homepage'))
+
     workspace = Workspace.query.get(int(workspace_id))
     if not workspace:
         session.pop('_flashes', None)
@@ -197,11 +208,21 @@ def add_member(workspace_id):
 
 @admin_bp.post('/<int:workspace_id>/edit_workspace/remove_member/<int:member_id>')
 @login_required
-def remove_member(workspace_id, member_id):
-
+def remove_member(workspace_id, member_id):    
     """
         Post validation to remove a member in the workspace
     """
+
+    if not current_user.is_authenticated:
+        session.pop('_flashes', None)
+        flash('You must be logged in to access this page!', 'error-msg')
+        return redirect(url_for('landingRoutes.login_page'))
+    
+    if current_user.role != 'admin':
+        session.pop('_flashes', None)
+        flash('You must be authorized to access this page!', 'error-msg')
+        return redirect(url_for('clientRoutes.client_homepage'))
+
     remove_member_form = form.deleteForm()
     if remove_member_form.validate_on_submit():
         workspace = Workspace.query.get(int(workspace_id))
@@ -225,6 +246,16 @@ def remove_member(workspace_id, member_id):
 @admin_bp.route('/<int:workspace_id>/new_task', methods=["GET","POST"])
 @login_required 
 def create_task(workspace_id):
+    if not current_user.is_authenticated:
+        session.pop('_flashes', None)
+        flash('You must be logged in to access this page!', 'error-msg')
+        return redirect(url_for('landingRoutes.login_page'))
+    
+    if current_user.role != 'admin':
+        session.pop('_flashes', None)
+        flash('You must be authorized to access this page!', 'error-msg')
+        return redirect(url_for('clientRoutes.client_homepage'))
+
     _new_task_form = form.NewTask()
     workspace = Workspace.query.get(int(workspace_id))
 
@@ -250,27 +281,3 @@ def create_task(workspace_id):
     
     return render_template('createTask.html',new_task_form = _new_task_form,
                            workspace_id = workspace_id)
-
-# @admin_bp.route('/<int:workspace_id>/<int:task_id>', methods=["GET","POST"])
-@admin_bp.route('/<int:workspace_id>/task', methods=["GET","POST"])
-@login_required 
-# def open_task_updates(workspace_id, task_id):
-def open_task_updates(workspace_id):
-    workspace = Workspace.query.get(int(workspace_id))
-    update_form = form.NewUpdate()
-    # task = Task.query.get(int(task_id))
-
-    if not workspace:
-        session.pop('_flashes', None)
-        flash("Error occurred while accessing a workspace", 'error-msg')
-        return redirect(url_for('adminRoutes.admin_homepage'))
-    # if not task:
-    #     session.pop('_flashes', None)
-    #     flash("Error occurred while accessing a task", 'error-msg')
-    #     return redirect(url_for('adminRoutes.open_workspace', workspace_id=workspace_id))
-
-
-    
-    
-    # return render_template('Task.html', workspace_id=workspace_id, task_id=task_id)
-    return render_template('Task.html', workspace_id=workspace_id, form=update_form)

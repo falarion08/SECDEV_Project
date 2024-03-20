@@ -14,6 +14,13 @@ def error_404(e):
         error_num=404,
         error_text="Page Not Found"), 404
 
+@error_bp.app_errorhandler(405)
+def error_405(e):
+    return render_template(
+        'errorPage.html',
+        error_num=405,
+        error_text="Method Not Allowed"), 405
+
 @error_bp.app_errorhandler(500)
 def error_500(e):
     return render_template(

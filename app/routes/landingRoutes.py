@@ -51,25 +51,36 @@ def login_page():
         
         user = User.query.filter_by(email=form.email.data).first()
         
-        if user:
-            if userController.check_password_hash(user.hash, form.password.data):
-                login_user(user)
-                flash("Login successful", "success-msg")
-                
-                
-                logging.warning(f'{user.email} has logged in')
-                if current_user.role == 'admin':
-                    return redirect(url_for('adminRoutes.admin_homepage'))
-                else:
-                   return redirect(url_for('clientRoutes.client_homepage'))
-                
-                
+        if not user:
+            flash("Email address or password incorrect", 'error-msg')
+            
+        if userController.check_password_hash(user.hash, form.password.data):
+            login_user(user)
+            flash("Login successful", "success-msg")
+            
+            
+            logging.warning(f'{user.email} has logged in')
+            if current_user.role == 'admin':
+                return redirect(url_for('adminRoutes.admin_homepage'))
             else:
-                flash("Email address or password incorrect", 'error-msg')
+                return redirect(url_for('clientRoutes.client_homepage'))
+            
+            
         else:
             flash("Email address or password incorrect", 'error-msg')
             
+            
     return render_template('userLogin.html', form=form)
+
+
+@landing_bp.route('/logout', methods=["GET", "POST"])
+@login_required
+def logout():
+    logout_user()
+    session.pop('_flashes', None)
+    flash("You have been logged out.", "success-msg")
+    
+    return redirect(url_for('landingRoutes.login_page'))
 
 @landing_bp.route('/register', methods = ["GET","POST"])
 @limiter.limit("5 per minute", methods=["POST"])

@@ -1,5 +1,5 @@
 from flask import render_template, flash, redirect, url_for, session,request
-from flask_login import login_user, login_required, logout_user, current_user
+from flask_login import login_required, current_user
 from app.models.User import db, User
 from . import client_bp, login_manager
 from app.models.Task import Task
@@ -12,26 +12,60 @@ import app.utils.forms as form
 def load_user(id):
     return User.query.get(int(id))
 
-@client_bp.route('/', methods=["GET", "POST"])
+@client_bp.route('/dashboard', methods=["GET", "POST"])
 @login_required
 def client_homepage():
-    if not current_user.is_authenticated: 
+    if not current_user.is_authenticated:
         session.pop('_flashes', None)
         flash('You must be logged in to access this page!', 'error-msg')
         return redirect(url_for('landingRoutes.login_page'))
     
-    # need <Workspace1>, <Workspace2>, <Workspace3> from <Memer
     _workspaces = []
     for member in current_user.workspaces_member_of:
         _workspaces.append(member.workspace)
-    
+
     return render_template('dashboard.html', user_fullName = current_user.full_name, workspaces=_workspaces)
 
-@client_bp.route('/logout', methods=["GET", "POST"])
+@client_bp.route("/<int:workspace_id>", methods =["GET","POST"])
 @login_required
-def logout():
-    logout_user()
-    session.pop('_flashes', None)
-    flash("You have been logged out.", "success-msg")
+def open_workspace(workspace_id):
+    if not current_user.is_authenticated:
+        session.pop('_flashes', None)
+        flash('You must be logged in to access this page!', 'error-msg')
+        return redirect(url_for('landingRoutes.login_page'))
+
+    workspace = Workspace.query.get(int(workspace_id))
+    if not workspace:
+        session.pop('_flashes', None)
+        flash("Error occurred while accessing a workspace", 'error-msg')
+        return redirect(url_for('adminRoutes.admin_homepage'))
     
-    return redirect(url_for('landingRoutes.login_page'))
+    #TODO: get task data and pass it to frontend
+
+    return render_template('Workspace.html', workspace_id=workspace_id, workspace=workspace)
+
+# @client_bp.route('/<int:workspace_id>/<int:task_id>', methods=["GET","POST"])
+@client_bp.route('/<int:workspace_id>/task', methods=["GET","POST"])
+@login_required 
+# def open_task_updates(workspace_id, task_id):
+def open_task_updates(workspace_id):
+    if not current_user.is_authenticated:
+        session.pop('_flashes', None)
+        flash('You must be logged in to access this page!', 'error-msg')
+        return redirect(url_for('landingRoutes.login_page'))
+
+    workspace = Workspace.query.get(int(workspace_id))
+    update_form = form.NewUpdate()
+    # task = Task.query.get(int(task_id))
+
+    if not workspace:
+        session.pop('_flashes', None)
+        flash("Error occurred while accessing a workspace", 'error-msg')
+        return redirect(url_for('adminRoutes.admin_homepage'))
+    # if not task:
+    #     session.pop('_flashes', None)
+    #     flash("Error occurred while accessing a task", 'error-msg')
+    #     return redirect(url_for('adminRoutes.open_workspace', workspace_id=workspace_id))
+
+    # return render_template('Task.html', workspace_id=workspace_id, task_id=task_id)
+    return render_template('Task.html', workspace_id=workspace_id, form=update_form)

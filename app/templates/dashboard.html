@@ -48,7 +48,7 @@
                                 {{workspace.workspace_name}}
                             </div>
                             <div class="flex-1">
-                                <a href="{{ url_for('adminRoutes.open_workspace', workspace_id=workspace.workspace_id) }}"><button class="bg-btn-dflt rounded-lg font-bold text-white w-40 h-8 text-center">Open Workspace</button></a>
+                                <a href="{{ url_for('clientRoutes.open_workspace', workspace_id=workspace.workspace_id) }}"><button class="bg-btn-dflt rounded-lg font-bold text-white w-40 h-8 text-center">Open Workspace</button></a>
                                 
                                 {% if current_user.is_authenticated %}
                                     {% if current_user.role == 'admin' %}

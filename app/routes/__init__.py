@@ -55,5 +55,5 @@ def register_blueprints(app):
     
     app.register_blueprint(landing_bp)
     app.register_blueprint(error_bp)
-    app.register_blueprint(admin_bp, url_prefix ='/admin', template_folder = 'template',static_folder = 'static')
-    app.register_blueprint(client_bp, url_prefix= '/client',template_folder = 'template',static_folder = 'static')
+    app.register_blueprint(admin_bp, template_folder = 'template',static_folder = 'static')
+    app.register_blueprint(client_bp, template_folder = 'template',static_folder = 'static')
