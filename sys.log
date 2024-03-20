@@ -1,0 +1,127 @@
+root - WARNING - sample message
+sqlalchemy.engine.Engine - INFO - select pg_catalog.version()
+sqlalchemy.engine.Engine - INFO - [raw sql] {}
+sqlalchemy.engine.Engine - INFO - select current_schema()
+sqlalchemy.engine.Engine - INFO - [raw sql] {}
+sqlalchemy.engine.Engine - INFO - show standard_conforming_strings
+sqlalchemy.engine.Engine - INFO - [raw sql] {}
+sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+sqlalchemy.engine.Engine - INFO - SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+sqlalchemy.engine.Engine - INFO - [generated in 0.00383s] {'table_name': 'tasks', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+sqlalchemy.engine.Engine - INFO - SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+sqlalchemy.engine.Engine - INFO - [cached since 0.01883s ago] {'table_name': 'workspace', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+sqlalchemy.engine.Engine - INFO - SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+sqlalchemy.engine.Engine - INFO - [cached since 0.02381s ago] {'table_name': 'workspace_members', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+sqlalchemy.engine.Engine - INFO - SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+sqlalchemy.engine.Engine - INFO - [cached since 0.02849s ago] {'table_name': 'users', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+sqlalchemy.engine.Engine - INFO - COMMIT
+sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.phone_number AS users_phone_number, users.hash AS users_hash, users.salt AS users_salt, users.full_name AS users_full_name, users.profile_picture AS users_profile_picture, users.role AS users_role 
+FROM users 
+WHERE users.role = %(role_1)s 
+ LIMIT %(param_1)s
+sqlalchemy.engine.Engine - INFO - [generated in 0.00190s] {'role_1': 'admin', 'param_1': 1}
+sqlalchemy.engine.Engine - INFO - INSERT INTO users (email, phone_number, hash, salt, full_name, profile_picture, role) VALUES (%(email)s, %(phone_number)s, %(hash)s, %(salt)s, %(full_name)s, %(profile_picture)s, %(role)s) RETURNING users.id
+sqlalchemy.engine.Engine - INFO - [generated in 0.00154s] {'email': 'john@workspace.com', 'phone_number': '123456789012', 'hash': '$2b$12$ePC67wcWl/LE7fML8twxwu3c9lwMsCjMjrl4UVm3mRhwRMoZb5roy', 'salt': '$2b$12$ePC67wcWl/LE7fML8twxwu', 'full_name': 'John Doe', 'profile_picture': None, 'role': 'user'}
+sqlalchemy.engine.Engine - INFO - ROLLBACK
+werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on https://127.0.0.1:5000
+werkzeug - INFO - [33mPress CTRL+C to quit[0m
+werkzeug - INFO -  * Restarting with stat
+root - WARNING - sample message
+sqlalchemy.engine.Engine - INFO - select pg_catalog.version()
+sqlalchemy.engine.Engine - INFO - [raw sql] {}
+sqlalchemy.engine.Engine - INFO - select current_schema()
+sqlalchemy.engine.Engine - INFO - [raw sql] {}
+sqlalchemy.engine.Engine - INFO - show standard_conforming_strings
+sqlalchemy.engine.Engine - INFO - [raw sql] {}
+sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+sqlalchemy.engine.Engine - INFO - SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+sqlalchemy.engine.Engine - INFO - [generated in 0.00072s] {'table_name': 'tasks', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+sqlalchemy.engine.Engine - INFO - SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+sqlalchemy.engine.Engine - INFO - [cached since 0.007604s ago] {'table_name': 'workspace', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+sqlalchemy.engine.Engine - INFO - SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+sqlalchemy.engine.Engine - INFO - [cached since 0.01125s ago] {'table_name': 'workspace_members', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+sqlalchemy.engine.Engine - INFO - SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+sqlalchemy.engine.Engine - INFO - [cached since 0.01571s ago] {'table_name': 'users', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+sqlalchemy.engine.Engine - INFO - COMMIT
+sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.phone_number AS users_phone_number, users.hash AS users_hash, users.salt AS users_salt, users.full_name AS users_full_name, users.profile_picture AS users_profile_picture, users.role AS users_role 
+FROM users 
+WHERE users.role = %(role_1)s 
+ LIMIT %(param_1)s
+sqlalchemy.engine.Engine - INFO - [generated in 0.00167s] {'role_1': 'admin', 'param_1': 1}
+sqlalchemy.engine.Engine - INFO - INSERT INTO users (email, phone_number, hash, salt, full_name, profile_picture, role) VALUES (%(email)s, %(phone_number)s, %(hash)s, %(salt)s, %(full_name)s, %(profile_picture)s, %(role)s) RETURNING users.id
+sqlalchemy.engine.Engine - INFO - [generated in 0.00079s] {'email': 'john@workspace.com', 'phone_number': '123456789012', 'hash': '$2b$12$Za9ujFsCMtRu5lnT7MSzq.ab0u0Opx1xvWzYqCr1YbOqZfZaTCcga', 'salt': '$2b$12$Za9ujFsCMtRu5lnT7MSzq.', 'full_name': 'John Doe', 'profile_picture': None, 'role': 'user'}
+sqlalchemy.engine.Engine - INFO - ROLLBACK
+werkzeug - WARNING -  * Debugger is active!
+werkzeug - INFO -  * Debugger PIN: 912-467-925
+werkzeug - INFO -  * Detected change in 'D:\\Github_Repositories\\SECDEV_Project\\app\\configs\\__init__.py', reloading
+werkzeug - INFO -  * Restarting with stat
+root - WARNING - sample message
+werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on https://127.0.0.1:5000
+werkzeug - INFO - [33mPress CTRL+C to quit[0m
+werkzeug - INFO -  * Restarting with stat
+root - WARNING - sample message
+werkzeug - WARNING -  * Debugger is active!
+werkzeug - INFO -  * Debugger PIN: 912-467-925
+root - WARNING - sample message
+werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on https://127.0.0.1:5000
+werkzeug - INFO - [33mPress CTRL+C to quit[0m
+werkzeug - INFO -  * Restarting with stat
+root - WARNING - sample message
+werkzeug - WARNING -  * Debugger is active!
+werkzeug - INFO -  * Debugger PIN: 912-467-925
+werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 02:12:38] "[32mGET /admin/ HTTP/1.1[0m" 302 -
+werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 02:12:39] "GET /login?next=/admin/ HTTP/1.1" 200 -
+werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 02:12:39] "[32mGET /static//css/output.css HTTP/1.1[0m" 308 -
+werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 02:12:40] "GET /static/css/output.css HTTP/1.1" 200 -
+werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 02:12:40] "GET /static/js/loginPage.js HTTP/1.1" 200 -
+root - WARNING - admin@workspace.com has logged in
+werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 02:13:07] "[32mPOST /login HTTP/1.1[0m" 302 -
+werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 02:13:07] "GET /admin/ HTTP/1.1" 200 -
+werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 02:13:07] "[32mGET /static//css/output.css HTTP/1.1[0m" 308 -
+werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 02:13:07] "GET /static/css/output.css HTTP/1.1" 200 -
+werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 02:13:07] "GET /static/images/placeholder.jpg HTTP/1.1" 200 -
+werkzeug - INFO -  * Detected change in 'D:\\Github_Repositories\\SECDEV_Project\\app\\routes\\landingRoutes.py', reloading
+werkzeug - INFO -  * Restarting with stat
+2024-03-21 02:19:32,095  werkzeug - WARNING -  * Debugger is active!
+2024-03-21 02:19:32,388  werkzeug - INFO -  * Debugger PIN: 912-467-925
+2024-03-21 02:19:50,104  werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on https://127.0.0.1:5000
+2024-03-21 02:19:50,105  werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-03-21 02:19:50,124  werkzeug - INFO -  * Restarting with stat
+2024-03-21 02:19:54,686  werkzeug - WARNING -  * Debugger is active!
+2024-03-21 02:19:54,705  werkzeug - INFO -  * Debugger PIN: 912-467-925
+2024-03-21 02:20:12,854  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 02:20:12] "GET / HTTP/1.1" 200 -
+2024-03-21 02:20:13,031  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 02:20:13] "[32mGET /static//css/output.css HTTP/1.1[0m" 308 -
+2024-03-21 02:20:13,371  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 02:20:13] "GET /static/images/teamwork.jpg HTTP/1.1" 200 -
+2024-03-21 02:20:13,387  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 02:20:13] "GET /static/css/output.css HTTP/1.1" 200 -
+2024-03-21 02:20:21,817  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 02:20:21] "GET /login HTTP/1.1" 200 -
+2024-03-21 02:20:22,120  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 02:20:22] "[32mGET /static//css/output.css HTTP/1.1[0m" 308 -
+2024-03-21 02:20:22,206  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 02:20:22] "GET /static/css/output.css HTTP/1.1" 200 -
+2024-03-21 02:20:22,386  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 02:20:22] "GET /static/js/loginPage.js HTTP/1.1" 200 -
+2024-03-21 02:20:34,042  root - WARNING - admin@workspace.com has logged in
+2024-03-21 02:20:34,047  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 02:20:34] "[32mPOST /login HTTP/1.1[0m" 302 -
+2024-03-21 02:20:34,209  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 02:20:34] "GET /admin/ HTTP/1.1" 200 -
+2024-03-21 02:20:34,422  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 02:20:34] "[32mGET /static//css/output.css HTTP/1.1[0m" 308 -
+2024-03-21 02:20:34,486  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 02:20:34] "GET /static/css/output.css HTTP/1.1" 200 -
+2024-03-21 02:20:34,496  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 02:20:34] "GET /static/images/placeholder.jpg HTTP/1.1" 200 -

@@ -4,6 +4,10 @@ from app.models.User import db, User
 from app.controllers import userController
 from app.utils.forms import RegistrationForm, LoginForm
 from . import landing_bp, login_manager, limiter, admin_permission
+import logging
+
+# Initalize formatting for logging
+logging.basicConfig(filename='sys.log', filemode='a', format='%(asctime)s  %(name)s - %(levelname)s - %(message)s',level=logging.DEBUG)
 
 """
     This python file is dedicated to the routes that are made available to unauthenticated users only.
@@ -34,11 +38,13 @@ def login_page():
     
     # Checks to see if the user is logged in to prevent them from accessing the homepage
     if current_user.is_authenticated:
-        
+        session.permanent= True
         session.pop('_flashes', None)
         flash('You are already logged in!', 'error-msg')
         
         if current_user.role == 'admin':
+
+
             return redirect(url_for('adminRoutes.admin_homepage'))
         else:
            return redirect(url_for('clientRoutes.client_homepage'))  
@@ -52,6 +58,8 @@ def login_page():
                 login_user(user)
                 flash("Login successful", "success-msg")
                 
+                
+                logging.warning(f'{user.email} has logged in')
                 if current_user.role == 'admin':
                     return redirect(url_for('adminRoutes.admin_homepage'))
                 else:

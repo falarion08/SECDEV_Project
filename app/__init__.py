@@ -10,6 +10,7 @@ from app.routes import register_blueprints, setup_login, limiter
 from app.configs import setup_configs
 from flask import render_template
 import app.db_seed.seed as seed
+from flask.logging import default_handler
 
 import app.models
 
@@ -22,7 +23,7 @@ def create_app():
     app = Flask(__name__)
     csrf = CSRFProtect(app)
     migrate = Migrate()
-    # talisman = Talisman(app)  
+    app.logger.removeHandler(default_handler)
     principals = Principal(app)
 
     # set app db configs
