@@ -2,6 +2,7 @@ from flask import render_template, flash, redirect, url_for, session,request
 from flask_login import login_user, login_required, logout_user, current_user
 from app.models.User import db, User
 from . import admin_bp,login_manager
+from app.models.Task import Task
 from app.models.Workspace import Workspace
 from app.models.WorkspaceMembers import WorkspaceMembers
 from  wtforms import Label
@@ -66,6 +67,8 @@ def open_workspace(workspace_id):
         session.pop('_flashes', None)
         flash("Error occurred while accessing a workspace", 'error-msg')
         return redirect(url_for('adminRoutes.admin_homepage'))
+    
+    #TODO: get task data and pass it to frontend
 
 
     return render_template('Workspace.html', workspace_id=workspace_id, workspace=workspace)
@@ -215,20 +218,52 @@ def remove_member(workspace_id, member_id):
 @admin_bp.route('/<int:workspace_id>/new_task', methods=["GET","POST"])
 @login_required 
 def create_task(workspace_id):
-    
     _new_task_form = form.NewTask()
+    workspace = Workspace.query.get(int(workspace_id))
+
+    if not workspace:
+            session.pop('_flashes', None)
+            flash("Error occurred while creating a task for a workspace", 'error-msg')
+            return redirect(url_for('adminRoutes.admin_homepage'))
     
     if _new_task_form.validate_on_submit():
-        assigned_user =  User.query.filter_by(email=_new_task_form.data.email_address)
+        assigned_user =  User.query.filter_by(email=_new_task_form.email_address.data)
     
-        if assigned_user:
-            session.pop('_flashes', None)
-            flash('Successfully created a task', 'success-msg')
-            return redirect(url_for('adminRoutes.open_workspace',workspace_id = workspace_id))
-        else:
+        if not assigned_user:
             session.pop('_flashes',None)
             flash('User does not exist','error-msg')
             return redirect(url_for('adminRoutes.create_task', workspace_id = workspace_id))
+        
+        #TODO: add task backend
+
+        session.pop('_flashes', None)
+        flash('Successfully created a task', 'success-msg')
+        return redirect(url_for('adminRoutes.open_workspace',workspace_id = workspace_id))
+
     
     return render_template('createTask.html',new_task_form = _new_task_form,
                            workspace_id = workspace_id)
+
+# @admin_bp.route('/<int:workspace_id>/<int:task_id>', methods=["GET","POST"])
+@admin_bp.route('/<int:workspace_id>/task', methods=["GET","POST"])
+@login_required 
+# def open_task_updates(workspace_id, task_id):
+def open_task_updates(workspace_id):
+    workspace = Workspace.query.get(int(workspace_id))
+    update_form = form.NewUpdate()
+    # task = Task.query.get(int(task_id))
+
+    if not workspace:
+        session.pop('_flashes', None)
+        flash("Error occurred while accessing a workspace", 'error-msg')
+        return redirect(url_for('adminRoutes.admin_homepage'))
+    # if not task:
+    #     session.pop('_flashes', None)
+    #     flash("Error occurred while accessing a task", 'error-msg')
+    #     return redirect(url_for('adminRoutes.open_workspace', workspace_id=workspace_id))
+
+
+    
+    
+    # return render_template('Task.html', workspace_id=workspace_id, task_id=task_id)
+    return render_template('Task.html', workspace_id=workspace_id, form=update_form)

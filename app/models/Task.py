@@ -14,10 +14,10 @@ class Task(db.Model):
     due_date = db.Column(db.Date, nullable=False)
     
     
-    def __init__(self, assigned_user_email_address,due_date, owning_worksapce, user_assigned_details):
+    def __init__(self, assigned_user_email_address,due_date, owning_workspace, user_assigned_details):
         self.assigned_user_id = assigned_user_email_address
         self.due_date = due_date
-        self.owning_workspace = owning_worksapce
+        self.owning_workspace = owning_workspace
         self.user_assigned_details = user_assigned_details
 
     

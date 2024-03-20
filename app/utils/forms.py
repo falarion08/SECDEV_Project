@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, FileField,DateField    
+from wtforms import StringField, PasswordField, SubmitField, FileField, DateField, TextAreaField  
 from wtforms.validators import DataRequired, Email, Length
 from flask_wtf.file import FileAllowed, FileField, FileSize
 from flask_wtf.recaptcha import RecaptchaField
@@ -36,7 +36,11 @@ class NewTask(FlaskForm):
     task_name= StringField('Task Name', validators=[DataRequired(),Length(min=1,max=80)])
     email_address = StringField('Assigned User', validators=[DataRequired(),Length(min=12,max=64)]) 
     due_date  = DateField('Due Date')
-    submit = SubmitField('Save Workspace')
+    submit = SubmitField('Save Task')
+
+class NewUpdate(FlaskForm):
+    update = TextAreaField('Update', validators=[DataRequired(),Length(min=1,max=256)])
+    submit = SubmitField('Submit Update')
 
 
     
