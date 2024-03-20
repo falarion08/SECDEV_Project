@@ -58,6 +58,19 @@ def create_workspace():
     
     return render_template('createWorkspace.html', form = _form)
 
+@admin_bp.route("/<int:workspace_id>", methods =["GET","POST"])
+@login_required
+def open_workspace(workspace_id):
+    workspace = Workspace.query.get(int(workspace_id))
+    if not workspace:
+        session.pop('_flashes', None)
+        flash("Error occurred while accessing a workspace", 'error-msg')
+        return redirect(url_for('adminRoutes.admin_homepage'))
+
+
+    return render_template('Workspace.html', workspace_id=workspace_id, workspace=workspace)
+
+
 @admin_bp.post('/<int:workspace_id>/delete')
 @login_required
 def delete_workspace(workspace_id):

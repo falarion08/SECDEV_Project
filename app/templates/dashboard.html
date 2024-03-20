@@ -44,7 +44,7 @@
                         {{workspace.workspace_name}}
                     </div>
                     <div class="flex-1">
-                        <a href="/admin/w/{{workspace.workspace_id}}"><button class="bg-btn-dflt rounded-lg font-bold text-white w-40 h-8 text-center">Open Workspace</button></a>
+                        <a href="{{ url_for('adminRoutes.open_workspace', workspace_id=workspace.workspace_id) }}"><button class="bg-btn-dflt rounded-lg font-bold text-white w-40 h-8 text-center">Open Workspace</button></a>
                         <a href="{{ url_for('adminRoutes.edit_workspace', workspace_id=workspace.workspace_id) }}"><button class="bg-btn-dflt rounded-lg font-bold text-white w-40 h-8 text-center">Edit Workspace</button></a>
                         
                         <form action="{{url_for('adminRoutes.delete_workspace', workspace_id = workspace.workspace_id)}}" method="POST" class="inline-block">
