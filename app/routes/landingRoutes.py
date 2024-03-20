@@ -43,8 +43,6 @@ def login_page():
         flash('You are already logged in!', 'error-msg')
         
         if current_user.role == 'admin':
-
-
             return redirect(url_for('adminRoutes.admin_homepage'))
         else:
            return redirect(url_for('clientRoutes.client_homepage'))  

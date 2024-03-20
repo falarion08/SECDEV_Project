@@ -764,6 +764,7 @@ html,body {
   width: 100%;
 }
 
+<<<<<<< Updated upstream
 .w-24 {
   width: 6rem;
 }
@@ -772,6 +773,8 @@ html,body {
   width: 66.666667%;
 }
 
+=======
+>>>>>>> Stashed changes
 .flex-1 {
   flex: 1 1 0%;
 }

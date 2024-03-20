@@ -6,6 +6,7 @@ __pycache__/
 *.pyd
 *.pyo
 cert.pem
+sys.log
 node_modules/
 key.pem
 .env.bak
