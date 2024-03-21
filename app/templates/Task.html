@@ -69,7 +69,6 @@
         </form>
 
         {% if task.task_updates %}
-        <div class="overflow-auto">
         {% for update in task.task_updates %}
             <div class="flex flex-col px-2 pt-2 bg-gray-300 rounded-xl my-4">
                 <div class="flex flex-row w-full justify-between">
@@ -80,13 +79,17 @@
 
                 {% if current_user.email_address == update.sender_details.email_address %}
                     <div class="flex self-end pr-2"> 
-                        <a class="w-24 rounded-tl-md bg-btn-dflt font-bold text-white text-center hover:bg-sky-500 ease-linear duration-100 active:bg-btn-dflt" href="#"> Edit </a>
-                        <a class="w-24 rounded-tr-md bg-btn-dflt font-bold text-white text-center hover:bg-sky-500 ease-linear duration-100 active:bg-btn-dflt" href="#"> Delete </a>
+                        <a class="inline-block w-24 rounded-tl-md bg-btn-dflt font-bold text-white text-center hover:bg-sky-500 ease-linear duration-100 active:bg-btn-dflt" href="#"> Edit </a>
+                        <form class="inline-block" action="{{url_for('clientRoutes.delete_update',workspace_id = workspace_id, task_id = update.task_update_id,update_id=update.task_update_id)}}" method="POST">
+                            {{delete_workspace_form.csrf_token}}
+                            {{delete_workspace_form.submit(class="w-24 rounded-tr-md bg-btn-dflt font-bold text-white text-center hover:bg-sky-500 ease-linear duration-100 active:bg-btn-dflt")}}
+                            
+                            </a>
+                            
                     </div>
                 {% endif %}
             </div>
             {% endfor %}
-        </div>
         {% else %}
             <h2 class="font-bold text-center p-4 "> This task currently has no updates. </h2>
         {% endif %}

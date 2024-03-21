@@ -56,6 +56,9 @@ def open_task_updates(workspace_id, task_id):
     workspace = Workspace.query.get(int(workspace_id))
     update_form = form.NewUpdate()
     task = Task.query.get(int(task_id))
+    
+    _delete_workspace_form = form.deleteForm()
+    _delete_workspace_form.submit.label = Label(_delete_workspace_form.submit.id, "Delete Update")
 
     if not workspace:
         session.pop('_flashes', None)
@@ -72,5 +75,18 @@ def open_task_updates(workspace_id, task_id):
         db.session.commit()
         return redirect(url_for('clientRoutes.open_task_updates',workspace_id=workspace_id, task_id = task_id))
         
-    return render_template('Task.html', workspace_id=workspace_id, form=update_form, task=task,view_mode = "UPDATE")
+    return render_template('Task.html', workspace_id=workspace_id, form=update_form, task=task,view_mode = "UPDATE"
+                           , delete_workspace_form = _delete_workspace_form)
+
+@client_bp.post('/<int:workspace_id>/task/updates/<int:task_id>/delete_update/<int:update_id>')
+@login_required
+def delete_update(workspace_id,task_id,update_id):
+    
+    if form.deleteForm(request.form).validate_on_submit():
+        db.session.delete(TaskUpdates.query.get(int(update_id)))
+        db.session.commit()
+        session.pop('_flashes', None)
+        flash("Error occurred while accessing a task", 'error-msg')
+        
+    return redirect(url_for('clientRoutes.open_task_updates', workspace_id=workspace_id,task_id = task_id))
 
