@@ -8,6 +8,9 @@ from app.models.WorkspaceMembers import WorkspaceMembers
 from app.models.Task import Task
 from  wtforms import Label
 import app.utils.forms as form
+import logging
+
+logging.basicConfig(filename='sys.log', filemode='a', format='%(asctime)s  %(name)s - %(levelname)s - %(message)s',level=logging.DEBUG)
 
 
 # Required decorator when using flask-login to find authenticated user
@@ -15,17 +18,20 @@ import app.utils.forms as form
 def load_user(id):
     return User.query.get(int(id))
 
+
 @admin_bp.route('/admin', methods=["GET", "POST"])
 @login_required
 def admin_homepage():
     if not current_user.is_authenticated:
         session.pop('_flashes', None)
         flash('You must be logged in to access this page!', 'error-msg')
+        logging.warning(f'An unauthenticated user tried to access /admin')
         return redirect(url_for('landingRoutes.login_page'))
     
     if current_user.role != 'admin':
         session.pop('_flashes', None)
         flash('You must be authorized to access this page!', 'error-msg')
+        logging.warning(f'[{current_user.email} - {current_user.role}] tried to access /admin')
         return redirect(url_for('clientRoutes.client_homepage'))
     
     users = User.query.filter(User.role != 'admin').all()
@@ -38,17 +44,20 @@ def admin_homepage():
     return render_template('dashboard.html', user_fullName = current_user.full_name, workspaces = current_user.workspaces,
                            delete_form = _delete_form)
 
+
 @admin_bp.route("/create_workspace", methods =["GET","POST"])
 @login_required
 def create_workspace():
     if not current_user.is_authenticated:
         session.pop('_flashes', None)
         flash('You must be logged in to access this page!', 'error-msg')
+        logging.warning(f'An unauthenticated user tried to access /create_workspace')
         return redirect(url_for('landingRoutes.login_page'))
     
     if current_user.role != 'admin':
         session.pop('_flashes', None)
         flash('You must be authorized to access this page!', 'error-msg')
+        logging.warning(f'[{current_user.email} - {current_user.role}] tried to access /create_workspace')
         return redirect(url_for('clientRoutes.client_homepage'))
     
     _form = form.createWorkspace() 
@@ -57,10 +66,11 @@ def create_workspace():
         workspace = Workspace(_form.workspace_name.data, current_user)
         db.session.add(workspace)
         db.session.commit()
-        
+        logging.info(f'[{current_user.email} - {current_user.role}] has created a new workspace [{workspace.workspace_id} - {workspace.workspace_name}]')
         return redirect(url_for('adminRoutes.admin_homepage'))
     
     return render_template('createWorkspace.html', form = _form)
+
 
 @admin_bp.post('/<int:workspace_id>/delete')
 @login_required
@@ -68,11 +78,13 @@ def delete_workspace(workspace_id):
     if not current_user.is_authenticated:
         session.pop('_flashes', None)
         flash('You must be logged in to access this page!', 'error-msg')
+        logging.warning(f'An unauthenticated user tried to access /delete')
         return redirect(url_for('landingRoutes.login_page'))
     
     if current_user.role != 'admin':
         session.pop('_flashes', None)
         flash('You must be authorized to access this page!', 'error-msg')
+        logging.warning(f'[{current_user.email} - {current_user.role}] tried to access /delete')
         return redirect(url_for('clientRoutes.client_homepage'))
 
     if form.deleteForm(request.form).validate_on_submit():
@@ -85,15 +97,18 @@ def delete_workspace(workspace_id):
         
         try:
             current_workspace_members = WorkspaceMembers.query.filter(WorkspaceMembers.workspace_id==workspace_id).all()
+            workspace_name = workspace.workspace_name
             for member in current_workspace_members:
                 db.session.delete(member)
             db.session.delete(workspace)
             db.session.commit()
             session.pop('_flashes', None)
             flash("Successfully deleted a workspace", 'success-msg')
+            logging.info(f'[{current_user.email} - {current_user.role}] deleted workspace [{workspace_id} - {workspace_name}]')
         except:
             session.pop('_flashes', None)
             flash("Error occurred while deleting workspace", 'error-msg')
+            logging.warning(f'[{current_user.email} - {current_user.role}] attempted to delete workspace [{workspace_id} - {workspace_name}]')
     return redirect(url_for('adminRoutes.admin_homepage'))
      
     
@@ -113,11 +128,13 @@ def edit_workspace(workspace_id):
     if not current_user.is_authenticated:
         session.pop('_flashes', None)
         flash('You must be logged in to access this page!', 'error-msg')
+        logging.warning(f'An unauthenticated user tried to access /edit_workspace')
         return redirect(url_for('landingRoutes.login_page'))
     
     if current_user.role != 'admin':
         session.pop('_flashes', None)
         flash('You must be authorized to access this page!', 'error-msg')
+        logging.warning(f'[{current_user.email} - {current_user.role}] tried to access /edit_workspace')
         return redirect(url_for('clientRoutes.client_homepage'))
 
     workspace = Workspace.query.get(int(workspace_id))
@@ -143,10 +160,12 @@ def edit_workspace(workspace_id):
     # Validate if the user tries to modify the workspace name
     if _updateNameForm.validate_on_submit():
         # TODO: workspace name input validation
+        original_name = workspace.workspace_name
         workspace.workspace_name = _updateNameForm.workspace_name.data
         db.session.commit()
         session.pop('_flashes', None)
         flash("Successfully changed the workspace name", 'success-msg')
+        logging.info(f'[{current_user.email} - {current_user.role}] changed the workspace name of [{original_name}] to [{_updateNameForm.workspace_name.data}]')
         return redirect(url_for('adminRoutes.edit_workspace', workspace_id=workspace_id))
     
     return render_template('editWorkspace.html',workspace=workspace, workspace_id=workspace_id, updateWorkspaceNameForm = _updateNameForm, new_member_form = _new_member_form, 
@@ -162,11 +181,13 @@ def add_member(workspace_id):
     if not current_user.is_authenticated:
         session.pop('_flashes', None)
         flash('You must be logged in to access this page!', 'error-msg')
+        logging.warning(f'An unauthenticated user tried to access /add_member')
         return redirect(url_for('landingRoutes.login_page'))
     
     if current_user.role != 'admin':
         session.pop('_flashes', None)
         flash('You must be authorized to access this page!', 'error-msg')
+        logging.warning(f'[{current_user.email} - {current_user.role}] tried to access /add_member')
         return redirect(url_for('clientRoutes.client_homepage'))
 
     workspace = Workspace.query.get(int(workspace_id))
@@ -188,6 +209,7 @@ def add_member(workspace_id):
         if not user:
             session.pop('_flashes', None)
             flash("Cannot add a user that does not exist.", 'error-msg')
+            logging.warning(f'[{current_user.email} - {current_user.role}] tried to add a user [{add_member_form.email_address.data}] to workspace [{workspace.workspace_id} - {workspace.workspace_name}]')
             return redirect(url_for('adminRoutes.edit_workspace', workspace_id=workspace_id))
         
         
@@ -197,6 +219,7 @@ def add_member(workspace_id):
             if member.member_id == user.id:
                 session.pop('_flashes', None)
                 flash("Cannot add a user that is already part of the workspace.", 'error-msg')
+                logging.warning(f'[{current_user.email} - {current_user.role}] tried to add existing workspace member [{add_member_form.email_address.data}] to workspace [{workspace.workspace_id} - {workspace.workspace_name}]')
                 return redirect(url_for('adminRoutes.edit_workspace', workspace_id=workspace_id))
             
         # If the query returns a result save the the member to the workspace_members table
@@ -205,6 +228,7 @@ def add_member(workspace_id):
         db.session.commit()
         session.pop('_flashes', None)
         flash("Successfully added a user to the workspace.", 'success-msg')
+        logging.info(f'[{current_user.email} - {current_user.role}] added user [{add_member_form.email_address.data}] to workspace [{workspace.workspace_id} - {workspace.workspace_name}]')
     return redirect(url_for('adminRoutes.edit_workspace', workspace_id=workspace_id))
 
 @admin_bp.post('/<int:workspace_id>/edit_workspace/remove_member/<int:member_id>')
@@ -217,11 +241,13 @@ def remove_member(workspace_id, member_id):
     if not current_user.is_authenticated:
         session.pop('_flashes', None)
         flash('You must be logged in to access this page!', 'error-msg')
+        logging.warning(f'An unauthenticated user tried to access /remove_member')
         return redirect(url_for('landingRoutes.login_page'))
     
     if current_user.role != 'admin':
         session.pop('_flashes', None)
         flash('You must be authorized to access this page!', 'error-msg')
+        logging.warning(f'[{current_user.email} - {current_user.role}] tried to access /remove_member')
         return redirect(url_for('clientRoutes.client_homepage'))
 
     remove_member_form = form.deleteForm()
@@ -235,13 +261,16 @@ def remove_member(workspace_id, member_id):
 
         try:
             member = WorkspaceMembers.query.filter(WorkspaceMembers.member_id==member_id, WorkspaceMembers.workspace_id==workspace.workspace_id).first()
+            member_email = member.member_details.email
             db.session.delete(member)
             db.session.commit()
             session.pop('_flashes', None)
             flash("Successfully removed a member", 'success-msg')
+            logging.info(f'[{current_user.email} - {current_user.role}] removed user [{member_email}] from workspace [{workspace.workspace_id} - {workspace.workspace_name}]')
         except:
             session.pop('_flashes', None)
             flash("Error occurred while removing a member", 'error-msg')
+            logging.info(f'[{current_user.email} - {current_user.role}] tried to removed user [{member_email}] from workspace [{workspace.workspace_id} - {workspace.workspace_name}]')
     return redirect(url_for('adminRoutes.edit_workspace', workspace_id=workspace_id))
 
 @admin_bp.route('/<int:workspace_id>/new_task', methods=["GET","POST"])
@@ -250,11 +279,13 @@ def create_task(workspace_id):
     if not current_user.is_authenticated:
         session.pop('_flashes', None)
         flash('You must be logged in to access this page!', 'error-msg')
+        logging.warning(f'An unauthenticated user tried to access /new_task')
         return redirect(url_for('landingRoutes.login_page'))
     
     if current_user.role != 'admin':
         session.pop('_flashes', None)
         flash('You must be authorized to access this page!', 'error-msg')
+        logging.warning(f'[{current_user.email} - {current_user.role}] tried to access /new_task')
         return redirect(url_for('clientRoutes.client_homepage'))
 
     _new_task_form = form.NewTask()
@@ -291,11 +322,13 @@ def edit_task(workspace_id):
     if not current_user.is_authenticated:
         session.pop('_flashes', None)
         flash('You must be logged in to access this page!', 'error-msg')
+        logging.warning(f'An unauthenticated user tried to access /edit_task')
         return redirect(url_for('landingRoutes.login_page'))
     
     if current_user.role != 'admin':
         session.pop('_flashes', None)
         flash('You must be authorized to access this page!', 'error-msg')
+        logging.warning(f'[{current_user.email} - {current_user.role}] tried to access /edit_task')
         return redirect(url_for('clientRoutes.client_homepage'))
 
     workspace = Workspace.query.get(int(workspace_id))
@@ -326,11 +359,13 @@ def edit_task_name(workspace_id):
     if not current_user.is_authenticated:
         session.pop('_flashes', None)
         flash('You must be logged in to access this page!', 'error-msg')
+        logging.warning(f'An unauthenticated user tried to access /edit_task_name')
         return redirect(url_for('landingRoutes.login_page'))
     
     if current_user.role != 'admin':
         session.pop('_flashes', None)
         flash('You must be authorized to access this page!', 'error-msg')
+        logging.warning(f'[{current_user.email} - {current_user.role}] tried to access /edit_task_name')
         return redirect(url_for('clientRoutes.client_homepage'))
 
     workspace = Workspace.query.get(int(workspace_id))
@@ -368,11 +403,13 @@ def edit_task_assigned_user(workspace_id):
     if not current_user.is_authenticated:
         session.pop('_flashes', None)
         flash('You must be logged in to access this page!', 'error-msg')
+        logging.warning(f'An unauthenticated user tried to access /edit_task_assigned_user')
         return redirect(url_for('landingRoutes.login_page'))
     
     if current_user.role != 'admin':
         session.pop('_flashes', None)
         flash('You must be authorized to access this page!', 'error-msg')
+        logging.warning(f'[{current_user.email} - {current_user.role}] tried to access /edit_task_assigned_user')
         return redirect(url_for('clientRoutes.client_homepage'))
 
     workspace = Workspace.query.get(int(workspace_id))
@@ -410,11 +447,13 @@ def edit_task_due_date(workspace_id):
     if not current_user.is_authenticated:
         session.pop('_flashes', None)
         flash('You must be logged in to access this page!', 'error-msg')
+        logging.warning(f'An unauthenticated user tried to access /edit_task_due_date')
         return redirect(url_for('landingRoutes.login_page'))
     
     if current_user.role != 'admin':
         session.pop('_flashes', None)
         flash('You must be authorized to access this page!', 'error-msg')
+        logging.warning(f'[{current_user.email} - {current_user.role}] tried to access /edit_task_due_date')
         return redirect(url_for('clientRoutes.client_homepage'))
 
     workspace = Workspace.query.get(int(workspace_id))

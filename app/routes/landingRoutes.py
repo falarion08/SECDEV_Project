@@ -52,22 +52,24 @@ def login_page():
         user = User.query.filter_by(email=form.email.data).first()
         
         if not user:
+            session.pop('_flashes', None)
             flash("Email address or password incorrect", 'error-msg')
+            return redirect(url_for('landingRoutes.login_page'))
             
         if userController.check_password_hash(user.hash, form.password.data):
             login_user(user)
             flash("Login successful", "success-msg")
             
-            
-            logging.warning(f'{user.email} has logged in')
+            logging.info(f'[{user.email} - {user.role}] has logged in')
+
             if current_user.role == 'admin':
                 return redirect(url_for('adminRoutes.admin_homepage'))
             else:
                 return redirect(url_for('clientRoutes.client_homepage'))
-            
-            
         else:
+            session.pop('_flashes', None)
             flash("Email address or password incorrect", 'error-msg')
+            return redirect(url_for('landingRoutes.login_page'))
             
             
     return render_template('userLogin.html', form=form)
@@ -76,10 +78,12 @@ def login_page():
 @landing_bp.route('/logout', methods=["GET", "POST"])
 @login_required
 def logout():
+    user_email = current_user.email
+    user_role = current_user.role
     logout_user()
     session.pop('_flashes', None)
     flash("You have been logged out.", "success-msg")
-    
+    logging.info(f'[{user_email} - {user_role}] has logged out')
     return redirect(url_for('landingRoutes.login_page'))
 
 @landing_bp.route('/register', methods = ["GET","POST"])
@@ -115,6 +119,7 @@ def register_page():
             phone_number=form.phone_number.data,
             profile_picture=form.profile_picture.data
         )
+        logging.info(f'User with email {form.email.data} has registered')
         flash('Registration successful', 'success-msg')
         return redirect(url_for('landingRoutes.login_page'))
 
