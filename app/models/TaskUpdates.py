@@ -1,5 +1,6 @@
 from . import db, User, Task
 from sqlalchemy.sql import func
+from datetime import datetime
 class TaskUpdates(db.Model):
     __tablename__ = 'task_updates'
     
@@ -13,15 +14,16 @@ class TaskUpdates(db.Model):
     # Reference the table tasks and set the foreignKey as task_id 
     task_id = db.Column(db.Integer, db.ForeignKey('tasks.task_id'))
 
-    def __init__(self, message, sent_by_user,task_details):
+    def __init__(self, message, sender_details,task_details):
         """
             DataTypes:
             message = String
-            sent_by_user = User
+            sender_details = User
             task_details = Task
         """
         self.message = message
-        self.sent_by_user = sent_by_user
+        self.date_time_sent = datetime.utcnow()
+        self.sender_details = sender_details
         self.task_details = task_details
         
         

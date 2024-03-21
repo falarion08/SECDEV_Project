@@ -3,6 +3,7 @@ from flask_login import login_required, current_user
 from app.models.User import db, User
 from . import client_bp, login_manager
 from app.models.Task import Task
+from app.models.TaskUpdates import TaskUpdates
 from app.models.Workspace import Workspace
 from app.models.WorkspaceMembers import WorkspaceMembers
 from  wtforms import Label
@@ -44,9 +45,9 @@ def open_workspace(workspace_id):
 
     return render_template('Workspace.html', workspace_id=workspace_id, workspace=workspace)
 
-@client_bp.route('/<int:workspace_id>/task', methods=["GET","POST"])
+@client_bp.route('/<int:workspace_id>/task/updates/<int:task_id>', methods=["GET","POST"])
 @login_required 
-def open_task_updates(workspace_id):
+def open_task_updates(workspace_id, task_id):
     if not current_user.is_authenticated:
         session.pop('_flashes', None)
         flash('You must be logged in to access this page!', 'error-msg')
@@ -54,16 +55,22 @@ def open_task_updates(workspace_id):
 
     workspace = Workspace.query.get(int(workspace_id))
     update_form = form.NewUpdate()
-    # task = Task.query.get(int(task_id))
+    task = Task.query.get(int(task_id))
 
     if not workspace:
         session.pop('_flashes', None)
         flash("Error occurred while accessing a workspace", 'error-msg')
         return redirect(url_for('adminRoutes.admin_homepage'))
-    # if not task:
-    #     session.pop('_flashes', None)
-    #     flash("Error occurred while accessing a task", 'error-msg')
-    #     return redirect(url_for('adminRoutes.open_workspace', workspace_id=workspace_id))
+    if not task:
+        session.pop('_flashes', None)
+        flash("Error occurred while accessing a task", 'error-msg')
+        return redirect(url_for('adminRoutes.open_workspace', workspace_id=workspace_id))
 
-    # return render_template('Task.html', workspace_id=workspace_id, task_id=task_id)
-    return render_template('Task.html', workspace_id=workspace_id, form=update_form)
+    if update_form.validate_on_submit():
+        task_update = TaskUpdates(update_form.update.data,current_user,task)
+        db.session.add(task_update)
+        db.session.commit()
+        return redirect(url_for('clientRoutes.open_task_updates',workspace_id=workspace_id, task_id = task_id))
+        
+    return render_template('Task.html', workspace_id=workspace_id, form=update_form, task=task,view_mode = "UPDATE")
+
