@@ -39,5 +39,18 @@ def create_user():
         )
         db.session.add(admin_user)
         db.session.commit()
+        
+        password = hashPassword('asdfQWERTY1357!')
+        admin_user = User(
+            email='alex@workspace.com',
+            hash= password[1],
+            salt = password[0],
+            full_name = "Alex Doe",
+            phone_number='123456789012',
+            profile_picture=None,
+            role="user"
+        )
+        db.session.add(admin_user)
+        db.session.commit()
     except:
         pass

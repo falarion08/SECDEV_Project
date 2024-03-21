@@ -3505,3 +3505,845 @@ WHERE users.role = %(role_1)s
 2024-03-21 22:05:36,948  sqlalchemy.engine.Engine - INFO - ROLLBACK
 2024-03-21 22:05:36,973  werkzeug - WARNING -  * Debugger is active!
 2024-03-21 22:05:36,993  werkzeug - INFO -  * Debugger PIN: 194-435-420
+2024-03-21 22:56:48,410  sqlalchemy.engine.Engine - INFO - select pg_catalog.version()
+2024-03-21 22:56:48,427  sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-03-21 22:56:48,460  sqlalchemy.engine.Engine - INFO - select current_schema()
+2024-03-21 22:56:48,461  sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-03-21 22:56:48,465  sqlalchemy.engine.Engine - INFO - show standard_conforming_strings
+2024-03-21 22:56:48,465  sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-03-21 22:56:48,468  sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2024-03-21 22:56:48,500  sqlalchemy.engine.Engine - INFO - SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+2024-03-21 22:56:48,504  sqlalchemy.engine.Engine - INFO - [generated in 0.00387s] {'table_name': 'task_updates', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2024-03-21 22:56:48,527  sqlalchemy.engine.Engine - INFO - SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+2024-03-21 22:56:48,530  sqlalchemy.engine.Engine - INFO - [cached since 0.03067s ago] {'table_name': 'tasks', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2024-03-21 22:56:48,535  sqlalchemy.engine.Engine - INFO - SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+2024-03-21 22:56:48,554  sqlalchemy.engine.Engine - INFO - [cached since 0.05456s ago] {'table_name': 'workspace', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2024-03-21 22:56:48,558  sqlalchemy.engine.Engine - INFO - SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+2024-03-21 22:56:48,561  sqlalchemy.engine.Engine - INFO - [cached since 0.06134s ago] {'table_name': 'workspace_members', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2024-03-21 22:56:48,565  sqlalchemy.engine.Engine - INFO - SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+2024-03-21 22:56:48,568  sqlalchemy.engine.Engine - INFO - [cached since 0.06864s ago] {'table_name': 'users', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2024-03-21 22:56:48,572  sqlalchemy.engine.Engine - INFO - COMMIT
+2024-03-21 22:56:48,629  sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2024-03-21 22:56:48,637  sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.phone_number AS users_phone_number, users.hash AS users_hash, users.salt AS users_salt, users.full_name AS users_full_name, users.profile_picture AS users_profile_picture, users.role AS users_role 
+FROM users 
+WHERE users.role = %(role_1)s 
+ LIMIT %(param_1)s
+2024-03-21 22:56:48,641  sqlalchemy.engine.Engine - INFO - [generated in 0.00484s] {'role_1': 'admin', 'param_1': 1}
+2024-03-21 22:56:49,549  sqlalchemy.engine.Engine - INFO - INSERT INTO users (email, phone_number, hash, salt, full_name, profile_picture, role) VALUES (%(email)s, %(phone_number)s, %(hash)s, %(salt)s, %(full_name)s, %(profile_picture)s, %(role)s) RETURNING users.id
+2024-03-21 22:56:49,551  sqlalchemy.engine.Engine - INFO - [generated in 0.00272s] {'email': 'john@workspace.com', 'phone_number': '123456789012', 'hash': '$2b$12$4P2r037GcAPAA8UYTEkpy.CptKrzLyeohetdHYiG6SNraGmTqMFdm', 'salt': '$2b$12$4P2r037GcAPAA8UYTEkpy.', 'full_name': 'John Doe', 'profile_picture': None, 'role': 'user'}
+2024-03-21 22:56:49,795  sqlalchemy.engine.Engine - INFO - ROLLBACK
+2024-03-21 22:56:50,097  werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on https://127.0.0.1:5000
+2024-03-21 22:56:50,097  werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-03-21 22:56:50,117  werkzeug - INFO -  * Restarting with stat
+2024-03-21 22:56:55,496  sqlalchemy.engine.Engine - INFO - select pg_catalog.version()
+2024-03-21 22:56:55,498  sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-03-21 22:56:55,500  sqlalchemy.engine.Engine - INFO - select current_schema()
+2024-03-21 22:56:55,501  sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-03-21 22:56:55,503  sqlalchemy.engine.Engine - INFO - show standard_conforming_strings
+2024-03-21 22:56:55,504  sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-03-21 22:56:55,507  sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2024-03-21 22:56:55,518  sqlalchemy.engine.Engine - INFO - SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+2024-03-21 22:56:55,519  sqlalchemy.engine.Engine - INFO - [generated in 0.00198s] {'table_name': 'task_updates', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2024-03-21 22:56:55,533  sqlalchemy.engine.Engine - INFO - SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+2024-03-21 22:56:55,536  sqlalchemy.engine.Engine - INFO - [cached since 0.0178s ago] {'table_name': 'tasks', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2024-03-21 22:56:55,541  sqlalchemy.engine.Engine - INFO - SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+2024-03-21 22:56:55,544  sqlalchemy.engine.Engine - INFO - [cached since 0.02538s ago] {'table_name': 'workspace', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2024-03-21 22:56:55,548  sqlalchemy.engine.Engine - INFO - SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+2024-03-21 22:56:55,550  sqlalchemy.engine.Engine - INFO - [cached since 0.03115s ago] {'table_name': 'workspace_members', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2024-03-21 22:56:55,555  sqlalchemy.engine.Engine - INFO - SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+2024-03-21 22:56:55,557  sqlalchemy.engine.Engine - INFO - [cached since 0.03811s ago] {'table_name': 'users', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2024-03-21 22:56:55,562  sqlalchemy.engine.Engine - INFO - COMMIT
+2024-03-21 22:56:55,627  sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2024-03-21 22:56:55,633  sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.phone_number AS users_phone_number, users.hash AS users_hash, users.salt AS users_salt, users.full_name AS users_full_name, users.profile_picture AS users_profile_picture, users.role AS users_role 
+FROM users 
+WHERE users.role = %(role_1)s 
+ LIMIT %(param_1)s
+2024-03-21 22:56:55,635  sqlalchemy.engine.Engine - INFO - [generated in 0.00211s] {'role_1': 'admin', 'param_1': 1}
+2024-03-21 22:56:56,103  sqlalchemy.engine.Engine - INFO - INSERT INTO users (email, phone_number, hash, salt, full_name, profile_picture, role) VALUES (%(email)s, %(phone_number)s, %(hash)s, %(salt)s, %(full_name)s, %(profile_picture)s, %(role)s) RETURNING users.id
+2024-03-21 22:56:56,105  sqlalchemy.engine.Engine - INFO - [generated in 0.00140s] {'email': 'john@workspace.com', 'phone_number': '123456789012', 'hash': '$2b$12$SmQ2BlTmhTcZwRf3SC3ab.Z8pycxtw3oXRRNBuIMnok3re0TakkmO', 'salt': '$2b$12$SmQ2BlTmhTcZwRf3SC3ab.', 'full_name': 'John Doe', 'profile_picture': None, 'role': 'user'}
+2024-03-21 22:56:56,108  sqlalchemy.engine.Engine - INFO - ROLLBACK
+2024-03-21 22:56:56,128  werkzeug - WARNING -  * Debugger is active!
+2024-03-21 22:56:56,197  werkzeug - INFO -  * Debugger PIN: 799-224-581
+2024-03-21 23:03:40,344  werkzeug - INFO -  * Detected change in 'D:\\Github_Repositories\\SECDEV_Project\\app\\routes\\adminRoutes.py', reloading
+2024-03-21 23:03:40,918  werkzeug - INFO -  * Restarting with stat
+2024-03-21 23:03:49,643  sqlalchemy.engine.Engine - INFO - select pg_catalog.version()
+2024-03-21 23:03:49,646  sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-03-21 23:03:49,652  sqlalchemy.engine.Engine - INFO - select current_schema()
+2024-03-21 23:03:49,653  sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-03-21 23:03:49,655  sqlalchemy.engine.Engine - INFO - show standard_conforming_strings
+2024-03-21 23:03:49,656  sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-03-21 23:03:49,662  sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2024-03-21 23:03:49,675  sqlalchemy.engine.Engine - INFO - SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+2024-03-21 23:03:49,677  sqlalchemy.engine.Engine - INFO - [generated in 0.00255s] {'table_name': 'task_updates', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2024-03-21 23:03:49,688  sqlalchemy.engine.Engine - INFO - SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+2024-03-21 23:03:49,690  sqlalchemy.engine.Engine - INFO - [cached since 0.01591s ago] {'table_name': 'tasks', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2024-03-21 23:03:49,695  sqlalchemy.engine.Engine - INFO - SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+2024-03-21 23:03:49,698  sqlalchemy.engine.Engine - INFO - [cached since 0.02277s ago] {'table_name': 'workspace', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2024-03-21 23:03:49,703  sqlalchemy.engine.Engine - INFO - SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+2024-03-21 23:03:49,706  sqlalchemy.engine.Engine - INFO - [cached since 0.03151s ago] {'table_name': 'workspace_members', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2024-03-21 23:03:49,710  sqlalchemy.engine.Engine - INFO - SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+2024-03-21 23:03:49,713  sqlalchemy.engine.Engine - INFO - [cached since 0.03803s ago] {'table_name': 'users', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2024-03-21 23:03:49,719  sqlalchemy.engine.Engine - INFO - COMMIT
+2024-03-21 23:03:49,793  sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2024-03-21 23:03:49,801  sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.phone_number AS users_phone_number, users.hash AS users_hash, users.salt AS users_salt, users.full_name AS users_full_name, users.profile_picture AS users_profile_picture, users.role AS users_role 
+FROM users 
+WHERE users.role = %(role_1)s 
+ LIMIT %(param_1)s
+2024-03-21 23:03:49,804  sqlalchemy.engine.Engine - INFO - [generated in 0.00327s] {'role_1': 'admin', 'param_1': 1}
+2024-03-21 23:03:50,672  sqlalchemy.engine.Engine - INFO - INSERT INTO users (email, phone_number, hash, salt, full_name, profile_picture, role) VALUES (%(email)s, %(phone_number)s, %(hash)s, %(salt)s, %(full_name)s, %(profile_picture)s, %(role)s) RETURNING users.id
+2024-03-21 23:03:50,674  sqlalchemy.engine.Engine - INFO - [generated in 0.00187s] {'email': 'john@workspace.com', 'phone_number': '123456789012', 'hash': '$2b$12$BBKVJwCsYtZkVaWt9vNVR.6I0QnUvUCCTLcCHEQnM/DRqEaI8Nnpa', 'salt': '$2b$12$BBKVJwCsYtZkVaWt9vNVR.', 'full_name': 'John Doe', 'profile_picture': None, 'role': 'user'}
+2024-03-21 23:03:50,724  sqlalchemy.engine.Engine - INFO - ROLLBACK
+2024-03-21 23:03:50,817  werkzeug - WARNING -  * Debugger is active!
+2024-03-21 23:03:50,862  werkzeug - INFO -  * Debugger PIN: 799-224-581
+2024-03-21 23:13:43,225  werkzeug - INFO -  * Detected change in 'D:\\Github_Repositories\\SECDEV_Project\\app\\routes\\adminRoutes.py', reloading
+2024-03-21 23:13:43,930  werkzeug - INFO -  * Restarting with stat
+2024-03-21 23:13:50,425  sqlalchemy.engine.Engine - INFO - select pg_catalog.version()
+2024-03-21 23:13:50,427  sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-03-21 23:13:50,431  sqlalchemy.engine.Engine - INFO - select current_schema()
+2024-03-21 23:13:50,432  sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-03-21 23:13:50,435  sqlalchemy.engine.Engine - INFO - show standard_conforming_strings
+2024-03-21 23:13:50,436  sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-03-21 23:13:50,439  sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2024-03-21 23:13:50,454  sqlalchemy.engine.Engine - INFO - SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+2024-03-21 23:13:50,457  sqlalchemy.engine.Engine - INFO - [generated in 0.00278s] {'table_name': 'task_updates', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2024-03-21 23:13:50,473  sqlalchemy.engine.Engine - INFO - SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+2024-03-21 23:13:50,476  sqlalchemy.engine.Engine - INFO - [cached since 0.02266s ago] {'table_name': 'tasks', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2024-03-21 23:13:50,480  sqlalchemy.engine.Engine - INFO - SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+2024-03-21 23:13:50,483  sqlalchemy.engine.Engine - INFO - [cached since 0.02907s ago] {'table_name': 'workspace', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2024-03-21 23:13:50,486  sqlalchemy.engine.Engine - INFO - SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+2024-03-21 23:13:50,489  sqlalchemy.engine.Engine - INFO - [cached since 0.03498s ago] {'table_name': 'workspace_members', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2024-03-21 23:13:50,495  sqlalchemy.engine.Engine - INFO - SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+2024-03-21 23:13:50,498  sqlalchemy.engine.Engine - INFO - [cached since 0.04382s ago] {'table_name': 'users', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2024-03-21 23:13:50,503  sqlalchemy.engine.Engine - INFO - COMMIT
+2024-03-21 23:13:50,556  sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2024-03-21 23:13:50,561  sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.phone_number AS users_phone_number, users.hash AS users_hash, users.salt AS users_salt, users.full_name AS users_full_name, users.profile_picture AS users_profile_picture, users.role AS users_role 
+FROM users 
+WHERE users.role = %(role_1)s 
+ LIMIT %(param_1)s
+2024-03-21 23:13:50,564  sqlalchemy.engine.Engine - INFO - [generated in 0.00280s] {'role_1': 'admin', 'param_1': 1}
+2024-03-21 23:13:51,262  sqlalchemy.engine.Engine - INFO - INSERT INTO users (email, phone_number, hash, salt, full_name, profile_picture, role) VALUES (%(email)s, %(phone_number)s, %(hash)s, %(salt)s, %(full_name)s, %(profile_picture)s, %(role)s) RETURNING users.id
+2024-03-21 23:13:51,263  sqlalchemy.engine.Engine - INFO - [generated in 0.00173s] {'email': 'john@workspace.com', 'phone_number': '123456789012', 'hash': '$2b$12$Z6PCUetNc.2svBDK.ULureV4FJnXpyKWFwewz9uSil6ryW1WuCWDu', 'salt': '$2b$12$Z6PCUetNc.2svBDK.ULure', 'full_name': 'John Doe', 'profile_picture': None, 'role': 'user'}
+2024-03-21 23:13:51,319  sqlalchemy.engine.Engine - INFO - ROLLBACK
+2024-03-21 23:13:51,373  werkzeug - WARNING -  * Debugger is active!
+2024-03-21 23:13:51,406  werkzeug - INFO -  * Debugger PIN: 799-224-581
+2024-03-21 23:13:54,276  werkzeug - INFO -  * Detected change in 'D:\\Github_Repositories\\SECDEV_Project\\app\\routes\\adminRoutes.py', reloading
+2024-03-21 23:13:54,698  werkzeug - INFO -  * Restarting with stat
+2024-03-21 23:14:04,965  sqlalchemy.engine.Engine - INFO - select pg_catalog.version()
+2024-03-21 23:14:04,966  sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-03-21 23:14:04,968  sqlalchemy.engine.Engine - INFO - select current_schema()
+2024-03-21 23:14:04,968  sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-03-21 23:14:04,970  sqlalchemy.engine.Engine - INFO - show standard_conforming_strings
+2024-03-21 23:14:04,970  sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-03-21 23:14:04,973  sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2024-03-21 23:14:04,981  sqlalchemy.engine.Engine - INFO - SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+2024-03-21 23:14:04,982  sqlalchemy.engine.Engine - INFO - [generated in 0.00235s] {'table_name': 'task_updates', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2024-03-21 23:14:04,994  sqlalchemy.engine.Engine - INFO - SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+2024-03-21 23:14:04,996  sqlalchemy.engine.Engine - INFO - [cached since 0.01619s ago] {'table_name': 'tasks', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2024-03-21 23:14:05,000  sqlalchemy.engine.Engine - INFO - SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+2024-03-21 23:14:05,003  sqlalchemy.engine.Engine - INFO - [cached since 0.02363s ago] {'table_name': 'workspace', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2024-03-21 23:14:05,014  sqlalchemy.engine.Engine - INFO - SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+2024-03-21 23:14:05,018  sqlalchemy.engine.Engine - INFO - [cached since 0.03818s ago] {'table_name': 'workspace_members', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2024-03-21 23:14:05,026  sqlalchemy.engine.Engine - INFO - SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+2024-03-21 23:14:05,029  sqlalchemy.engine.Engine - INFO - [cached since 0.04865s ago] {'table_name': 'users', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2024-03-21 23:14:05,034  sqlalchemy.engine.Engine - INFO - COMMIT
+2024-03-21 23:14:05,101  sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2024-03-21 23:14:05,106  sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.phone_number AS users_phone_number, users.hash AS users_hash, users.salt AS users_salt, users.full_name AS users_full_name, users.profile_picture AS users_profile_picture, users.role AS users_role 
+FROM users 
+WHERE users.role = %(role_1)s 
+ LIMIT %(param_1)s
+2024-03-21 23:14:05,109  sqlalchemy.engine.Engine - INFO - [generated in 0.00341s] {'role_1': 'admin', 'param_1': 1}
+2024-03-21 23:14:05,631  sqlalchemy.engine.Engine - INFO - INSERT INTO users (email, phone_number, hash, salt, full_name, profile_picture, role) VALUES (%(email)s, %(phone_number)s, %(hash)s, %(salt)s, %(full_name)s, %(profile_picture)s, %(role)s) RETURNING users.id
+2024-03-21 23:14:05,634  sqlalchemy.engine.Engine - INFO - [generated in 0.00272s] {'email': 'john@workspace.com', 'phone_number': '123456789012', 'hash': '$2b$12$tm41q2QvwPRXUYyQEHC4SuMzoffhatcWOttLtD0DE7/fMBWax8cBW', 'salt': '$2b$12$tm41q2QvwPRXUYyQEHC4Su', 'full_name': 'John Doe', 'profile_picture': None, 'role': 'user'}
+2024-03-21 23:14:05,642  sqlalchemy.engine.Engine - INFO - ROLLBACK
+2024-03-21 23:14:05,804  werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on https://127.0.0.1:5000
+2024-03-21 23:14:05,804  werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-03-21 23:14:05,813  werkzeug - INFO -  * Restarting with stat
+2024-03-21 23:14:09,872  sqlalchemy.engine.Engine - INFO - select pg_catalog.version()
+2024-03-21 23:14:09,874  sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-03-21 23:14:09,877  sqlalchemy.engine.Engine - INFO - select current_schema()
+2024-03-21 23:14:09,879  sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-03-21 23:14:09,883  sqlalchemy.engine.Engine - INFO - show standard_conforming_strings
+2024-03-21 23:14:09,884  sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-03-21 23:14:09,888  sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2024-03-21 23:14:09,913  sqlalchemy.engine.Engine - INFO - SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+2024-03-21 23:14:09,915  sqlalchemy.engine.Engine - INFO - [generated in 0.00310s] {'table_name': 'task_updates', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2024-03-21 23:14:09,930  sqlalchemy.engine.Engine - INFO - SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+2024-03-21 23:14:09,934  sqlalchemy.engine.Engine - INFO - [cached since 0.02134s ago] {'table_name': 'tasks', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2024-03-21 23:14:09,937  sqlalchemy.engine.Engine - INFO - SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+2024-03-21 23:14:09,940  sqlalchemy.engine.Engine - INFO - [cached since 0.02777s ago] {'table_name': 'workspace', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2024-03-21 23:14:09,943  sqlalchemy.engine.Engine - INFO - SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+2024-03-21 23:14:09,946  sqlalchemy.engine.Engine - INFO - [cached since 0.0338s ago] {'table_name': 'workspace_members', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2024-03-21 23:14:09,953  sqlalchemy.engine.Engine - INFO - SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+2024-03-21 23:14:09,957  sqlalchemy.engine.Engine - INFO - [cached since 0.04429s ago] {'table_name': 'users', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2024-03-21 23:14:09,961  sqlalchemy.engine.Engine - INFO - COMMIT
+2024-03-21 23:14:10,060  sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2024-03-21 23:14:10,075  sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.phone_number AS users_phone_number, users.hash AS users_hash, users.salt AS users_salt, users.full_name AS users_full_name, users.profile_picture AS users_profile_picture, users.role AS users_role 
+FROM users 
+WHERE users.role = %(role_1)s 
+ LIMIT %(param_1)s
+2024-03-21 23:14:10,081  sqlalchemy.engine.Engine - INFO - [generated in 0.00517s] {'role_1': 'admin', 'param_1': 1}
+2024-03-21 23:14:10,789  sqlalchemy.engine.Engine - INFO - INSERT INTO users (email, phone_number, hash, salt, full_name, profile_picture, role) VALUES (%(email)s, %(phone_number)s, %(hash)s, %(salt)s, %(full_name)s, %(profile_picture)s, %(role)s) RETURNING users.id
+2024-03-21 23:14:10,791  sqlalchemy.engine.Engine - INFO - [generated in 0.00292s] {'email': 'john@workspace.com', 'phone_number': '123456789012', 'hash': '$2b$12$ZJpaI90Fc5h3HQTzgnQzmuR3HGGzFcpnK..vMzzxtoBFdMOP0LwV2', 'salt': '$2b$12$ZJpaI90Fc5h3HQTzgnQzmu', 'full_name': 'John Doe', 'profile_picture': None, 'role': 'user'}
+2024-03-21 23:14:10,803  sqlalchemy.engine.Engine - INFO - ROLLBACK
+2024-03-21 23:14:10,853  werkzeug - WARNING -  * Debugger is active!
+2024-03-21 23:14:10,881  werkzeug - INFO -  * Debugger PIN: 799-224-581
+2024-03-21 23:14:18,593  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:14:18] "GET / HTTP/1.1" 200 -
+2024-03-21 23:14:18,721  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:14:18] "[32mGET /static//css/output.css HTTP/1.1[0m" 308 -
+2024-03-21 23:14:18,945  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:14:18] "GET /static/css/output.css HTTP/1.1" 200 -
+2024-03-21 23:14:18,963  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:14:18] "GET /static/images/teamwork.jpg HTTP/1.1" 200 -
+2024-03-21 23:14:19,138  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:14:19] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2024-03-21 23:14:20,417  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:14:20] "GET /login HTTP/1.1" 200 -
+2024-03-21 23:14:20,626  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:14:20] "[32mGET /static//css/output.css HTTP/1.1[0m" 308 -
+2024-03-21 23:14:20,671  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:14:20] "GET /static/css/output.css HTTP/1.1" 200 -
+2024-03-21 23:14:20,934  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:14:20] "GET /static/js/loginPage.js HTTP/1.1" 200 -
+2024-03-21 23:14:31,491  sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2024-03-21 23:14:31,494  sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.phone_number AS users_phone_number, users.hash AS users_hash, users.salt AS users_salt, users.full_name AS users_full_name, users.profile_picture AS users_profile_picture, users.role AS users_role 
+FROM users 
+WHERE users.email = %(email_1)s 
+ LIMIT %(param_1)s
+2024-03-21 23:14:31,496  sqlalchemy.engine.Engine - INFO - [generated in 0.00212s] {'email_1': 'admin@workspace.com', 'param_1': 1}
+2024-03-21 23:14:31,843  root - INFO - [admin@workspace.com - admin] has logged in
+2024-03-21 23:14:31,845  sqlalchemy.engine.Engine - INFO - ROLLBACK
+2024-03-21 23:14:31,847  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:14:31] "[32mPOST /login HTTP/1.1[0m" 302 -
+2024-03-21 23:14:31,874  sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2024-03-21 23:14:31,877  sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.phone_number AS users_phone_number, users.hash AS users_hash, users.salt AS users_salt, users.full_name AS users_full_name, users.profile_picture AS users_profile_picture, users.role AS users_role 
+FROM users 
+WHERE users.id = %(pk_1)s
+2024-03-21 23:14:31,879  sqlalchemy.engine.Engine - INFO - [generated in 0.00142s] {'pk_1': 1}
+2024-03-21 23:14:31,882  sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.phone_number AS users_phone_number, users.hash AS users_hash, users.salt AS users_salt, users.full_name AS users_full_name, users.profile_picture AS users_profile_picture, users.role AS users_role 
+FROM users 
+WHERE users.role != %(role_1)s
+2024-03-21 23:14:31,883  sqlalchemy.engine.Engine - INFO - [generated in 0.00151s] {'role_1': 'admin'}
+2024-03-21 23:14:31,894  sqlalchemy.engine.Engine - INFO - SELECT workspace.workspace_id AS workspace_workspace_id, workspace.workspace_name AS workspace_workspace_name, workspace.owner_id AS workspace_owner_id 
+FROM workspace 
+WHERE %(param_1)s = workspace.owner_id
+2024-03-21 23:14:31,896  sqlalchemy.engine.Engine - INFO - [generated in 0.00165s] {'param_1': 1}
+2024-03-21 23:14:32,014  sqlalchemy.engine.Engine - INFO - ROLLBACK
+2024-03-21 23:14:32,015  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:14:32] "GET /admin HTTP/1.1" 200 -
+2024-03-21 23:14:32,196  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:14:32] "[32mGET /static//css/output.css HTTP/1.1[0m" 308 -
+2024-03-21 23:14:32,242  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:14:32] "GET /static/css/output.css HTTP/1.1" 200 -
+2024-03-21 23:14:32,276  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:14:32] "GET /static/images/placeholder.jpg HTTP/1.1" 200 -
+2024-03-21 23:14:40,284  sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2024-03-21 23:14:40,285  sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.phone_number AS users_phone_number, users.hash AS users_hash, users.salt AS users_salt, users.full_name AS users_full_name, users.profile_picture AS users_profile_picture, users.role AS users_role 
+FROM users 
+WHERE users.id = %(pk_1)s
+2024-03-21 23:14:40,287  sqlalchemy.engine.Engine - INFO - [cached since 8.41s ago] {'pk_1': 1}
+2024-03-21 23:14:40,294  sqlalchemy.engine.Engine - INFO - SELECT workspace.workspace_id AS workspace_workspace_id, workspace.workspace_name AS workspace_workspace_name, workspace.owner_id AS workspace_owner_id 
+FROM workspace 
+WHERE workspace.workspace_id = %(pk_1)s
+2024-03-21 23:14:40,296  sqlalchemy.engine.Engine - INFO - [generated in 0.00239s] {'pk_1': 1}
+2024-03-21 23:14:40,363  sqlalchemy.engine.Engine - INFO - SELECT tasks.task_id AS tasks_task_id, tasks.task_name AS tasks_task_name, tasks.workspace AS tasks_workspace, tasks.status AS tasks_status, tasks.assigned_user_id AS tasks_assigned_user_id, tasks.assigned_user_email_address AS tasks_assigned_user_email_address, tasks.due_date AS tasks_due_date 
+FROM tasks 
+WHERE %(param_1)s = tasks.workspace
+2024-03-21 23:14:40,366  sqlalchemy.engine.Engine - INFO - [generated in 0.00277s] {'param_1': 1}
+2024-03-21 23:14:40,450  sqlalchemy.engine.Engine - INFO - ROLLBACK
+2024-03-21 23:14:40,452  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:14:40] "GET /1 HTTP/1.1" 200 -
+2024-03-21 23:14:40,664  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:14:40] "[32mGET /static//css/output.css HTTP/1.1[0m" 308 -
+2024-03-21 23:14:40,694  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:14:40] "GET /static/css/output.css HTTP/1.1" 200 -
+2024-03-21 23:14:40,709  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:14:40] "[36mGET /static/images/placeholder.jpg HTTP/1.1[0m" 304 -
+2024-03-21 23:14:43,105  sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2024-03-21 23:14:43,107  sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.phone_number AS users_phone_number, users.hash AS users_hash, users.salt AS users_salt, users.full_name AS users_full_name, users.profile_picture AS users_profile_picture, users.role AS users_role 
+FROM users 
+WHERE users.id = %(pk_1)s
+2024-03-21 23:14:43,110  sqlalchemy.engine.Engine - INFO - [cached since 11.23s ago] {'pk_1': 1}
+2024-03-21 23:14:43,117  sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.phone_number AS users_phone_number, users.hash AS users_hash, users.salt AS users_salt, users.full_name AS users_full_name, users.profile_picture AS users_profile_picture, users.role AS users_role 
+FROM users 
+WHERE users.role != %(role_1)s
+2024-03-21 23:14:43,120  sqlalchemy.engine.Engine - INFO - [cached since 11.24s ago] {'role_1': 'admin'}
+2024-03-21 23:14:43,127  sqlalchemy.engine.Engine - INFO - SELECT workspace.workspace_id AS workspace_workspace_id, workspace.workspace_name AS workspace_workspace_name, workspace.owner_id AS workspace_owner_id 
+FROM workspace 
+WHERE %(param_1)s = workspace.owner_id
+2024-03-21 23:14:43,129  sqlalchemy.engine.Engine - INFO - [cached since 11.24s ago] {'param_1': 1}
+2024-03-21 23:14:43,139  sqlalchemy.engine.Engine - INFO - ROLLBACK
+2024-03-21 23:14:43,142  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:14:43] "GET /admin HTTP/1.1" 200 -
+2024-03-21 23:14:45,857  sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2024-03-21 23:14:45,860  sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.phone_number AS users_phone_number, users.hash AS users_hash, users.salt AS users_salt, users.full_name AS users_full_name, users.profile_picture AS users_profile_picture, users.role AS users_role 
+FROM users 
+WHERE users.id = %(pk_1)s
+2024-03-21 23:14:45,863  sqlalchemy.engine.Engine - INFO - [cached since 13.99s ago] {'pk_1': 1}
+2024-03-21 23:14:45,868  sqlalchemy.engine.Engine - INFO - SELECT workspace.workspace_id AS workspace_workspace_id, workspace.workspace_name AS workspace_workspace_name, workspace.owner_id AS workspace_owner_id 
+FROM workspace 
+WHERE workspace.workspace_id = %(pk_1)s
+2024-03-21 23:14:45,869  sqlalchemy.engine.Engine - INFO - [cached since 5.575s ago] {'pk_1': 1}
+2024-03-21 23:14:45,875  sqlalchemy.engine.Engine - INFO - SELECT tasks.task_id AS tasks_task_id, tasks.task_name AS tasks_task_name, tasks.workspace AS tasks_workspace, tasks.status AS tasks_status, tasks.assigned_user_id AS tasks_assigned_user_id, tasks.assigned_user_email_address AS tasks_assigned_user_email_address, tasks.due_date AS tasks_due_date 
+FROM tasks 
+WHERE %(param_1)s = tasks.workspace
+2024-03-21 23:14:45,877  sqlalchemy.engine.Engine - INFO - [cached since 5.514s ago] {'param_1': 1}
+2024-03-21 23:14:45,881  sqlalchemy.engine.Engine - INFO - ROLLBACK
+2024-03-21 23:14:45,884  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:14:45] "GET /1 HTTP/1.1" 200 -
+2024-03-21 23:14:46,157  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:14:46] "[32mGET /static//css/output.css HTTP/1.1[0m" 308 -
+2024-03-21 23:14:46,200  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:14:46] "[36mGET /static/images/placeholder.jpg HTTP/1.1[0m" 304 -
+2024-03-21 23:14:46,219  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:14:46] "GET /static/css/output.css HTTP/1.1" 200 -
+2024-03-21 23:14:47,627  sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2024-03-21 23:14:47,630  sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.phone_number AS users_phone_number, users.hash AS users_hash, users.salt AS users_salt, users.full_name AS users_full_name, users.profile_picture AS users_profile_picture, users.role AS users_role 
+FROM users 
+WHERE users.id = %(pk_1)s
+2024-03-21 23:14:47,633  sqlalchemy.engine.Engine - INFO - [cached since 15.76s ago] {'pk_1': 1}
+2024-03-21 23:14:47,639  sqlalchemy.engine.Engine - INFO - SELECT workspace.workspace_id AS workspace_workspace_id, workspace.workspace_name AS workspace_workspace_name, workspace.owner_id AS workspace_owner_id 
+FROM workspace 
+WHERE workspace.workspace_id = %(pk_1)s
+2024-03-21 23:14:47,640  sqlalchemy.engine.Engine - INFO - [cached since 7.347s ago] {'pk_1': 1}
+2024-03-21 23:14:47,649  sqlalchemy.engine.Engine - INFO - SELECT tasks.task_id AS tasks_task_id, tasks.task_name AS tasks_task_name, tasks.workspace AS tasks_workspace, tasks.status AS tasks_status, tasks.assigned_user_id AS tasks_assigned_user_id, tasks.assigned_user_email_address AS tasks_assigned_user_email_address, tasks.due_date AS tasks_due_date 
+FROM tasks 
+WHERE tasks.task_id = %(pk_1)s
+2024-03-21 23:14:47,652  sqlalchemy.engine.Engine - INFO - [generated in 0.00307s] {'pk_1': 1}
+2024-03-21 23:14:47,717  sqlalchemy.engine.Engine - INFO - SELECT task_updates.task_update_id AS task_updates_task_update_id, task_updates.message AS task_updates_message, task_updates.date_time_sent AS task_updates_date_time_sent, task_updates.sent_by_user_id AS task_updates_sent_by_user_id, task_updates.task_id AS task_updates_task_id 
+FROM task_updates 
+WHERE %(param_1)s = task_updates.task_id
+2024-03-21 23:14:47,720  sqlalchemy.engine.Engine - INFO - [generated in 0.00322s] {'param_1': 1}
+2024-03-21 23:14:47,773  sqlalchemy.engine.Engine - INFO - ROLLBACK
+2024-03-21 23:14:47,776  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:14:47] "GET /1/1/updates/ HTTP/1.1" 200 -
+2024-03-21 23:14:48,003  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:14:48] "[32mGET /static//css/output.css HTTP/1.1[0m" 308 -
+2024-03-21 23:14:48,045  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:14:48] "GET /static/css/output.css HTTP/1.1" 200 -
+2024-03-21 23:14:48,081  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:14:48] "[36mGET /static/images/placeholder.jpg HTTP/1.1[0m" 304 -
+2024-03-21 23:14:49,937  sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2024-03-21 23:14:49,939  sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.phone_number AS users_phone_number, users.hash AS users_hash, users.salt AS users_salt, users.full_name AS users_full_name, users.profile_picture AS users_profile_picture, users.role AS users_role 
+FROM users 
+WHERE users.id = %(pk_1)s
+2024-03-21 23:14:49,940  sqlalchemy.engine.Engine - INFO - [cached since 18.06s ago] {'pk_1': 1}
+2024-03-21 23:14:49,944  sqlalchemy.engine.Engine - INFO - SELECT workspace.workspace_id AS workspace_workspace_id, workspace.workspace_name AS workspace_workspace_name, workspace.owner_id AS workspace_owner_id 
+FROM workspace 
+WHERE workspace.workspace_id = %(pk_1)s
+2024-03-21 23:14:49,946  sqlalchemy.engine.Engine - INFO - [cached since 9.652s ago] {'pk_1': 1}
+2024-03-21 23:14:50,043  sqlalchemy.engine.Engine - INFO - ROLLBACK
+2024-03-21 23:14:50,046  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:14:50] "GET /1/1/edit_task HTTP/1.1" 200 -
+2024-03-21 23:14:50,297  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:14:50] "[32mGET /static//css/output.css HTTP/1.1[0m" 308 -
+2024-03-21 23:14:50,331  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:14:50] "GET /static/css/output.css HTTP/1.1" 200 -
+2024-03-21 23:14:50,366  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:14:50] "[36mGET /static/images/placeholder.jpg HTTP/1.1[0m" 304 -
+2024-03-21 23:15:04,068  sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2024-03-21 23:15:04,074  sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.phone_number AS users_phone_number, users.hash AS users_hash, users.salt AS users_salt, users.full_name AS users_full_name, users.profile_picture AS users_profile_picture, users.role AS users_role 
+FROM users 
+WHERE users.id = %(pk_1)s
+2024-03-21 23:15:04,078  sqlalchemy.engine.Engine - INFO - [cached since 32.2s ago] {'pk_1': 1}
+2024-03-21 23:15:04,084  sqlalchemy.engine.Engine - INFO - SELECT workspace.workspace_id AS workspace_workspace_id, workspace.workspace_name AS workspace_workspace_name, workspace.owner_id AS workspace_owner_id 
+FROM workspace 
+WHERE workspace.workspace_id = %(pk_1)s
+2024-03-21 23:15:04,087  sqlalchemy.engine.Engine - INFO - [cached since 23.79s ago] {'pk_1': 1}
+2024-03-21 23:15:04,094  sqlalchemy.engine.Engine - INFO - SELECT tasks.task_id AS tasks_task_id, tasks.task_name AS tasks_task_name, tasks.workspace AS tasks_workspace, tasks.status AS tasks_status, tasks.assigned_user_id AS tasks_assigned_user_id, tasks.assigned_user_email_address AS tasks_assigned_user_email_address, tasks.due_date AS tasks_due_date 
+FROM tasks 
+WHERE tasks.task_id = %(pk_1)s
+2024-03-21 23:15:04,096  sqlalchemy.engine.Engine - INFO - [cached since 16.45s ago] {'pk_1': 1}
+2024-03-21 23:15:04,109  sqlalchemy.engine.Engine - INFO - SELECT task_updates.task_update_id AS task_updates_task_update_id, task_updates.message AS task_updates_message, task_updates.date_time_sent AS task_updates_date_time_sent, task_updates.sent_by_user_id AS task_updates_sent_by_user_id, task_updates.task_id AS task_updates_task_id 
+FROM task_updates 
+WHERE %(param_1)s = task_updates.task_id
+2024-03-21 23:15:04,118  sqlalchemy.engine.Engine - INFO - [cached since 16.4s ago] {'param_1': 1}
+2024-03-21 23:15:04,127  sqlalchemy.engine.Engine - INFO - ROLLBACK
+2024-03-21 23:15:04,129  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:15:04] "GET /1/1/updates/ HTTP/1.1" 200 -
+2024-03-21 23:15:04,475  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:15:04] "[32mGET /static//css/output.css HTTP/1.1[0m" 308 -
+2024-03-21 23:15:04,515  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:15:04] "[36mGET /static/images/placeholder.jpg HTTP/1.1[0m" 304 -
+2024-03-21 23:15:04,550  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:15:04] "GET /static/css/output.css HTTP/1.1" 200 -
+2024-03-21 23:15:14,914  sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2024-03-21 23:15:14,915  sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.phone_number AS users_phone_number, users.hash AS users_hash, users.salt AS users_salt, users.full_name AS users_full_name, users.profile_picture AS users_profile_picture, users.role AS users_role 
+FROM users 
+WHERE users.id = %(pk_1)s
+2024-03-21 23:15:14,917  sqlalchemy.engine.Engine - INFO - [cached since 43.04s ago] {'pk_1': 1}
+2024-03-21 23:15:14,922  sqlalchemy.engine.Engine - INFO - SELECT workspace.workspace_id AS workspace_workspace_id, workspace.workspace_name AS workspace_workspace_name, workspace.owner_id AS workspace_owner_id 
+FROM workspace 
+WHERE workspace.workspace_id = %(pk_1)s
+2024-03-21 23:15:14,925  sqlalchemy.engine.Engine - INFO - [cached since 34.63s ago] {'pk_1': 1}
+2024-03-21 23:15:14,935  sqlalchemy.engine.Engine - INFO - ROLLBACK
+2024-03-21 23:15:14,937  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:15:14] "GET /1/1/edit_task HTTP/1.1" 200 -
+2024-03-21 23:15:15,187  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:15:15] "[32mGET /static//css/output.css HTTP/1.1[0m" 308 -
+2024-03-21 23:15:15,223  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:15:15] "[36mGET /static/images/placeholder.jpg HTTP/1.1[0m" 304 -
+2024-03-21 23:15:15,262  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:15:15] "GET /static/css/output.css HTTP/1.1" 200 -
+2024-03-21 23:15:21,434  sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2024-03-21 23:15:21,435  sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.phone_number AS users_phone_number, users.hash AS users_hash, users.salt AS users_salt, users.full_name AS users_full_name, users.profile_picture AS users_profile_picture, users.role AS users_role 
+FROM users 
+WHERE users.id = %(pk_1)s
+2024-03-21 23:15:21,437  sqlalchemy.engine.Engine - INFO - [cached since 49.56s ago] {'pk_1': 1}
+2024-03-21 23:15:21,440  sqlalchemy.engine.Engine - INFO - SELECT workspace.workspace_id AS workspace_workspace_id, workspace.workspace_name AS workspace_workspace_name, workspace.owner_id AS workspace_owner_id 
+FROM workspace 
+WHERE workspace.workspace_id = %(pk_1)s
+2024-03-21 23:15:21,442  sqlalchemy.engine.Engine - INFO - [cached since 41.15s ago] {'pk_1': 1}
+2024-03-21 23:15:21,445  sqlalchemy.engine.Engine - INFO - SELECT tasks.task_id AS tasks_task_id, tasks.task_name AS tasks_task_name, tasks.workspace AS tasks_workspace, tasks.status AS tasks_status, tasks.assigned_user_id AS tasks_assigned_user_id, tasks.assigned_user_email_address AS tasks_assigned_user_email_address, tasks.due_date AS tasks_due_date 
+FROM tasks 
+WHERE tasks.task_id = %(pk_1)s
+2024-03-21 23:15:21,448  sqlalchemy.engine.Engine - INFO - [cached since 33.8s ago] {'pk_1': 1}
+2024-03-21 23:15:21,459  sqlalchemy.engine.Engine - INFO - ROLLBACK
+2024-03-21 23:15:21,462  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:15:21] "[32mPOST /1/1/edit_task/edit_task_assigned_user HTTP/1.1[0m" 302 -
+2024-03-21 23:15:21,506  sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2024-03-21 23:15:21,509  sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.phone_number AS users_phone_number, users.hash AS users_hash, users.salt AS users_salt, users.full_name AS users_full_name, users.profile_picture AS users_profile_picture, users.role AS users_role 
+FROM users 
+WHERE users.id = %(pk_1)s
+2024-03-21 23:15:21,511  sqlalchemy.engine.Engine - INFO - [cached since 49.63s ago] {'pk_1': 1}
+2024-03-21 23:15:21,517  sqlalchemy.engine.Engine - INFO - SELECT workspace.workspace_id AS workspace_workspace_id, workspace.workspace_name AS workspace_workspace_name, workspace.owner_id AS workspace_owner_id 
+FROM workspace 
+WHERE workspace.workspace_id = %(pk_1)s
+2024-03-21 23:15:21,521  sqlalchemy.engine.Engine - INFO - [cached since 41.23s ago] {'pk_1': 1}
+2024-03-21 23:15:21,535  sqlalchemy.engine.Engine - INFO - ROLLBACK
+2024-03-21 23:15:21,538  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:15:21] "GET /1/1/edit_task HTTP/1.1" 200 -
+2024-03-21 23:15:21,735  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:15:21] "[32mGET /static//css/output.css HTTP/1.1[0m" 308 -
+2024-03-21 23:15:21,761  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:15:21] "GET /static/css/output.css HTTP/1.1" 200 -
+2024-03-21 23:15:21,775  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:15:21] "[36mGET /static/images/placeholder.jpg HTTP/1.1[0m" 304 -
+2024-03-21 23:17:38,768  werkzeug - INFO -  * Detected change in 'D:\\Github_Repositories\\SECDEV_Project\\app\\db_seed\\seed.py', reloading
+2024-03-21 23:17:39,485  werkzeug - INFO -  * Restarting with stat
+2024-03-21 23:17:50,800  sqlalchemy.engine.Engine - INFO - select pg_catalog.version()
+2024-03-21 23:17:50,802  sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-03-21 23:17:50,804  sqlalchemy.engine.Engine - INFO - select current_schema()
+2024-03-21 23:17:50,805  sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-03-21 23:17:50,807  sqlalchemy.engine.Engine - INFO - show standard_conforming_strings
+2024-03-21 23:17:50,808  sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-03-21 23:17:50,812  sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2024-03-21 23:17:50,825  sqlalchemy.engine.Engine - INFO - SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+2024-03-21 23:17:50,827  sqlalchemy.engine.Engine - INFO - [generated in 0.00251s] {'table_name': 'task_updates', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2024-03-21 23:17:50,842  sqlalchemy.engine.Engine - INFO - SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+2024-03-21 23:17:50,844  sqlalchemy.engine.Engine - INFO - [cached since 0.01905s ago] {'table_name': 'tasks', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2024-03-21 23:17:50,847  sqlalchemy.engine.Engine - INFO - SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+2024-03-21 23:17:50,848  sqlalchemy.engine.Engine - INFO - [cached since 0.02383s ago] {'table_name': 'workspace', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2024-03-21 23:17:50,853  sqlalchemy.engine.Engine - INFO - SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+2024-03-21 23:17:50,855  sqlalchemy.engine.Engine - INFO - [cached since 0.0294s ago] {'table_name': 'workspace_members', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2024-03-21 23:17:50,859  sqlalchemy.engine.Engine - INFO - SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+2024-03-21 23:17:50,860  sqlalchemy.engine.Engine - INFO - [cached since 0.03539s ago] {'table_name': 'users', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2024-03-21 23:17:50,863  sqlalchemy.engine.Engine - INFO - COMMIT
+2024-03-21 23:17:50,930  sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2024-03-21 23:17:50,954  sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.phone_number AS users_phone_number, users.hash AS users_hash, users.salt AS users_salt, users.full_name AS users_full_name, users.profile_picture AS users_profile_picture, users.role AS users_role 
+FROM users 
+WHERE users.role = %(role_1)s 
+ LIMIT %(param_1)s
+2024-03-21 23:17:50,956  sqlalchemy.engine.Engine - INFO - [generated in 0.00217s] {'role_1': 'admin', 'param_1': 1}
+2024-03-21 23:17:51,489  sqlalchemy.engine.Engine - INFO - INSERT INTO users (email, phone_number, hash, salt, full_name, profile_picture, role) VALUES (%(email)s, %(phone_number)s, %(hash)s, %(salt)s, %(full_name)s, %(profile_picture)s, %(role)s) RETURNING users.id
+2024-03-21 23:17:51,490  sqlalchemy.engine.Engine - INFO - [generated in 0.00258s] {'email': 'john@workspace.com', 'phone_number': '123456789012', 'hash': '$2b$12$IPGBQBOl5e3nigA26hgu6.KmUOZILkTcHccTk4kC/V0XiJHFZ1xT.', 'salt': '$2b$12$IPGBQBOl5e3nigA26hgu6.', 'full_name': 'John Doe', 'profile_picture': None, 'role': 'user'}
+2024-03-21 23:17:51,550  sqlalchemy.engine.Engine - INFO - ROLLBACK
+2024-03-21 23:17:51,631  werkzeug - WARNING -  * Debugger is active!
+2024-03-21 23:17:51,652  werkzeug - INFO -  * Debugger PIN: 799-224-581
+2024-03-21 23:17:51,950  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:17:51] "[32mGET /1/1/edit_task HTTP/1.1[0m" 302 -
+2024-03-21 23:17:52,057  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:17:52] "GET /login?next=/1/1/edit_task HTTP/1.1" 200 -
+2024-03-21 23:17:52,356  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:17:52] "[32mGET /static//css/output.css HTTP/1.1[0m" 308 -
+2024-03-21 23:17:52,733  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:17:52] "GET /static/js/loginPage.js HTTP/1.1" 200 -
+2024-03-21 23:17:52,748  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:17:52] "GET /static/css/output.css HTTP/1.1" 200 -
+2024-03-21 23:18:14,046  sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2024-03-21 23:18:14,048  sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.phone_number AS users_phone_number, users.hash AS users_hash, users.salt AS users_salt, users.full_name AS users_full_name, users.profile_picture AS users_profile_picture, users.role AS users_role 
+FROM users 
+WHERE users.email = %(email_1)s 
+ LIMIT %(param_1)s
+2024-03-21 23:18:14,050  sqlalchemy.engine.Engine - INFO - [generated in 0.00226s] {'email_1': 'admin@workspace.com', 'param_1': 1}
+2024-03-21 23:18:14,716  root - INFO - [admin@workspace.com - admin] has logged in
+2024-03-21 23:18:14,718  sqlalchemy.engine.Engine - INFO - ROLLBACK
+2024-03-21 23:18:14,720  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:18:14] "[32mPOST /login HTTP/1.1[0m" 302 -
+2024-03-21 23:18:14,798  sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2024-03-21 23:18:14,803  sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.phone_number AS users_phone_number, users.hash AS users_hash, users.salt AS users_salt, users.full_name AS users_full_name, users.profile_picture AS users_profile_picture, users.role AS users_role 
+FROM users 
+WHERE users.id = %(pk_1)s
+2024-03-21 23:18:14,806  sqlalchemy.engine.Engine - INFO - [generated in 0.00244s] {'pk_1': 1}
+2024-03-21 23:18:14,816  sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.phone_number AS users_phone_number, users.hash AS users_hash, users.salt AS users_salt, users.full_name AS users_full_name, users.profile_picture AS users_profile_picture, users.role AS users_role 
+FROM users 
+WHERE users.role != %(role_1)s
+2024-03-21 23:18:14,819  sqlalchemy.engine.Engine - INFO - [generated in 0.00309s] {'role_1': 'admin'}
+2024-03-21 23:18:14,833  sqlalchemy.engine.Engine - INFO - SELECT workspace.workspace_id AS workspace_workspace_id, workspace.workspace_name AS workspace_workspace_name, workspace.owner_id AS workspace_owner_id 
+FROM workspace 
+WHERE %(param_1)s = workspace.owner_id
+2024-03-21 23:18:14,836  sqlalchemy.engine.Engine - INFO - [generated in 0.00261s] {'param_1': 1}
+2024-03-21 23:18:14,920  sqlalchemy.engine.Engine - INFO - ROLLBACK
+2024-03-21 23:18:14,922  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:18:14] "GET /admin HTTP/1.1" 200 -
+2024-03-21 23:18:15,197  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:18:15] "[32mGET /static//css/output.css HTTP/1.1[0m" 308 -
+2024-03-21 23:18:15,264  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:18:15] "GET /static/images/placeholder.jpg HTTP/1.1" 200 -
+2024-03-21 23:18:15,282  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:18:15] "GET /static/css/output.css HTTP/1.1" 200 -
+2024-03-21 23:18:16,795  sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2024-03-21 23:18:16,797  sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.phone_number AS users_phone_number, users.hash AS users_hash, users.salt AS users_salt, users.full_name AS users_full_name, users.profile_picture AS users_profile_picture, users.role AS users_role 
+FROM users 
+WHERE users.id = %(pk_1)s
+2024-03-21 23:18:16,800  sqlalchemy.engine.Engine - INFO - [cached since 1.997s ago] {'pk_1': 1}
+2024-03-21 23:18:16,806  sqlalchemy.engine.Engine - INFO - SELECT workspace.workspace_id AS workspace_workspace_id, workspace.workspace_name AS workspace_workspace_name, workspace.owner_id AS workspace_owner_id 
+FROM workspace 
+WHERE workspace.workspace_id = %(pk_1)s
+2024-03-21 23:18:16,812  sqlalchemy.engine.Engine - INFO - [generated in 0.00581s] {'pk_1': 1}
+2024-03-21 23:18:16,867  sqlalchemy.engine.Engine - INFO - SELECT tasks.task_id AS tasks_task_id, tasks.task_name AS tasks_task_name, tasks.workspace AS tasks_workspace, tasks.status AS tasks_status, tasks.assigned_user_id AS tasks_assigned_user_id, tasks.assigned_user_email_address AS tasks_assigned_user_email_address, tasks.due_date AS tasks_due_date 
+FROM tasks 
+WHERE %(param_1)s = tasks.workspace
+2024-03-21 23:18:16,871  sqlalchemy.engine.Engine - INFO - [generated in 0.00361s] {'param_1': 1}
+2024-03-21 23:18:16,914  sqlalchemy.engine.Engine - INFO - ROLLBACK
+2024-03-21 23:18:16,916  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:18:16] "GET /1 HTTP/1.1" 200 -
+2024-03-21 23:18:17,137  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:18:17] "[32mGET /static//css/output.css HTTP/1.1[0m" 308 -
+2024-03-21 23:18:17,167  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:18:17] "GET /static/css/output.css HTTP/1.1" 200 -
+2024-03-21 23:18:17,180  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:18:17] "[36mGET /static/images/placeholder.jpg HTTP/1.1[0m" 304 -
+2024-03-21 23:18:19,527  sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2024-03-21 23:18:19,529  sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.phone_number AS users_phone_number, users.hash AS users_hash, users.salt AS users_salt, users.full_name AS users_full_name, users.profile_picture AS users_profile_picture, users.role AS users_role 
+FROM users 
+WHERE users.id = %(pk_1)s
+2024-03-21 23:18:19,530  sqlalchemy.engine.Engine - INFO - [cached since 4.728s ago] {'pk_1': 1}
+2024-03-21 23:18:19,534  sqlalchemy.engine.Engine - INFO - SELECT workspace.workspace_id AS workspace_workspace_id, workspace.workspace_name AS workspace_workspace_name, workspace.owner_id AS workspace_owner_id 
+FROM workspace 
+WHERE workspace.workspace_id = %(pk_1)s
+2024-03-21 23:18:19,536  sqlalchemy.engine.Engine - INFO - [cached since 2.731s ago] {'pk_1': 1}
+2024-03-21 23:18:19,546  sqlalchemy.engine.Engine - INFO - SELECT tasks.task_id AS tasks_task_id, tasks.task_name AS tasks_task_name, tasks.workspace AS tasks_workspace, tasks.status AS tasks_status, tasks.assigned_user_id AS tasks_assigned_user_id, tasks.assigned_user_email_address AS tasks_assigned_user_email_address, tasks.due_date AS tasks_due_date 
+FROM tasks 
+WHERE tasks.task_id = %(pk_1)s
+2024-03-21 23:18:19,548  sqlalchemy.engine.Engine - INFO - [generated in 0.00275s] {'pk_1': 1}
+2024-03-21 23:18:19,599  sqlalchemy.engine.Engine - INFO - SELECT task_updates.task_update_id AS task_updates_task_update_id, task_updates.message AS task_updates_message, task_updates.date_time_sent AS task_updates_date_time_sent, task_updates.sent_by_user_id AS task_updates_sent_by_user_id, task_updates.task_id AS task_updates_task_id 
+FROM task_updates 
+WHERE %(param_1)s = task_updates.task_id
+2024-03-21 23:18:19,603  sqlalchemy.engine.Engine - INFO - [generated in 0.00278s] {'param_1': 1}
+2024-03-21 23:18:19,612  sqlalchemy.engine.Engine - INFO - ROLLBACK
+2024-03-21 23:18:19,614  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:18:19] "GET /1/1/updates/ HTTP/1.1" 200 -
+2024-03-21 23:18:19,873  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:18:19] "[32mGET /static//css/output.css HTTP/1.1[0m" 308 -
+2024-03-21 23:18:19,899  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:18:19] "[36mGET /static/images/placeholder.jpg HTTP/1.1[0m" 304 -
+2024-03-21 23:18:19,944  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:18:19] "GET /static/css/output.css HTTP/1.1" 200 -
+2024-03-21 23:18:21,226  sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2024-03-21 23:18:21,229  sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.phone_number AS users_phone_number, users.hash AS users_hash, users.salt AS users_salt, users.full_name AS users_full_name, users.profile_picture AS users_profile_picture, users.role AS users_role 
+FROM users 
+WHERE users.id = %(pk_1)s
+2024-03-21 23:18:21,231  sqlalchemy.engine.Engine - INFO - [cached since 6.428s ago] {'pk_1': 1}
+2024-03-21 23:18:21,235  sqlalchemy.engine.Engine - INFO - SELECT workspace.workspace_id AS workspace_workspace_id, workspace.workspace_name AS workspace_workspace_name, workspace.owner_id AS workspace_owner_id 
+FROM workspace 
+WHERE workspace.workspace_id = %(pk_1)s
+2024-03-21 23:18:21,238  sqlalchemy.engine.Engine - INFO - [cached since 4.432s ago] {'pk_1': 1}
+2024-03-21 23:18:21,290  sqlalchemy.engine.Engine - INFO - ROLLBACK
+2024-03-21 23:18:21,295  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:18:21] "GET /1/1/edit_task HTTP/1.1" 200 -
+2024-03-21 23:18:21,527  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:18:21] "[32mGET /static//css/output.css HTTP/1.1[0m" 308 -
+2024-03-21 23:18:21,558  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:18:21] "GET /static/css/output.css HTTP/1.1" 200 -
+2024-03-21 23:18:21,575  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:18:21] "[36mGET /static/images/placeholder.jpg HTTP/1.1[0m" 304 -
+2024-03-21 23:18:32,018  sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2024-03-21 23:18:32,020  sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.phone_number AS users_phone_number, users.hash AS users_hash, users.salt AS users_salt, users.full_name AS users_full_name, users.profile_picture AS users_profile_picture, users.role AS users_role 
+FROM users 
+WHERE users.id = %(pk_1)s
+2024-03-21 23:18:32,023  sqlalchemy.engine.Engine - INFO - [cached since 17.22s ago] {'pk_1': 1}
+2024-03-21 23:18:32,028  sqlalchemy.engine.Engine - INFO - SELECT workspace.workspace_id AS workspace_workspace_id, workspace.workspace_name AS workspace_workspace_name, workspace.owner_id AS workspace_owner_id 
+FROM workspace 
+WHERE workspace.workspace_id = %(pk_1)s
+2024-03-21 23:18:32,030  sqlalchemy.engine.Engine - INFO - [cached since 15.22s ago] {'pk_1': 1}
+2024-03-21 23:18:32,034  sqlalchemy.engine.Engine - INFO - SELECT tasks.task_id AS tasks_task_id, tasks.task_name AS tasks_task_name, tasks.workspace AS tasks_workspace, tasks.status AS tasks_status, tasks.assigned_user_id AS tasks_assigned_user_id, tasks.assigned_user_email_address AS tasks_assigned_user_email_address, tasks.due_date AS tasks_due_date 
+FROM tasks 
+WHERE tasks.task_id = %(pk_1)s
+2024-03-21 23:18:32,036  sqlalchemy.engine.Engine - INFO - [cached since 12.49s ago] {'pk_1': 1}
+2024-03-21 23:18:32,046  sqlalchemy.engine.Engine - INFO - ROLLBACK
+2024-03-21 23:18:32,453  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:18:32] "[35m[1mPOST /1/1/edit_task/edit_task_assigned_user HTTP/1.1[0m" 500 -
+2024-03-21 23:18:32,827  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:18:32] "GET /1/1/edit_task/edit_task_assigned_user?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+2024-03-21 23:18:32,957  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:18:32] "GET /1/1/edit_task/edit_task_assigned_user?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+2024-03-21 23:18:33,161  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:18:33] "GET /1/1/edit_task/edit_task_assigned_user?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+2024-03-21 23:18:33,295  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:18:33] "GET /1/1/edit_task/edit_task_assigned_user?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+2024-03-21 23:19:05,515  werkzeug - INFO -  * Detected change in 'D:\\Github_Repositories\\SECDEV_Project\\app\\routes\\adminRoutes.py', reloading
+2024-03-21 23:19:06,048  werkzeug - INFO -  * Restarting with stat
+2024-03-21 23:19:18,171  sqlalchemy.engine.Engine - INFO - select pg_catalog.version()
+2024-03-21 23:19:18,173  sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-03-21 23:19:18,177  sqlalchemy.engine.Engine - INFO - select current_schema()
+2024-03-21 23:19:18,178  sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-03-21 23:19:18,182  sqlalchemy.engine.Engine - INFO - show standard_conforming_strings
+2024-03-21 23:19:18,184  sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-03-21 23:19:18,188  sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2024-03-21 23:19:18,201  sqlalchemy.engine.Engine - INFO - SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+2024-03-21 23:19:18,204  sqlalchemy.engine.Engine - INFO - [generated in 0.00297s] {'table_name': 'task_updates', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2024-03-21 23:19:18,218  sqlalchemy.engine.Engine - INFO - SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+2024-03-21 23:19:18,222  sqlalchemy.engine.Engine - INFO - [cached since 0.02115s ago] {'table_name': 'tasks', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2024-03-21 23:19:18,229  sqlalchemy.engine.Engine - INFO - SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+2024-03-21 23:19:18,232  sqlalchemy.engine.Engine - INFO - [cached since 0.03093s ago] {'table_name': 'workspace', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2024-03-21 23:19:18,239  sqlalchemy.engine.Engine - INFO - SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+2024-03-21 23:19:18,241  sqlalchemy.engine.Engine - INFO - [cached since 0.0402s ago] {'table_name': 'workspace_members', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2024-03-21 23:19:18,245  sqlalchemy.engine.Engine - INFO - SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+2024-03-21 23:19:18,247  sqlalchemy.engine.Engine - INFO - [cached since 0.04628s ago] {'table_name': 'users', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2024-03-21 23:19:18,254  sqlalchemy.engine.Engine - INFO - COMMIT
+2024-03-21 23:19:18,358  sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2024-03-21 23:19:18,382  sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.phone_number AS users_phone_number, users.hash AS users_hash, users.salt AS users_salt, users.full_name AS users_full_name, users.profile_picture AS users_profile_picture, users.role AS users_role 
+FROM users 
+WHERE users.role = %(role_1)s 
+ LIMIT %(param_1)s
+2024-03-21 23:19:18,400  sqlalchemy.engine.Engine - INFO - [generated in 0.01903s] {'role_1': 'admin', 'param_1': 1}
+2024-03-21 23:19:19,025  sqlalchemy.engine.Engine - INFO - INSERT INTO users (email, phone_number, hash, salt, full_name, profile_picture, role) VALUES (%(email)s, %(phone_number)s, %(hash)s, %(salt)s, %(full_name)s, %(profile_picture)s, %(role)s) RETURNING users.id
+2024-03-21 23:19:19,027  sqlalchemy.engine.Engine - INFO - [generated in 0.00170s] {'email': 'john@workspace.com', 'phone_number': '123456789012', 'hash': '$2b$12$nTT/6HFlQbGbPCIFWaoBputEdkDLApnjQ9QmU8AeF3SKFs84e3oGe', 'salt': '$2b$12$nTT/6HFlQbGbPCIFWaoBpu', 'full_name': 'John Doe', 'profile_picture': None, 'role': 'user'}
+2024-03-21 23:19:19,050  sqlalchemy.engine.Engine - INFO - ROLLBACK
+2024-03-21 23:19:19,126  werkzeug - WARNING -  * Debugger is active!
+2024-03-21 23:19:19,142  werkzeug - INFO -  * Debugger PIN: 799-224-581
+2024-03-21 23:19:19,368  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:19:19] "[32mGET /1/1/edit_task HTTP/1.1[0m" 302 -
+2024-03-21 23:19:19,469  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:19:19] "GET /login?next=/1/1/edit_task HTTP/1.1" 200 -
+2024-03-21 23:19:19,662  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:19:19] "[32mGET /static//css/output.css HTTP/1.1[0m" 308 -
+2024-03-21 23:19:19,953  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:19:19] "GET /static/js/loginPage.js HTTP/1.1" 200 -
+2024-03-21 23:19:20,031  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:19:20] "GET /static/css/output.css HTTP/1.1" 200 -
+2024-03-21 23:19:45,590  sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2024-03-21 23:19:45,593  sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.phone_number AS users_phone_number, users.hash AS users_hash, users.salt AS users_salt, users.full_name AS users_full_name, users.profile_picture AS users_profile_picture, users.role AS users_role 
+FROM users 
+WHERE users.email = %(email_1)s 
+ LIMIT %(param_1)s
+2024-03-21 23:19:45,595  sqlalchemy.engine.Engine - INFO - [generated in 0.00261s] {'email_1': 'admin@workspace.com', 'param_1': 1}
+2024-03-21 23:19:46,299  root - INFO - [admin@workspace.com - admin] has logged in
+2024-03-21 23:19:46,301  sqlalchemy.engine.Engine - INFO - ROLLBACK
+2024-03-21 23:19:46,304  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:19:46] "[32mPOST /login HTTP/1.1[0m" 302 -
+2024-03-21 23:19:46,364  sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2024-03-21 23:19:46,373  sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.phone_number AS users_phone_number, users.hash AS users_hash, users.salt AS users_salt, users.full_name AS users_full_name, users.profile_picture AS users_profile_picture, users.role AS users_role 
+FROM users 
+WHERE users.id = %(pk_1)s
+2024-03-21 23:19:46,376  sqlalchemy.engine.Engine - INFO - [generated in 0.00383s] {'pk_1': 1}
+2024-03-21 23:19:46,387  sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.phone_number AS users_phone_number, users.hash AS users_hash, users.salt AS users_salt, users.full_name AS users_full_name, users.profile_picture AS users_profile_picture, users.role AS users_role 
+FROM users 
+WHERE users.role != %(role_1)s
+2024-03-21 23:19:46,390  sqlalchemy.engine.Engine - INFO - [generated in 0.00289s] {'role_1': 'admin'}
+2024-03-21 23:19:46,401  sqlalchemy.engine.Engine - INFO - SELECT workspace.workspace_id AS workspace_workspace_id, workspace.workspace_name AS workspace_workspace_name, workspace.owner_id AS workspace_owner_id 
+FROM workspace 
+WHERE %(param_1)s = workspace.owner_id
+2024-03-21 23:19:46,403  sqlalchemy.engine.Engine - INFO - [generated in 0.00242s] {'param_1': 1}
+2024-03-21 23:19:46,500  sqlalchemy.engine.Engine - INFO - ROLLBACK
+2024-03-21 23:19:46,503  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:19:46] "GET /admin HTTP/1.1" 200 -
+2024-03-21 23:19:46,778  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:19:46] "[32mGET /static//css/output.css HTTP/1.1[0m" 308 -
+2024-03-21 23:19:46,838  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:19:46] "GET /static/css/output.css HTTP/1.1" 200 -
+2024-03-21 23:19:46,848  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:19:46] "GET /static/images/placeholder.jpg HTTP/1.1" 200 -
+2024-03-21 23:19:48,710  sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2024-03-21 23:19:48,712  sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.phone_number AS users_phone_number, users.hash AS users_hash, users.salt AS users_salt, users.full_name AS users_full_name, users.profile_picture AS users_profile_picture, users.role AS users_role 
+FROM users 
+WHERE users.id = %(pk_1)s
+2024-03-21 23:19:48,715  sqlalchemy.engine.Engine - INFO - [cached since 2.342s ago] {'pk_1': 1}
+2024-03-21 23:19:48,720  sqlalchemy.engine.Engine - INFO - SELECT workspace.workspace_id AS workspace_workspace_id, workspace.workspace_name AS workspace_workspace_name, workspace.owner_id AS workspace_owner_id 
+FROM workspace 
+WHERE workspace.workspace_id = %(pk_1)s
+2024-03-21 23:19:48,722  sqlalchemy.engine.Engine - INFO - [generated in 0.00195s] {'pk_1': 1}
+2024-03-21 23:19:48,789  sqlalchemy.engine.Engine - INFO - SELECT tasks.task_id AS tasks_task_id, tasks.task_name AS tasks_task_name, tasks.workspace AS tasks_workspace, tasks.status AS tasks_status, tasks.assigned_user_id AS tasks_assigned_user_id, tasks.assigned_user_email_address AS tasks_assigned_user_email_address, tasks.due_date AS tasks_due_date 
+FROM tasks 
+WHERE %(param_1)s = tasks.workspace
+2024-03-21 23:19:48,791  sqlalchemy.engine.Engine - INFO - [generated in 0.00326s] {'param_1': 1}
+2024-03-21 23:19:48,839  sqlalchemy.engine.Engine - INFO - ROLLBACK
+2024-03-21 23:19:48,845  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:19:48] "GET /1 HTTP/1.1" 200 -
+2024-03-21 23:19:49,064  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:19:49] "[32mGET /static//css/output.css HTTP/1.1[0m" 308 -
+2024-03-21 23:19:49,096  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:19:49] "GET /static/css/output.css HTTP/1.1" 200 -
+2024-03-21 23:19:49,111  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:19:49] "[36mGET /static/images/placeholder.jpg HTTP/1.1[0m" 304 -
+2024-03-21 23:19:50,680  sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2024-03-21 23:19:50,681  sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.phone_number AS users_phone_number, users.hash AS users_hash, users.salt AS users_salt, users.full_name AS users_full_name, users.profile_picture AS users_profile_picture, users.role AS users_role 
+FROM users 
+WHERE users.id = %(pk_1)s
+2024-03-21 23:19:50,683  sqlalchemy.engine.Engine - INFO - [cached since 4.31s ago] {'pk_1': 1}
+2024-03-21 23:19:50,687  sqlalchemy.engine.Engine - INFO - SELECT workspace.workspace_id AS workspace_workspace_id, workspace.workspace_name AS workspace_workspace_name, workspace.owner_id AS workspace_owner_id 
+FROM workspace 
+WHERE workspace.workspace_id = %(pk_1)s
+2024-03-21 23:19:50,689  sqlalchemy.engine.Engine - INFO - [cached since 1.968s ago] {'pk_1': 1}
+2024-03-21 23:19:50,698  sqlalchemy.engine.Engine - INFO - SELECT tasks.task_id AS tasks_task_id, tasks.task_name AS tasks_task_name, tasks.workspace AS tasks_workspace, tasks.status AS tasks_status, tasks.assigned_user_id AS tasks_assigned_user_id, tasks.assigned_user_email_address AS tasks_assigned_user_email_address, tasks.due_date AS tasks_due_date 
+FROM tasks 
+WHERE tasks.task_id = %(pk_1)s
+2024-03-21 23:19:50,701  sqlalchemy.engine.Engine - INFO - [generated in 0.00354s] {'pk_1': 1}
+2024-03-21 23:19:50,750  sqlalchemy.engine.Engine - INFO - SELECT task_updates.task_update_id AS task_updates_task_update_id, task_updates.message AS task_updates_message, task_updates.date_time_sent AS task_updates_date_time_sent, task_updates.sent_by_user_id AS task_updates_sent_by_user_id, task_updates.task_id AS task_updates_task_id 
+FROM task_updates 
+WHERE %(param_1)s = task_updates.task_id
+2024-03-21 23:19:50,754  sqlalchemy.engine.Engine - INFO - [generated in 0.00365s] {'param_1': 1}
+2024-03-21 23:19:50,764  sqlalchemy.engine.Engine - INFO - ROLLBACK
+2024-03-21 23:19:50,766  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:19:50] "GET /1/1/updates/ HTTP/1.1" 200 -
+2024-03-21 23:19:51,014  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:19:51] "[32mGET /static//css/output.css HTTP/1.1[0m" 308 -
+2024-03-21 23:19:51,040  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:19:51] "[36mGET /static/images/placeholder.jpg HTTP/1.1[0m" 304 -
+2024-03-21 23:19:51,088  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:19:51] "GET /static/css/output.css HTTP/1.1" 200 -
+2024-03-21 23:19:52,339  sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2024-03-21 23:19:52,341  sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.phone_number AS users_phone_number, users.hash AS users_hash, users.salt AS users_salt, users.full_name AS users_full_name, users.profile_picture AS users_profile_picture, users.role AS users_role 
+FROM users 
+WHERE users.id = %(pk_1)s
+2024-03-21 23:19:52,342  sqlalchemy.engine.Engine - INFO - [cached since 5.97s ago] {'pk_1': 1}
+2024-03-21 23:19:52,347  sqlalchemy.engine.Engine - INFO - SELECT workspace.workspace_id AS workspace_workspace_id, workspace.workspace_name AS workspace_workspace_name, workspace.owner_id AS workspace_owner_id 
+FROM workspace 
+WHERE workspace.workspace_id = %(pk_1)s
+2024-03-21 23:19:52,349  sqlalchemy.engine.Engine - INFO - [cached since 3.628s ago] {'pk_1': 1}
+2024-03-21 23:19:52,398  sqlalchemy.engine.Engine - INFO - ROLLBACK
+2024-03-21 23:19:52,400  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:19:52] "GET /1/1/edit_task HTTP/1.1" 200 -
+2024-03-21 23:19:52,649  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:19:52] "[32mGET /static//css/output.css HTTP/1.1[0m" 308 -
+2024-03-21 23:19:52,683  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:19:52] "[36mGET /static/images/placeholder.jpg HTTP/1.1[0m" 304 -
+2024-03-21 23:19:52,702  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:19:52] "GET /static/css/output.css HTTP/1.1" 200 -
+2024-03-21 23:20:07,459  sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2024-03-21 23:20:07,460  sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.phone_number AS users_phone_number, users.hash AS users_hash, users.salt AS users_salt, users.full_name AS users_full_name, users.profile_picture AS users_profile_picture, users.role AS users_role 
+FROM users 
+WHERE users.id = %(pk_1)s
+2024-03-21 23:20:07,462  sqlalchemy.engine.Engine - INFO - [cached since 21.09s ago] {'pk_1': 1}
+2024-03-21 23:20:07,465  sqlalchemy.engine.Engine - INFO - SELECT workspace.workspace_id AS workspace_workspace_id, workspace.workspace_name AS workspace_workspace_name, workspace.owner_id AS workspace_owner_id 
+FROM workspace 
+WHERE workspace.workspace_id = %(pk_1)s
+2024-03-21 23:20:07,468  sqlalchemy.engine.Engine - INFO - [cached since 18.75s ago] {'pk_1': 1}
+2024-03-21 23:20:07,472  sqlalchemy.engine.Engine - INFO - SELECT tasks.task_id AS tasks_task_id, tasks.task_name AS tasks_task_name, tasks.workspace AS tasks_workspace, tasks.status AS tasks_status, tasks.assigned_user_id AS tasks_assigned_user_id, tasks.assigned_user_email_address AS tasks_assigned_user_email_address, tasks.due_date AS tasks_due_date 
+FROM tasks 
+WHERE tasks.task_id = %(pk_1)s
+2024-03-21 23:20:07,475  sqlalchemy.engine.Engine - INFO - [cached since 16.78s ago] {'pk_1': 1}
+2024-03-21 23:20:07,488  sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.phone_number AS users_phone_number, users.hash AS users_hash, users.salt AS users_salt, users.full_name AS users_full_name, users.profile_picture AS users_profile_picture, users.role AS users_role 
+FROM users 
+WHERE users.email = %(email_1)s 
+ LIMIT %(param_1)s
+2024-03-21 23:20:07,493  sqlalchemy.engine.Engine - INFO - [cached since 21.9s ago] {'email_1': 'alex@workspace.com', 'param_1': 1}
+2024-03-21 23:20:07,505  sqlalchemy.engine.Engine - INFO - UPDATE tasks SET assigned_user_id=%(assigned_user_id)s, assigned_user_email_address=%(assigned_user_email_address)s WHERE tasks.task_id = %(tasks_task_id)s
+2024-03-21 23:20:07,506  sqlalchemy.engine.Engine - INFO - [generated in 0.00164s] {'assigned_user_id': None, 'assigned_user_email_address': 'alex@workspace.com', 'tasks_task_id': 1}
+2024-03-21 23:20:07,682  sqlalchemy.engine.Engine - INFO - COMMIT
+2024-03-21 23:20:07,712  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:20:07] "[32mPOST /1/1/edit_task/edit_task_assigned_user HTTP/1.1[0m" 302 -
+2024-03-21 23:20:07,750  sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2024-03-21 23:20:07,751  sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.phone_number AS users_phone_number, users.hash AS users_hash, users.salt AS users_salt, users.full_name AS users_full_name, users.profile_picture AS users_profile_picture, users.role AS users_role 
+FROM users 
+WHERE users.id = %(pk_1)s
+2024-03-21 23:20:07,753  sqlalchemy.engine.Engine - INFO - [cached since 21.38s ago] {'pk_1': 1}
+2024-03-21 23:20:07,757  sqlalchemy.engine.Engine - INFO - SELECT workspace.workspace_id AS workspace_workspace_id, workspace.workspace_name AS workspace_workspace_name, workspace.owner_id AS workspace_owner_id 
+FROM workspace 
+WHERE workspace.workspace_id = %(pk_1)s
+2024-03-21 23:20:07,759  sqlalchemy.engine.Engine - INFO - [cached since 19.04s ago] {'pk_1': 1}
+2024-03-21 23:20:07,768  sqlalchemy.engine.Engine - INFO - ROLLBACK
+2024-03-21 23:20:07,770  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:20:07] "GET /1/1/edit_task HTTP/1.1" 200 -
+2024-03-21 23:20:07,963  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:20:07] "[32mGET /static//css/output.css HTTP/1.1[0m" 308 -
+2024-03-21 23:20:07,992  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:20:07] "GET /static/css/output.css HTTP/1.1" 200 -
+2024-03-21 23:20:08,010  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:20:08] "[36mGET /static/images/placeholder.jpg HTTP/1.1[0m" 304 -
+2024-03-21 23:20:10,330  sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2024-03-21 23:20:10,333  sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.phone_number AS users_phone_number, users.hash AS users_hash, users.salt AS users_salt, users.full_name AS users_full_name, users.profile_picture AS users_profile_picture, users.role AS users_role 
+FROM users 
+WHERE users.id = %(pk_1)s
+2024-03-21 23:20:10,336  sqlalchemy.engine.Engine - INFO - [cached since 23.96s ago] {'pk_1': 1}
+2024-03-21 23:20:10,344  sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.phone_number AS users_phone_number, users.hash AS users_hash, users.salt AS users_salt, users.full_name AS users_full_name, users.profile_picture AS users_profile_picture, users.role AS users_role 
+FROM users 
+WHERE users.role != %(role_1)s
+2024-03-21 23:20:10,347  sqlalchemy.engine.Engine - INFO - [cached since 23.96s ago] {'role_1': 'admin'}
+2024-03-21 23:20:10,351  sqlalchemy.engine.Engine - INFO - SELECT workspace.workspace_id AS workspace_workspace_id, workspace.workspace_name AS workspace_workspace_name, workspace.owner_id AS workspace_owner_id 
+FROM workspace 
+WHERE %(param_1)s = workspace.owner_id
+2024-03-21 23:20:10,352  sqlalchemy.engine.Engine - INFO - [cached since 23.95s ago] {'param_1': 1}
+2024-03-21 23:20:10,357  sqlalchemy.engine.Engine - INFO - ROLLBACK
+2024-03-21 23:20:10,359  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:20:10] "GET /admin HTTP/1.1" 200 -
+2024-03-21 23:20:10,560  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:20:10] "[32mGET /static//css/output.css HTTP/1.1[0m" 308 -
+2024-03-21 23:20:10,586  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:20:10] "GET /static/css/output.css HTTP/1.1" 200 -
+2024-03-21 23:20:10,598  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:20:10] "[36mGET /static/images/placeholder.jpg HTTP/1.1[0m" 304 -
+2024-03-21 23:20:12,517  sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2024-03-21 23:20:12,521  sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.phone_number AS users_phone_number, users.hash AS users_hash, users.salt AS users_salt, users.full_name AS users_full_name, users.profile_picture AS users_profile_picture, users.role AS users_role 
+FROM users 
+WHERE users.id = %(pk_1)s
+2024-03-21 23:20:12,523  sqlalchemy.engine.Engine - INFO - [cached since 26.15s ago] {'pk_1': 1}
+2024-03-21 23:20:12,528  sqlalchemy.engine.Engine - INFO - SELECT workspace.workspace_id AS workspace_workspace_id, workspace.workspace_name AS workspace_workspace_name, workspace.owner_id AS workspace_owner_id 
+FROM workspace 
+WHERE workspace.workspace_id = %(pk_1)s
+2024-03-21 23:20:12,530  sqlalchemy.engine.Engine - INFO - [cached since 23.81s ago] {'pk_1': 1}
+2024-03-21 23:20:12,538  sqlalchemy.engine.Engine - INFO - SELECT tasks.task_id AS tasks_task_id, tasks.task_name AS tasks_task_name, tasks.workspace AS tasks_workspace, tasks.status AS tasks_status, tasks.assigned_user_id AS tasks_assigned_user_id, tasks.assigned_user_email_address AS tasks_assigned_user_email_address, tasks.due_date AS tasks_due_date 
+FROM tasks 
+WHERE %(param_1)s = tasks.workspace
+2024-03-21 23:20:12,542  sqlalchemy.engine.Engine - INFO - [cached since 23.75s ago] {'param_1': 1}
+2024-03-21 23:20:12,546  sqlalchemy.engine.Engine - INFO - ROLLBACK
+2024-03-21 23:20:12,548  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:20:12] "GET /1 HTTP/1.1" 200 -
+2024-03-21 23:20:12,790  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:20:12] "[32mGET /static//css/output.css HTTP/1.1[0m" 308 -
+2024-03-21 23:20:12,822  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:20:12] "GET /static/css/output.css HTTP/1.1" 200 -
+2024-03-21 23:20:12,839  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:20:12] "[36mGET /static/images/placeholder.jpg HTTP/1.1[0m" 304 -
+2024-03-21 23:20:14,742  sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2024-03-21 23:20:14,743  sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.phone_number AS users_phone_number, users.hash AS users_hash, users.salt AS users_salt, users.full_name AS users_full_name, users.profile_picture AS users_profile_picture, users.role AS users_role 
+FROM users 
+WHERE users.id = %(pk_1)s
+2024-03-21 23:20:14,745  sqlalchemy.engine.Engine - INFO - [cached since 28.37s ago] {'pk_1': 1}
+2024-03-21 23:20:14,751  sqlalchemy.engine.Engine - INFO - SELECT workspace.workspace_id AS workspace_workspace_id, workspace.workspace_name AS workspace_workspace_name, workspace.owner_id AS workspace_owner_id 
+FROM workspace 
+WHERE workspace.workspace_id = %(pk_1)s
+2024-03-21 23:20:14,753  sqlalchemy.engine.Engine - INFO - [cached since 26.03s ago] {'pk_1': 1}
+2024-03-21 23:20:14,757  sqlalchemy.engine.Engine - INFO - SELECT tasks.task_id AS tasks_task_id, tasks.task_name AS tasks_task_name, tasks.workspace AS tasks_workspace, tasks.status AS tasks_status, tasks.assigned_user_id AS tasks_assigned_user_id, tasks.assigned_user_email_address AS tasks_assigned_user_email_address, tasks.due_date AS tasks_due_date 
+FROM tasks 
+WHERE tasks.task_id = %(pk_1)s
+2024-03-21 23:20:14,759  sqlalchemy.engine.Engine - INFO - [cached since 24.06s ago] {'pk_1': 1}
+2024-03-21 23:20:14,768  sqlalchemy.engine.Engine - INFO - SELECT task_updates.task_update_id AS task_updates_task_update_id, task_updates.message AS task_updates_message, task_updates.date_time_sent AS task_updates_date_time_sent, task_updates.sent_by_user_id AS task_updates_sent_by_user_id, task_updates.task_id AS task_updates_task_id 
+FROM task_updates 
+WHERE %(param_1)s = task_updates.task_id
+2024-03-21 23:20:14,771  sqlalchemy.engine.Engine - INFO - [cached since 24.02s ago] {'param_1': 1}
+2024-03-21 23:20:14,775  sqlalchemy.engine.Engine - INFO - ROLLBACK
+2024-03-21 23:20:14,777  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:20:14] "GET /1/1/updates/ HTTP/1.1" 200 -
+2024-03-21 23:20:15,048  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:20:15] "[32mGET /static//css/output.css HTTP/1.1[0m" 308 -
+2024-03-21 23:20:15,103  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:20:15] "GET /static/css/output.css HTTP/1.1" 200 -
+2024-03-21 23:20:15,117  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:20:15] "[36mGET /static/images/placeholder.jpg HTTP/1.1[0m" 304 -
+2024-03-21 23:20:19,044  sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2024-03-21 23:20:19,045  sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.phone_number AS users_phone_number, users.hash AS users_hash, users.salt AS users_salt, users.full_name AS users_full_name, users.profile_picture AS users_profile_picture, users.role AS users_role 
+FROM users 
+WHERE users.id = %(pk_1)s
+2024-03-21 23:20:19,048  sqlalchemy.engine.Engine - INFO - [cached since 32.68s ago] {'pk_1': 1}
+2024-03-21 23:20:19,052  sqlalchemy.engine.Engine - INFO - SELECT workspace.workspace_id AS workspace_workspace_id, workspace.workspace_name AS workspace_workspace_name, workspace.owner_id AS workspace_owner_id 
+FROM workspace 
+WHERE workspace.workspace_id = %(pk_1)s
+2024-03-21 23:20:19,054  sqlalchemy.engine.Engine - INFO - [cached since 30.33s ago] {'pk_1': 1}
+2024-03-21 23:20:19,068  sqlalchemy.engine.Engine - INFO - ROLLBACK
+2024-03-21 23:20:19,070  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:20:19] "GET /1/1/edit_task HTTP/1.1" 200 -
+2024-03-21 23:20:19,349  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:20:19] "[32mGET /static//css/output.css HTTP/1.1[0m" 308 -
+2024-03-21 23:20:19,389  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:20:19] "[36mGET /static/images/placeholder.jpg HTTP/1.1[0m" 304 -
+2024-03-21 23:20:19,412  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:20:19] "GET /static/css/output.css HTTP/1.1" 200 -
+2024-03-21 23:20:35,339  sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2024-03-21 23:20:35,342  sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.phone_number AS users_phone_number, users.hash AS users_hash, users.salt AS users_salt, users.full_name AS users_full_name, users.profile_picture AS users_profile_picture, users.role AS users_role 
+FROM users 
+WHERE users.id = %(pk_1)s
+2024-03-21 23:20:35,344  sqlalchemy.engine.Engine - INFO - [cached since 48.97s ago] {'pk_1': 1}
+2024-03-21 23:20:35,347  sqlalchemy.engine.Engine - INFO - SELECT workspace.workspace_id AS workspace_workspace_id, workspace.workspace_name AS workspace_workspace_name, workspace.owner_id AS workspace_owner_id 
+FROM workspace 
+WHERE workspace.workspace_id = %(pk_1)s
+2024-03-21 23:20:35,349  sqlalchemy.engine.Engine - INFO - [cached since 46.63s ago] {'pk_1': 1}
+2024-03-21 23:20:35,354  sqlalchemy.engine.Engine - INFO - SELECT tasks.task_id AS tasks_task_id, tasks.task_name AS tasks_task_name, tasks.workspace AS tasks_workspace, tasks.status AS tasks_status, tasks.assigned_user_id AS tasks_assigned_user_id, tasks.assigned_user_email_address AS tasks_assigned_user_email_address, tasks.due_date AS tasks_due_date 
+FROM tasks 
+WHERE tasks.task_id = %(pk_1)s
+2024-03-21 23:20:35,356  sqlalchemy.engine.Engine - INFO - [cached since 44.66s ago] {'pk_1': 1}
+2024-03-21 23:20:35,361  sqlalchemy.engine.Engine - INFO - ROLLBACK
+2024-03-21 23:20:35,363  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:20:35] "[32mPOST /1/1/edit_task/edit_task_assigned_user HTTP/1.1[0m" 302 -
+2024-03-21 23:20:35,411  sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2024-03-21 23:20:35,412  sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.phone_number AS users_phone_number, users.hash AS users_hash, users.salt AS users_salt, users.full_name AS users_full_name, users.profile_picture AS users_profile_picture, users.role AS users_role 
+FROM users 
+WHERE users.id = %(pk_1)s
+2024-03-21 23:20:35,414  sqlalchemy.engine.Engine - INFO - [cached since 49.04s ago] {'pk_1': 1}
+2024-03-21 23:20:35,418  sqlalchemy.engine.Engine - INFO - SELECT workspace.workspace_id AS workspace_workspace_id, workspace.workspace_name AS workspace_workspace_name, workspace.owner_id AS workspace_owner_id 
+FROM workspace 
+WHERE workspace.workspace_id = %(pk_1)s
+2024-03-21 23:20:35,422  sqlalchemy.engine.Engine - INFO - [cached since 46.7s ago] {'pk_1': 1}
+2024-03-21 23:20:35,434  sqlalchemy.engine.Engine - INFO - ROLLBACK
+2024-03-21 23:20:35,436  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:20:35] "GET /1/1/edit_task HTTP/1.1" 200 -
+2024-03-21 23:20:35,655  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:20:35] "[32mGET /static//css/output.css HTTP/1.1[0m" 308 -
+2024-03-21 23:20:35,678  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:20:35] "GET /static/css/output.css HTTP/1.1" 200 -
+2024-03-21 23:20:35,688  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:20:35] "[36mGET /static/images/placeholder.jpg HTTP/1.1[0m" 304 -
