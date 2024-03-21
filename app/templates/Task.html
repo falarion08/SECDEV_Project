@@ -47,7 +47,7 @@
 
             {% if current_user.role == "admin" %}
                 <div class="flex flex-row gap-4">
-                    <a class="rounded-full bg-btn-dflt font-bold text-white hover:bg-sky-500 ease-linear duration-100 active:bg-btn-dflt p-2 w-32 text-center" href="{{ url_for('adminRoutes.edit_task', workspace_id=workspace_id) }}"> Edit Task </a>
+                    <a class="rounded-full bg-btn-dflt font-bold text-white hover:bg-sky-500 ease-linear duration-100 active:bg-btn-dflt p-2 w-32 text-center" href="{{ url_for('adminRoutes.edit_task', workspace_id=workspace_id, task_id=task_id) }}"> Edit Task </a>
                     <a class="rounded-full bg-btn-dflt font-bold text-white hover:bg-sky-500 ease-linear duration-100 active:bg-btn-dflt p-2 w-32 text-center" href="#"> Delete Task </a>
                 </div>
             {% endif %}

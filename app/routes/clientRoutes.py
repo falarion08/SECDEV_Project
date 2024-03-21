@@ -30,8 +30,6 @@ def client_homepage():
 @client_bp.route("/<int:workspace_id>", methods =["GET","POST"])
 @login_required
 def open_workspace(workspace_id):
-    
-    
     if not current_user.is_authenticated:
         session.pop('_flashes', None)
         flash('You must be logged in to access this page!', 'error-msg')
@@ -41,11 +39,11 @@ def open_workspace(workspace_id):
     if not workspace:
         session.pop('_flashes', None)
         flash("Error occurred while accessing a workspace", 'error-msg')
-        return redirect(url_for('adminRoutes.admin_homepage'))    
-
+        return redirect(url_for('adminRoutes.admin_homepage'))
+    
     return render_template('Workspace.html', workspace_id=workspace_id, workspace=workspace)
 
-@client_bp.route('/<int:workspace_id>/task/updates/<int:task_id>', methods=["GET","POST"])
+@client_bp.route('/<int:workspace_id>/<int:task_id>/updates/', methods=["GET","POST"])
 @login_required 
 def open_task_updates(workspace_id, task_id):
     if not current_user.is_authenticated:
@@ -73,12 +71,12 @@ def open_task_updates(workspace_id, task_id):
         task_update = TaskUpdates(update_form.update.data,current_user,task)
         db.session.add(task_update)
         db.session.commit()
-        return redirect(url_for('clientRoutes.open_task_updates',workspace_id=workspace_id, task_id = task_id))
+        return redirect(url_for('clientRoutes.open_task_updates',workspace_id=workspace_id, task_id=task_id))
         
-    return render_template('Task.html', workspace_id=workspace_id, form=update_form, task=task,view_mode = "UPDATE"
+    return render_template('Task.html', workspace_id=workspace_id, task_id=task_id, form=update_form, task=task,view_mode = "UPDATE"
                            , delete_workspace_form = _delete_workspace_form)
 
-@client_bp.post('/<int:workspace_id>/task/updates/<int:task_id>/delete_update/<int:update_id>')
+@client_bp.post('/<int:workspace_id>/task/updates/<int:task_id>/<int:update_id>/delete_update')
 @login_required
 def delete_update(workspace_id,task_id,update_id):
     
