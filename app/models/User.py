@@ -1,5 +1,5 @@
 from flask_login import UserMixin
-from . import db,Workspace,WorkspaceMembers
+from . import db,Workspace,WorkspaceMembers,Task,TaskUpdates
 
 
 class User(db.Model, UserMixin):
@@ -24,8 +24,10 @@ class User(db.Model, UserMixin):
 
     # Create a one-to-many relationship with Task model and put an invisible columns 'user_assigned_details' to the Task model and 'tasks'in the User Model accessible only via flask
     # Calling this attribute will return an array of all tasks a non-admin user have 
-    tasks = db.relationship('Task', backref = 'user_assigned_details')
-
+    task = db.relationship('Task', backref= 'user_assigned_details')
+    # Create a one-to-many relationship with the TaskUpdate with sent_updates column in the User table and sender_details column on the TaskUpdate 
+    sent_updates = db.relationship('TaskUpdates', backref='sender_details')
+    
 
     def __init__(self, email, hash, salt, phone_number, full_name, profile_picture, role):
         self.email=email

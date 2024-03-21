@@ -29,6 +29,8 @@ def client_homepage():
 @client_bp.route("/<int:workspace_id>", methods =["GET","POST"])
 @login_required
 def open_workspace(workspace_id):
+    
+    
     if not current_user.is_authenticated:
         session.pop('_flashes', None)
         flash('You must be logged in to access this page!', 'error-msg')
@@ -38,16 +40,12 @@ def open_workspace(workspace_id):
     if not workspace:
         session.pop('_flashes', None)
         flash("Error occurred while accessing a workspace", 'error-msg')
-        return redirect(url_for('adminRoutes.admin_homepage'))
-    
-    #TODO: get task data and pass it to frontend
+        return redirect(url_for('adminRoutes.admin_homepage'))    
 
     return render_template('Workspace.html', workspace_id=workspace_id, workspace=workspace)
 
-# @client_bp.route('/<int:workspace_id>/<int:task_id>', methods=["GET","POST"])
 @client_bp.route('/<int:workspace_id>/task', methods=["GET","POST"])
 @login_required 
-# def open_task_updates(workspace_id, task_id):
 def open_task_updates(workspace_id):
     if not current_user.is_authenticated:
         session.pop('_flashes', None)

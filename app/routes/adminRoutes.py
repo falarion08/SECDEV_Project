@@ -5,6 +5,7 @@ from . import admin_bp,login_manager
 from app.models.Task import Task
 from app.models.Workspace import Workspace
 from app.models.WorkspaceMembers import WorkspaceMembers
+from app.models.Task import Task
 from  wtforms import Label
 import app.utils.forms as form
 
@@ -265,22 +266,25 @@ def create_task(workspace_id):
             return redirect(url_for('adminRoutes.admin_homepage'))
     
     if _new_task_form.validate_on_submit():
-        assigned_user =  User.query.filter_by(User.email==_new_task_form.email_address.data)
+        assigned_user =  User.query.filter_by(email=_new_task_form.email_address.data).first()
     
         if not assigned_user:
             session.pop('_flashes',None)
             flash('User does not exist','error-msg')
             return redirect(url_for('adminRoutes.create_task', workspace_id = workspace_id))
         
-        #TODO: add task backend
-
+        # Add task to the backend
+               
+        task = Task(_new_task_form.task_name.data,_new_task_form.email_address.data,_new_task_form.due_date.data,workspace, assigned_user)
+        db.session.add(task)
+        db.session.commit()
+        
         session.pop('_flashes', None)
         flash('Successfully created a task', 'success-msg')
-        return redirect(url_for('adminRoutes.open_workspace',workspace_id = workspace_id))
+        return redirect(url_for('clientRoutes.open_workspace',workspace_id = workspace_id))
 
     return render_template('createTask.html', new_task_form=_new_task_form, workspace_id = workspace_id)
 
-# @admin_bp.route('/<int:workspace_id>/<int:task_id>/edit_task', methods=["GET"])
 @admin_bp.route('/<int:workspace_id>/edit_task', methods=["GET"])
 @login_required 
 def edit_task(workspace_id):

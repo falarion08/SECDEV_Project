@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, FileField, DateField, TextAreaField  
+from wtforms import StringField, PasswordField, SubmitField, FileField, DateField, TextAreaField, SelectField  
 from wtforms.validators import DataRequired, Email, Length
 from flask_wtf.file import FileAllowed, FileField, FileSize
 from flask_wtf.recaptcha import RecaptchaField
@@ -46,6 +46,8 @@ class NewUpdate(FlaskForm):
     update = TextAreaField('Update', validators=[DataRequired(),Length(min=1,max=256)])
     submit = SubmitField('Submit Update')
 
+class updateTaskStatus(FlaskForm):
+    select = SelectField(choices=[('To-Do','To-Do'),('Ongoing','Ongoing'),('Done','Done'),('Revise','Revise')])
 
     
 
