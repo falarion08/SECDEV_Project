@@ -337,43 +337,6 @@ def create_task(workspace_id):
 
     return render_template('createTask.html', new_task_form=_new_task_form, workspace_id = workspace_id)
 
-@admin_bp.route('/<int:workspace_id>/<int:task_id>/edit_task', methods=["GET"])
-@login_required 
-def edit_task(workspace_id, task_id):
-    if not current_user.is_authenticated:
-        session.pop('_flashes', None)
-        flash('You must be logged in to access this page!', 'error-msg')
-        logging.warning(f'An unauthenticated user tried to access /edit_task')
-        return redirect(url_for('landingRoutes.login_page'))
-    
-    if current_user.role != 'admin':
-        session.pop('_flashes', None)
-        flash('You must be authorized to access this page!', 'error-msg')
-        logging.warning(f'[{current_user.email} - {current_user.role}] tried to access /edit_task')
-        return redirect(url_for('clientRoutes.client_homepage'))
-
-    workspace = Workspace.query.get(int(workspace_id))
-    if not workspace:
-            session.pop('_flashes', None)
-            flash("Error occurred while creating a task for a workspace", 'error-msg')
-            return redirect(url_for('adminRoutes.admin_homepage'))
-    
-    # Reuse createWorkspace form for editing task name
-    _updateTaskForm = form.createWorkspace()
-    _updateTaskForm.workspace_name.label = Label(_updateTaskForm.workspace_name.id, 'Task Name')
-    _updateTaskForm.submit.label = Label(_updateTaskForm.submit.id, 'Save Task Name')
-
-    _updateAssignedUserForm = form.addMemberWorkspaceForm()
-    _updateAssignedUserForm.email_address.label = Label(_updateAssignedUserForm.email_address.id, 'Assigned User')
-    _updateAssignedUserForm.submit.label = Label(_updateAssignedUserForm.submit.id, 'Save User')
-
-    _updateDueDateForm = form.UpdateDueDateForm()
-    _updateTaskStatusForm = form.UpdateTaskStatusForm()
-
-    return render_template('editTask.html', workspace_id=workspace_id, task_id=task_id, updateTaskNameForm=_updateTaskForm, 
-                           updateAssignedUserForm=_updateAssignedUserForm, updateDueDateForm=_updateDueDateForm, 
-                           updateTaskStatusForm=_updateTaskStatusForm)
-
 @admin_bp.post('/<int:workspace_id>/<int:task_id>/edit_task/edit_task_name')
 @login_required
 def edit_task_name(workspace_id, task_id):
@@ -408,15 +371,15 @@ def edit_task_name(workspace_id, task_id):
         if not is_valid_task_name:
             session.pop('_flashes',None)
             flash('Task name is invalid','error-msg')
-            return redirect(url_for('adminRoutes.edit_task', workspace_id = workspace_id))
+            return redirect(url_for('clientRoutes.edit_task', workspace_id = workspace_id))
 
         task.task_name = _updateTaskForm.workspace_name.data
         db.session.commit()
         session.pop('_flashes', None)
         flash("Successfully changed the task name", 'success-msg')
-        return redirect(url_for('adminRoutes.edit_task', workspace_id=workspace_id, task_id=task_id))
+        return redirect(url_for('clientRoutes.edit_task', workspace_id=workspace_id, task_id=task_id))
     
-    return redirect(url_for('adminRoutes.edit_task', workspace_id=workspace_id, task_id=task_id))
+    return redirect(url_for('clientRoutes.edit_task', workspace_id=workspace_id, task_id=task_id))
 
 @admin_bp.post('/<int:workspace_id>/<int:task_id>/edit_task/edit_task_assigned_user')
 @login_required
@@ -452,31 +415,31 @@ def edit_task_assigned_user(workspace_id, task_id):
         if not is_valid_assigned_user_email:
             session.pop('_flashes',None)
             flash('Assigned User email is invalid','error-msg')
-            return redirect(url_for('adminRoutes.edit_task', workspace_id = workspace_id))
+            return redirect(url_for('clientRoutes.edit_task', workspace_id = workspace_id))
         
         user = User.query.filter_by(email=_updateAssignedUserForm.email_address.data).first()
         if not user:
             session.pop('_flashes', None)
             flash("Cannot add a user that does not exist.", 'error-msg')
             logging.warning(f'[{current_user.email} - {current_user.role}] tried to assign [{_updateAssignedUserForm.email_address.data}] to task [{task.task_id} - {task.task_name}]')
-            return redirect(url_for('adminRoutes.edit_task', workspace_id=workspace_id, task_id=task_id))
+            return redirect(url_for('clientRoutes.edit_task', workspace_id=workspace_id, task_id=task_id))
         
         member = WorkspaceMembers.query.filter(WorkspaceMembers.member_id==user.id, WorkspaceMembers.workspace_id==workspace.workspace_id).first()
         if not member:
             session.pop('_flashes', None)
             flash("Assigned user must be a part of the workspace.", 'error-msg')
             logging.warning(f'[{current_user.email} - {current_user.role}] tried to assign [{_updateAssignedUserForm.email_address.data}] to task [{task.task_id} - {task.task_name}]')
-            return redirect(url_for('adminRoutes.edit_task', workspace_id=workspace_id, task_id=task_id))
+            return redirect(url_for('clientRoutes.edit_task', workspace_id=workspace_id, task_id=task_id))
         
 
         if task.assigned_user_email_address == _updateAssignedUserForm.email_address.data:
             session.pop('_flashes',None)
             flash('User is already assigned for this task!','error-msg')
-            return redirect(url_for('adminRoutes.edit_task',workspace_id=workspace_id, task_id=task_id))
+            return redirect(url_for('clientRoutes.edit_task',workspace_id=workspace_id, task_id=task_id))
 
         new_assigned_user = User.query.filter_by(email=_updateAssignedUserForm.email_address.data).first()
         
-        logging.warning(f'Admin reassigned {task.assigned_user_email_address} to {new_assigned_user.email} in Task_id: {task_id} from workspace_id: {workspace_id}')     
+        logging.info(f'[{current_user.email} - {current_user.role}] reassigned {task.assigned_user_email_address} to {new_assigned_user.email} in Task_id: {task_id} from workspace_id: {workspace_id}')     
            
         task.assigned_user_email_address =_updateAssignedUserForm.email_address.data
         task.user_assigned_details = new_assigned_user
@@ -485,9 +448,9 @@ def edit_task_assigned_user(workspace_id, task_id):
         db.session.commit()
         session.pop('_flashes', None)
         flash("Successfully changed the task assigned user", 'success-msg')
-        return redirect(url_for('adminRoutes.edit_task', workspace_id=workspace_id, task_id=task_id))
+        return redirect(url_for('clientRoutes.edit_task', workspace_id=workspace_id, task_id=task_id))
     
-    return redirect(url_for('adminRoutes.edit_task', workspace_id=workspace_id, task_id=task_id))
+    return redirect(url_for('clientRoutes.edit_task', workspace_id=workspace_id, task_id=task_id))
 
 @admin_bp.post('/<int:workspace_id>/<int:task_id>/edit_task/edit_task_due_date')
 @login_required
@@ -523,48 +486,9 @@ def edit_task_due_date(workspace_id, task_id):
         db.session.commit()
         session.pop('_flashes', None)
         flash("Successfully changed the task due date", 'success-msg')
-        return redirect(url_for('adminRoutes.edit_task', workspace_id=workspace_id, task_id=task_id))
+        return redirect(url_for('clientRoutes.edit_task', workspace_id=workspace_id, task_id=task_id))
                                 
-    return redirect(url_for('adminRoutes.edit_task', workspace_id=workspace_id, task_id=task_id))
-
-@admin_bp.post('/<int:workspace_id>/<int:task_id>/edit_task/edit_task_status')
-@login_required
-def edit_task_status(workspace_id, task_id):
-    if not current_user.is_authenticated:
-        session.pop('_flashes', None)
-        flash('You must be logged in to access this page!', 'error-msg')
-        logging.warning(f'An unauthenticated user tried to access /edit_task_due_date')
-        return redirect(url_for('landingRoutes.login_page'))
-    
-    if current_user.role != 'admin':
-        session.pop('_flashes', None)
-        flash('You must be authorized to access this page!', 'error-msg')
-        logging.warning(f'[{current_user.email} - {current_user.role}] tried to access /edit_task_due_date')
-        return redirect(url_for('clientRoutes.client_homepage'))
-
-    workspace = Workspace.query.get(int(workspace_id))
-    if not workspace:
-        session.pop('_flashes', None)
-        flash("Error occurred while editing a workspace", 'error-msg')
-        return redirect(url_for('adminRoutes.admin_homepage'))
-    
-    task = Task.query.get(int(task_id))
-    if not task:
-        session.pop('_flashes', None)
-        flash("Error occurred while editing a task", 'error-msg')
-        return redirect(url_for('clientRoutes.open_workspace', workspace_id=workspace_id))
-
-    _updateTaskStatusForm = form.UpdateTaskStatusForm(request.form)
-    
-    if _updateTaskStatusForm.validate_on_submit():
-        task.status = _updateTaskStatusForm.status.data
-        db.session.commit()
-        session.pop('_flashes', None)
-        flash("Successfully changed the task status", 'success-msg')
-        return redirect(url_for('adminRoutes.edit_task', workspace_id=workspace_id, task_id=task_id))
-                                
-    return redirect(url_for('adminRoutes.edit_task', workspace_id=workspace_id, task_id=task_id))
-
+    return redirect(url_for('clientRoutes.edit_task', workspace_id=workspace_id, task_id=task_id))
 
 @admin_bp.post('/<int:workspace_id>/<int:task_id>/delete_task')
 @login_required

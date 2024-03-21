@@ -45,15 +45,18 @@
         <div class="flex flex-row w-full justify-between pt-3">
             <h2 class="text-2xl font-bold"> Status: {{task.status}}</h2>
 
-            {% if current_user.role == "admin" %}
-                <div class="flex flex-row gap-4">
-                    <a class="rounded-full bg-btn-dflt font-bold text-white hover:bg-sky-500 ease-linear duration-100 active:bg-btn-dflt p-2 w-32 text-center" href="{{ url_for('adminRoutes.edit_task', workspace_id=workspace_id, task_id=task_id) }}"> Edit Task </a>
+            <div class="flex flex-row gap-4">
+                {% if current_user.role == "admin" %}
+                <a class="rounded-full bg-btn-dflt font-bold text-white hover:bg-sky-500 ease-linear duration-100 active:bg-btn-dflt p-2 w-32 text-center" href="{{ url_for('clientRoutes.edit_task', workspace_id=workspace_id, task_id=task_id) }}"> Edit Task </a>
                     <form action="{{url_for('adminRoutes.delete_task',workspace_id=workspace_id, task_id=task_id)}}" method="POST">
                         {{delete_task_form.csrf_token}}
                         {{delete_task_form.submit(class="rounded-full bg-btn-dflt font-bold text-white hover:bg-sky-500 ease-linear duration-100 hover:cursor-pointer active:bg-btn-dflt p-2 w-32 text-center")}}
                     </form>
-                </div>
-            {% endif %}
+                {% else %}
+                    <a class="rounded-full bg-btn-dflt font-bold text-white hover:bg-sky-500 ease-linear duration-100 active:bg-btn-dflt p-2 w-32 text-center" href="{{ url_for('clientRoutes.edit_task', workspace_id=workspace_id, task_id=task_id) }}"> Edit Status </a>
+                {% endif %}
+            </div>
+            
         </div>
 
         <h2 class="text-2xl font-bold"> Assigned: {{ task.assigned_user_email_address }} </h2>

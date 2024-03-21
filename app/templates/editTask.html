@@ -45,28 +45,30 @@
         
         <div class="grid grid-rows-3 w-3/4 gap-4">
 
-            <form class="grid grid-cols-4 gap-4" action="{{ url_for('adminRoutes.edit_task_name', workspace_id=workspace_id, task_id=task_id) }}" method="POST">
-                {{ updateTaskNameForm.csrf_token }}
-                {{ updateTaskNameForm.workspace_name.label(class="font-bold text-2xl self-center col-span-1") }}
-                {{ updateTaskNameForm.workspace_name(class="p-2 bg-gray-300 outline-none rounded h-8 self-center col-span-2") }}
-                {{ updateTaskNameForm.submit(class="self-center rounded-full bg-btn-dflt font-bold text-white text-lg ease-linear duration-100 hover:cursor-pointer hover:bg-sky-500 active:bg-btn-dflt px-6 py-2") }}
-            </form>
+            {% if current_user.role == 'admin' %}
+                <form class="grid grid-cols-4 gap-4" action="{{ url_for('adminRoutes.edit_task_name', workspace_id=workspace_id, task_id=task_id) }}" method="POST">
+                    {{ updateTaskNameForm.csrf_token }}
+                    {{ updateTaskNameForm.workspace_name.label(class="font-bold text-2xl self-center col-span-1") }}
+                    {{ updateTaskNameForm.workspace_name(class="p-2 bg-gray-300 outline-none rounded h-8 self-center col-span-2") }}
+                    {{ updateTaskNameForm.submit(class="self-center rounded-full bg-btn-dflt font-bold text-white text-lg ease-linear duration-100 hover:cursor-pointer hover:bg-sky-500 active:bg-btn-dflt px-6 py-2") }}
+                </form>
 
-            <form class="grid grid-cols-4 gap-4" action="{{ url_for('adminRoutes.edit_task_assigned_user', workspace_id=workspace_id, task_id=task_id) }}" method="POST">
-                {{ updateAssignedUserForm.csrf_token }}
-                {{ updateAssignedUserForm.email_address.label(class="self-center font-bold text-2xl col-span-1") }}
-                {{ updateAssignedUserForm.email_address(class="self-center p-2 bg-gray-300 outline-none rounded h-8 col-span-2") }}
-                {{ updateAssignedUserForm.submit(class="self-center rounded-full bg-btn-dflt font-bold text-white text-lg ease-linear duration-100 hover:cursor-pointer hover:bg-sky-500 active:bg-btn-dflt px-6 py-2") }}
-            </form>
+                <form class="grid grid-cols-4 gap-4" action="{{ url_for('adminRoutes.edit_task_assigned_user', workspace_id=workspace_id, task_id=task_id) }}" method="POST">
+                    {{ updateAssignedUserForm.csrf_token }}
+                    {{ updateAssignedUserForm.email_address.label(class="self-center font-bold text-2xl col-span-1") }}
+                    {{ updateAssignedUserForm.email_address(class="self-center p-2 bg-gray-300 outline-none rounded h-8 col-span-2") }}
+                    {{ updateAssignedUserForm.submit(class="self-center rounded-full bg-btn-dflt font-bold text-white text-lg ease-linear duration-100 hover:cursor-pointer hover:bg-sky-500 active:bg-btn-dflt px-6 py-2") }}
+                </form>
 
-            <form class="grid grid-cols-4 gap-4" action="{{ url_for('adminRoutes.edit_task_due_date', workspace_id=workspace_id, task_id=task_id) }}" method="POST">
-                {{ updateDueDateForm.csrf_token }}
-                {{ updateDueDateForm.due_date.label(class="self-center font-bold text-2xl col-span-1") }}
-                {{ updateDueDateForm.due_date(class="self-center p-2 bg-gray-300 outline-none rounded h-8 col-span-1") }}
-                {{ updateDueDateForm.submit(class="col-start-4 self-center rounded-full bg-btn-dflt font-bold text-white text-lg ease-linear duration-100 hover:cursor-pointer hover:bg-sky-500 active:bg-btn-dflt px-6 py-2") }}
-            </form>
+                <form class="grid grid-cols-4 gap-4" action="{{ url_for('adminRoutes.edit_task_due_date', workspace_id=workspace_id, task_id=task_id) }}" method="POST">
+                    {{ updateDueDateForm.csrf_token }}
+                    {{ updateDueDateForm.due_date.label(class="self-center font-bold text-2xl col-span-1") }}
+                    {{ updateDueDateForm.due_date(class="self-center p-2 bg-gray-300 outline-none rounded h-8 col-span-1") }}
+                    {{ updateDueDateForm.submit(class="col-start-4 self-center rounded-full bg-btn-dflt font-bold text-white text-lg ease-linear duration-100 hover:cursor-pointer hover:bg-sky-500 active:bg-btn-dflt px-6 py-2") }}
+                </form>
+            {% endif %}
 
-            <form class="grid grid-cols-4 gap-4" action="{{ url_for('adminRoutes.edit_task_status', workspace_id=workspace_id, task_id=task_id) }}" method="POST">
+            <form class="grid grid-cols-4 gap-4" action="{{ url_for('clientRoutes.edit_task_status', workspace_id=workspace_id, task_id=task_id) }}" method="POST">
                 {{ updateTaskStatusForm.csrf_token }}
                 {{ updateTaskStatusForm.status.label(class="self-center font-bold text-2xl col-span-1") }}
                 {{ updateTaskStatusForm.status(class="font-bold text-lg flex flex-row self-center justify-between h-8 col-span-2") }}
