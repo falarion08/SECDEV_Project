@@ -63,48 +63,19 @@
         <h2 class="text-2xl font-bold pt-3"> Due Date: {{ task.due_date }} </h2>
 
         <div class="flex flex-row pt-3">
-            <a class="rounded-tl-md bg-btn-dflt font-bold text-white hover:bg-sky-500 ease-linear duration-100 active:bg-btn-dflt p-2 w-32 text-center" href="#"> Updates </a>
-            <a class="rounded-tr-md bg-btn-dflt font-bold text-white hover:bg-sky-500 ease-linear duration-100 active:bg-btn-dflt p-2 w-32 text-center" href="{{ url_for('clientRoutes.open_task_files', workspace_id=workspace_id, task_id=task_id) }}"> Files </a>
+            <a class="rounded-tl-md bg-btn-dflt font-bold text-white hover:bg-sky-500 ease-linear duration-100 active:bg-btn-dflt p-2 w-32 text-center" href="{{ url_for('clientRoutes.open_task_updates', workspace_id=workspace_id, task_id=task_id) }}"> Updates </a>
+            <a class="rounded-tr-md bg-btn-dflt font-bold text-white hover:bg-sky-500 ease-linear duration-100 active:bg-btn-dflt p-2 w-32 text-center" href="#"> Files </a>
         </div>
 
         <hr class="bg-black border-2 border-black">
 
-        <form class="flex flex-col pt-8 pb-8" action="{{ url_for('clientRoutes.write_update', workspace_id=workspace_id, task_id=task_id) }}" method="POST">
-            {{ update_form.csrf_token }}
-            {{ update_form.update(class="p-2 bg-gray-300 outline-none rounded-3xl h-16 resize-none placeholder:text-center", placeholder="Enter An Update Here") }}
-            {{ update_form.submit(class="w-32 p-2 mt-3 self-end rounded-full bg-btn-dflt font-bold text-white text-center ease-linear duration-100 hover:bg-sky-500 hover:cursor-pointer active:bg-btn-dflt") }}
-        </form>
-
-        {% if task.task_updates %}
-        {% for update in task.task_updates %}
-            <div class="flex flex-col px-2 pt-2 bg-gray-300 rounded-xl my-4">
-                <div class="flex flex-row w-full justify-between">
-                    <p class="font-bold text-black"> {{update.sender_details.full_name}} - {{update.sender_details.role}} </p>
-                    <div class="flex flex-row gap-4">
-                        {% if update.edited %}
-                            <p class="font-bold text-black"> (edited) </p>
-                        {% endif %}
-                        <p class="font-bold text-black"> {{update.date_time_sent}} </p>
-                    </div>
-                </div>
-            
-                <p class="font-bold text-black py-6"> {{update.message}} </p>
-
-                {% if current_user == update.sender_details %} 
-                    <div class="flex self-end pr-2">
-                        <a class="inline-block w-24 rounded-tl-md bg-btn-dflt font-bold text-white text-center hover:bg-sky-500 ease-linear duration-100 active:bg-btn-dflt" href="{{ url_for('clientRoutes.edit_update', workspace_id=workspace_id, task_id=task_id, update_id=update.task_update_id) }}"> Edit </a>
-                            <form class="inline-block" action="{{url_for('clientRoutes.delete_update',workspace_id=workspace_id, task_id=task_id,update_id=update.task_update_id)}}" method="POST">
-                                {{delete_update_form.csrf_token}}
-                                {{delete_update_form.submit(class="w-24 rounded-tr-md bg-btn-dflt font-bold text-white text-center hover:cursor-pointer hover:bg-sky-500 ease-linear duration-100 active:bg-btn-dflt")}}
-                            </form>
-                    </div>
-                {% endif %}
-                
-            </div>
-            {% endfor %}
-        {% else %}
-            <h2 class="font-bold text-center p-4 "> This task currently has no updates. </h2>
-        {% endif %}
+        <div class="pt-8 w-full">
+            <form class="flex flex-col gap-8" action="{{ url_for('clientRoutes.open_task_files', workspace_id=workspace_id, task_id=task_id) }}" method="POST">
+                {{ new_file_form.csrf_token }}
+                {{ new_file_form.document(class="") }}
+                {{ new_file_form.submit(class="self-end rounded-md bg-btn-dflt font-bold text-white hover:bg-sky-500 ease-linear duration-100 hover:cursor-pointer active:bg-btn-dflt p-2 w-32 text-center") }}
+            </form>
+        </div>
     </div>
 </div>
 

@@ -1,4 +1,5 @@
 from flask import render_template, flash, redirect, url_for, session,request
+from markupsafe import escape
 from flask_login import login_required, current_user
 from app.models.User import db, User
 from . import client_bp, login_manager
@@ -174,7 +175,7 @@ def write_update(workspace_id, task_id):
     update_form = form.NewUpdate()
     if update_form.validate_on_submit():
         try:
-            task_update = TaskUpdates(update_form.update.data, current_user, task)
+            task_update = TaskUpdates(escape(update_form.update.data), current_user, task)
             db.session.add(task_update)
             db.session.commit()
         except:
@@ -265,7 +266,7 @@ def edit_update(workspace_id, task_id, update_id):
     edit_update_form = form.NewUpdate()
     if edit_update_form.validate_on_submit():
         try:
-            update.message = edit_update_form.update.data
+            update.message = escape(edit_update_form.update.data)
             update.date_time_sent = func.now()
             update.edited = True
             db.session.commit()
@@ -278,3 +279,34 @@ def edit_update(workspace_id, task_id, update_id):
             flash("An error occurred while editing a comment", 'error-msg')
             return redirect(url_for('clientRoutes.open_task_updates',workspace_id=workspace_id, task_id=task_id))
     return render_template('editUpdate.html', workspace_id=workspace_id, task_id=task_id, update_id=update_id, edit_update_form=edit_update_form)
+
+@client_bp.route('/<int:workspace_id>/<int:task_id>/files/', methods=["GET"])
+@login_required 
+def open_task_files(workspace_id, task_id):
+    if not current_user.is_authenticated:
+        session.pop('_flashes', None)
+        flash('You must be logged in to access this page!', 'error-msg')
+        logging.warning(f'An unauthenticated user tried to access /updates')
+        return redirect(url_for('landingRoutes.login_page'))
+
+    workspace = Workspace.query.get(int(workspace_id))
+    if not workspace:
+        session.pop('_flashes', None)
+        flash("Error occurred while accessing a workspace", 'error-msg')
+        return redirect(url_for('adminRoutes.admin_homepage'))
+    
+    task = Task.query.get(int(task_id))
+    if not task:
+        session.pop('_flashes', None)
+        flash("Error occurred while accessing a task", 'error-msg')
+        return redirect(url_for('clientRoutes.open_workspace', workspace_id=workspace_id))
+    
+    _delete_task_form = form.deleteForm()
+    _delete_task_form.submit.label = Label(_delete_task_form.submit.id, "Delete Task")
+
+    _new_file_form = form.NewFile()
+
+    #TODO: validate file with fleep
+        
+    return render_template('TaskFiles.html', workspace_id=workspace_id, task_id=task_id, task=task, view_mode = "UPDATE", 
+                           delete_task_form=_delete_task_form, new_file_form=_new_file_form)

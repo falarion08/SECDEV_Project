@@ -51,6 +51,9 @@ class NewUpdate(FlaskForm):
     update = TextAreaField('Update', validators=[DataRequired(),Length(min=1,max=256)])
     submit = SubmitField('Submit Update')
 
+class NewFile(FlaskForm):
+    document = FileField('Select File', validators=[FileAllowed(['doc', 'docx', 'pdf']), FileSize(max_size=400000)])
+    submit = SubmitField('Upload File')
 
 
     
