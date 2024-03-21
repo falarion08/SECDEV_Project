@@ -56,7 +56,7 @@ def open_task_updates(workspace_id, task_id):
     task = Task.query.get(int(task_id))
     
     _delete_update_form = form.deleteForm()
-    _delete_update_form.submit.label = Label(_delete_update_form.submit.id, "Delete Update")
+    _delete_update_form.submit.label = Label(_delete_update_form.submit.id, "Delete")
 
     _delete_task_form = form.deleteForm()
     _delete_task_form.submit.label = Label(_delete_task_form.submit.id, "Delete Task")
