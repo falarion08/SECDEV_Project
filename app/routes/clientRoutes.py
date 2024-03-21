@@ -3,6 +3,7 @@ from flask_login import login_required, current_user
 from app.models.User import db, User
 from . import client_bp, login_manager
 from app.models.Task import Task
+from app.models.TaskUpdates import TaskUpdates
 from app.models.Workspace import Workspace
 from app.models.WorkspaceMembers import WorkspaceMembers
 from  wtforms import Label
@@ -65,5 +66,11 @@ def open_task_updates(workspace_id, task_id):
         flash("Error occurred while accessing a task", 'error-msg')
         return redirect(url_for('adminRoutes.open_workspace', workspace_id=workspace_id))
 
-    return render_template('Task.html', workspace_id=workspace_id, form=update_form)
+    if update_form.validate_on_submit():
+        task_update = TaskUpdates(update_form.update.data,current_user,task)
+        db.session.add(task_update)
+        db.session.commit()
+        return redirect(url_for('clientRoutes.open_task_updates',workspace_id=workspace_id, task_id = task_id))
+        
+    return render_template('Task.html', workspace_id=workspace_id, form=update_form, task=task,view_mode = "UPDATE")
 
