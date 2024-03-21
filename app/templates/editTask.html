@@ -65,6 +65,13 @@
                 {{ updateDueDateForm.due_date(class="self-center p-2 bg-gray-300 outline-none rounded h-8 col-span-1") }}
                 {{ updateDueDateForm.submit(class="col-start-4 self-center rounded-full bg-btn-dflt font-bold text-white text-lg ease-linear duration-100 hover:cursor-pointer hover:bg-sky-500 active:bg-btn-dflt px-6 py-2") }}
             </form>
+
+            <form class="grid grid-cols-4 gap-4" action="{{ url_for('adminRoutes.edit_task_status', workspace_id=workspace_id, task_id=task_id) }}" method="POST">
+                {{ updateTaskStatusForm.csrf_token }}
+                {{ updateTaskStatusForm.status.label(class="self-center font-bold text-2xl col-span-1") }}
+                {{ updateTaskStatusForm.status(class="font-bold text-lg flex flex-row self-center justify-between h-8 col-span-2") }}
+                {{ updateTaskStatusForm.submit(class="col-start-4 self-center rounded-full bg-btn-dflt font-bold text-white text-lg ease-linear duration-100 hover:cursor-pointer hover:bg-sky-500 active:bg-btn-dflt px-6 py-2") }}
+            </form>
         </div>
     </div>
 </div>

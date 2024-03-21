@@ -83,11 +83,16 @@ def open_task_updates(workspace_id, task_id):
 @login_required
 def delete_update(workspace_id,task_id,update_id):
     
-    if form.deleteForm(request.form).validate_on_submit():
-        db.session.delete(TaskUpdates.query.get(int(update_id)))
-        db.session.commit()
-        session.pop('_flashes', None)
-        flash("Error occurred while accessing a task", 'error-msg')
-        
+    _deleteUpdateForm = form.deleteForm(request.form)
+    if _deleteUpdateForm.validate_on_submit():
+        try:
+            db.session.delete(TaskUpdates.query.get(int(update_id)))
+            db.session.commit()
+            session.pop('_flashes', None)
+            flash("Successfully deleted an update", 'success-msg')
+        except:
+            session.pop('_flashes', None)
+            flash("An error occured while deleting an update", 'error-msg')
+
     return redirect(url_for('clientRoutes.open_task_updates', workspace_id=workspace_id,task_id = task_id))
 

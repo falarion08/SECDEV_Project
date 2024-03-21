@@ -38,7 +38,7 @@
         <h1 class="text-4xl font-bold text-center py-6"> Create Task </h1>
         
         <form class="flex flex-col" action="{{url_for('adminRoutes.create_task', workspace_id=workspace_id)}}" method="POST">
-            <div class="w-2/3 grid grid-flow-row-dense grid-cols-3 grid-rows-3 gap-4"> 
+            <div class="w-2/3 grid grid-flow-row grid-cols-3 grid-rows-4 gap-4"> 
                 {{ new_task_form.csrf_token }}
 
                 {{ new_task_form.task_name.label(class="font-bold text-2xl col-span-1") }}
@@ -49,6 +49,12 @@
 
                 {{ new_task_form.due_date.label(class="font-bold text-2xl col-span-1") }}
                 {{ new_task_form.due_date(class="border border-black h-8 col-span-1") }}
+
+                <div></div>
+
+                {{ new_task_form.status.label(class="font-bold text-2xl ") }}
+                {{ new_task_form.status(class="font-bold text-lg col-span-2 flex flex-row justify-between self-center") }}
+
             </div>
             <div class="w-1/2 self-center grid grid-cols-2 pt-16">
                 {{ new_task_form.submit(class="w-4/5 p-3 rounded-lg bg-btn-dflt font-bold text-white text-lg duration-100 hover:cursor-pointer hover:bg-sky-500 active:bg-btn-dflt") }}

@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, FileField, DateField, TextAreaField, SelectField  
+from wtforms import StringField, PasswordField, SubmitField, FileField, DateField, TextAreaField, RadioField
 from wtforms.validators import DataRequired, Email, Length
 from flask_wtf.file import FileAllowed, FileField, FileSize
 from flask_wtf.recaptcha import RecaptchaField
@@ -34,7 +34,8 @@ class addMemberWorkspaceForm(FlaskForm):
     
 class NewTask(FlaskForm):
     task_name= StringField('Task Name', validators=[DataRequired(),Length(min=1,max=80)])
-    email_address = StringField('Assigned User', validators=[DataRequired(), Email()]) 
+    email_address = StringField('Assigned User', validators=[DataRequired(), Email()])
+    status = RadioField('Status', choices=[('To-Do','To-Do'),('Ongoing','Ongoing'),('Done','Done'),('Revise','Revise')])
     due_date  = DateField('Due Date')
     submit = SubmitField('Save Task')
 
@@ -42,12 +43,15 @@ class UpdateDueDateForm(FlaskForm):
     due_date = DateField('Due Date')
     submit = SubmitField('Save Due Date')
 
+class UpdateTaskStatusForm(FlaskForm):
+    status = RadioField('Status', choices=[('To-Do','To-Do'),('Ongoing','Ongoing'),('Done','Done'),('Revise','Revise')])
+    submit = SubmitField('Save Status')
+
 class NewUpdate(FlaskForm):
     update = TextAreaField('Update', validators=[DataRequired(),Length(min=1,max=256)])
     submit = SubmitField('Submit Update')
 
-class updateTaskStatus(FlaskForm):
-    select = SelectField(choices=[('To-Do','To-Do'),('Ongoing','Ongoing'),('Done','Done'),('Revise','Revise')])
+
 
     
 
