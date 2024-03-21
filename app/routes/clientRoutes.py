@@ -8,6 +8,7 @@ from app.models.Workspace import Workspace
 from app.models.WorkspaceMembers import WorkspaceMembers
 from  wtforms import Label
 import app.utils.forms as form
+from sqlalchemy import func
 import logging
 
 logging.basicConfig(filename='sys.log', filemode='a', format='%(asctime)s  %(name)s - %(levelname)s - %(message)s',level=logging.DEBUG)
@@ -202,20 +203,25 @@ def delete_update(workspace_id,task_id,update_id):
         flash("Error occurred while editing a task", 'error-msg')
         return redirect(url_for('clientRoutes.open_workspace', workspace_id=workspace_id))
     
+    update = TaskUpdates.query.get(int(update_id))
+    if not update:
+        session.pop('_flashes', None)
+        flash("Error occurred while editing a comment", 'error-msg')
+        return redirect(url_for('clientRoutes.open_task_updates', workspace_id=workspace_id, task_id=task_id))
+    
     _deleteUpdateForm = form.deleteForm(request.form)
     if _deleteUpdateForm.validate_on_submit():
         try:
-            comment = TaskUpdates.query.get(int(update_id))
-            if current_user != comment.sender_details:
+            if current_user != update.sender_details:
                 session.pop('_flashes', None)
-                logging.info(f'[{current_user.email} - {current_user.id}] tried deleting comment [{comment.message} - {comment.task_update_id}] by [{comment.sender_details.email} - {comment.sender_details.id}]')
-                flash("Successfully deleted an update", 'success-msg')
+                logging.info(f'[{current_user.email} - {current_user.id}] tried deleting comment [{update.message} - {update.task_update_id}] by [{update.sender_details.email} - {update.sender_details.id}]')
+                flash("Successfully deleted a comment", 'success-msg')
             
-            db.session.delete(comment)
+            db.session.delete(update)
             db.session.commit()
             session.pop('_flashes', None)
             logging.info(f'[{current_user.email} - {current_user.id}] deleted a comment in task [{task.task_name} - {task.task_id}] in workspace [{workspace.workspace_name} - {workspace.workspace_id}] []')
-            flash("Successfully deleted an update", 'success-msg')
+            flash("Successfully deleted a comment", 'success-msg')
         except:
             session.pop('_flashes', None)
             flash("An error occured while deleting an update", 'error-msg')
@@ -223,3 +229,52 @@ def delete_update(workspace_id,task_id,update_id):
 
     return redirect(url_for('clientRoutes.open_task_updates', workspace_id=workspace_id,task_id=task_id))
 
+
+@client_bp.route('/<int:workspace_id>/<int:task_id>/updates/<int:update_id>/edit_update', methods=["GET", "POST"])
+@login_required
+def edit_update(workspace_id, task_id, update_id):
+    if not current_user.is_authenticated:
+        session.pop('_flashes', None)
+        flash('You must be logged in to access this page!', 'error-msg')
+        logging.warning(f'An unauthenticated user tried to access /write_update')
+        return redirect(url_for('landingRoutes.login_page'))
+    
+    workspace = Workspace.query.get(int(workspace_id))
+    if not workspace:
+        session.pop('_flashes', None)
+        flash("Error occurred while editing a workspace", 'error-msg')
+        return redirect(url_for('adminRoutes.admin_homepage'))
+    
+    task = Task.query.get(int(task_id))
+    if not task:
+        session.pop('_flashes', None)
+        flash("Error occurred while editing a task", 'error-msg')
+        return redirect(url_for('clientRoutes.open_workspace', workspace_id=workspace_id))
+    
+    update = TaskUpdates.query.get(int(update_id))
+    if not update:
+        session.pop('_flashes', None)
+        flash("Error occurred while editing a comment", 'error-msg')
+        return redirect(url_for('clientRoutes.open_task_updates', workspace_id=workspace_id, task_id=task_id))
+    
+    if current_user != update.sender_details:
+        session.pop('_flashes', None)
+        flash("Cannot edit other user's comments", 'error-msg')
+        return redirect(url_for('clientRoutes.open_task_updates', workspace_id=workspace_id, task_id=task_id))
+
+    edit_update_form = form.NewUpdate()
+    if edit_update_form.validate_on_submit():
+        try:
+            update.message = edit_update_form.update.data
+            update.date_time_sent = func.now()
+            update.edited = True
+            db.session.commit()
+            logging.info(f'[{current_user.email} - {current_user.id}] edited a comment [ID: {update.task_update_id}] in task [{task.task_name} - {task.task_id}] in workspace [{workspace.workspace_name} - {workspace.workspace_id}] []')
+            session.pop('_flashes', None)
+            flash("Successfully edited a comment", 'success-msg')
+            return redirect(url_for('clientRoutes.open_task_updates',workspace_id=workspace_id, task_id=task_id))
+        except:
+            session.pop('_flashes', None)
+            flash("An error occurred while editing a comment", 'error-msg')
+            return redirect(url_for('clientRoutes.open_task_updates',workspace_id=workspace_id, task_id=task_id))
+    return render_template('editUpdate.html', workspace_id=workspace_id, task_id=task_id, update_id=update_id, edit_update_form=edit_update_form)

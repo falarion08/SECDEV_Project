@@ -7,6 +7,7 @@ class TaskUpdates(db.Model):
     task_update_id = db.Column(db.Integer, primary_key = True, autoincrement= True, unique = True)
     message = db.Column(db.String(256), nullable= False)
     date_time_sent = db.Column(db.DateTime,nullable=False, server_default=func.now())
+    edited = db.Column(db.Boolean, default=False, nullable=True)
 
     # Reference the table users and set the foreign key value as user_id
     sent_by_user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
