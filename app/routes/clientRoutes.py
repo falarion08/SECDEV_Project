@@ -16,7 +16,7 @@ logging.basicConfig(filename='sys.log', filemode='a', format='%(asctime)s  %(nam
 def load_user(id):
     return User.query.get(int(id))
 
-@client_bp.route('/dashboard', methods=["GET", "POST"])
+@client_bp.route('/dashboard', methods=["GET"])
 @login_required
 def client_homepage():
     if not current_user.is_authenticated:
@@ -31,7 +31,7 @@ def client_homepage():
 
     return render_template('dashboard.html', user_fullName = current_user.full_name, workspaces=_workspaces)
 
-@client_bp.route("/<int:workspace_id>", methods =["GET","POST"])
+@client_bp.route("/<int:workspace_id>", methods=["GET"])
 @login_required
 def open_workspace(workspace_id):
     if not current_user.is_authenticated:
@@ -48,7 +48,8 @@ def open_workspace(workspace_id):
     
     return render_template('Workspace.html', workspace_id=workspace_id, workspace=workspace)
 
-@client_bp.route('/<int:workspace_id>/<int:task_id>/updates/', methods=["GET","POST"])
+
+@client_bp.route('/<int:workspace_id>/<int:task_id>/updates/', methods=["GET"])
 @login_required 
 def open_task_updates(workspace_id, task_id):
     if not current_user.is_authenticated:
@@ -58,34 +59,62 @@ def open_task_updates(workspace_id, task_id):
         return redirect(url_for('landingRoutes.login_page'))
 
     workspace = Workspace.query.get(int(workspace_id))
-    update_form = form.NewUpdate()
-    task = Task.query.get(int(task_id))
+    if not workspace:
+        session.pop('_flashes', None)
+        flash("Error occurred while accessing a workspace", 'error-msg')
+        return redirect(url_for('adminRoutes.admin_homepage'))
     
+    task = Task.query.get(int(task_id))
+    if not task:
+        session.pop('_flashes', None)
+        flash("Error occurred while accessing a task", 'error-msg')
+        return redirect(url_for('clientRoutes.open_workspace', workspace_id=workspace_id))
+    
+    update_form = form.NewUpdate()
+
     _delete_update_form = form.deleteForm()
     _delete_update_form.submit.label = Label(_delete_update_form.submit.id, "Delete")
 
     _delete_task_form = form.deleteForm()
     _delete_task_form.submit.label = Label(_delete_task_form.submit.id, "Delete Task")
-
-    if not workspace:
-        session.pop('_flashes', None)
-        flash("Error occurred while accessing a workspace", 'error-msg')
-        return redirect(url_for('adminRoutes.admin_homepage'))
-    if not task:
-        session.pop('_flashes', None)
-        flash("Error occurred while accessing a task", 'error-msg')
-        return redirect(url_for('clientRoutes.open_workspace', workspace_id=workspace_id))
-
-    if update_form.validate_on_submit():
-        task_update = TaskUpdates(update_form.update.data,current_user,task)
-        db.session.add(task_update)
-        db.session.commit()
-        return redirect(url_for('clientRoutes.open_task_updates',workspace_id=workspace_id, task_id=task_id))
         
-    return render_template('Task.html', workspace_id=workspace_id, task_id=task_id, form=update_form, task=task,view_mode = "UPDATE"
+    return render_template('Task.html', workspace_id=workspace_id, task_id=task_id, update_form=update_form, task=task,view_mode = "UPDATE"
                            , delete_update_form=_delete_update_form, delete_task_form=_delete_task_form)
 
-@client_bp.post('/<int:workspace_id>/task/updates/<int:task_id>/<int:update_id>/delete_update')
+
+@client_bp.post('/<int:workspace_id>/<int:task_id>/updates/write_update')
+@login_required
+def write_update(workspace_id, task_id):
+    if not current_user.is_authenticated:
+        session.pop('_flashes', None)
+        flash('You must be logged in to access this page!', 'error-msg')
+        logging.warning(f'An unauthenticated user tried to access /write_update')
+        return redirect(url_for('landingRoutes.login_page'))
+    
+    workspace = Workspace.query.get(int(workspace_id))
+    if not workspace:
+        session.pop('_flashes', None)
+        flash("Error occurred while editing a workspace", 'error-msg')
+        return redirect(url_for('adminRoutes.admin_homepage'))
+    
+    task = Task.query.get(int(task_id))
+    if not task:
+        session.pop('_flashes', None)
+        flash("Error occurred while editing a task", 'error-msg')
+        return redirect(url_for('clientRoutes.open_workspace', workspace_id=workspace_id))
+    
+    update_form = form.NewUpdate()
+    if update_form.validate_on_submit():
+        try:
+            task_update = TaskUpdates(update_form.update.data, current_user, task)
+            db.session.add(task_update)
+            db.session.commit()
+        except:
+            pass
+    return redirect(url_for('clientRoutes.open_task_updates',workspace_id=workspace_id, task_id=task_id))
+
+
+@client_bp.post('/<int:workspace_id>/<int:task_id>/updates/<int:update_id>/delete_update')
 @login_required
 def delete_update(workspace_id,task_id,update_id):
     if not current_user.is_authenticated:
@@ -108,14 +137,22 @@ def delete_update(workspace_id,task_id,update_id):
     
     _deleteUpdateForm = form.deleteForm(request.form)
     if _deleteUpdateForm.validate_on_submit():
-        # try:
-            db.session.delete(TaskUpdates.query.get(int(update_id)))
+        try:
+            comment = TaskUpdates.query.get(int(update_id))
+            if current_user != comment.sender_details:
+                session.pop('_flashes', None)
+                logging.info(f'[{current_user.email} - {current_user.id}] tried deleting comment [{comment.message} - {comment.task_update_id}] by [{comment.sender_details.email} - {comment.sender_details.id}]')
+                flash("Successfully deleted an update", 'success-msg')
+            
+            db.session.delete(comment)
             db.session.commit()
             session.pop('_flashes', None)
+            logging.info(f'[{current_user.email} - {current_user.id}] deleted a comment in task [{task.task_name} - {task.task_id}] in workspace [{workspace.workspace_name} - {workspace.workspace_id}] []')
             flash("Successfully deleted an update", 'success-msg')
-        # except:
-        #     session.pop('_flashes', None)
-        #     flash("An error occured while deleting an update", 'error-msg')
+        except:
+            session.pop('_flashes', None)
+            flash("An error occured while deleting an update", 'error-msg')
+            logging.info(f'[{current_user.email} - {current_user.id}] tried deleting a comment in task [{task.task_name} - {task.task_id}] in workspace [{workspace.workspace_name} - {workspace.workspace_id}] []')
 
     return redirect(url_for('clientRoutes.open_task_updates', workspace_id=workspace_id,task_id=task_id))
 

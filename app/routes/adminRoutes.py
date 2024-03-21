@@ -20,7 +20,7 @@ def load_user(id):
     return User.query.get(int(id))
 
 
-@admin_bp.route('/admin', methods=["GET", "POST"])
+@admin_bp.route('/admin', methods=["GET"])
 @login_required
 def admin_homepage():
     if not current_user.is_authenticated:
@@ -44,7 +44,6 @@ def admin_homepage():
     
     return render_template('dashboard.html', user_fullName = current_user.full_name, workspaces = current_user.workspaces,
                            delete_form = _delete_form)
-
 
 @admin_bp.route("/create_workspace", methods =["GET","POST"])
 @login_required
@@ -285,7 +284,7 @@ def remove_member(workspace_id, member_id):
             logging.info(f'[{current_user.email} - {current_user.role}] tried to removed user [{member_email}] from workspace [{workspace.workspace_id} - {workspace.workspace_name}]')
     return redirect(url_for('adminRoutes.edit_workspace', workspace_id=workspace_id))
 
-@admin_bp.route('/<int:workspace_id>/new_task', methods=["GET","POST"])
+@admin_bp.route('/<int:workspace_id>/new_task', methods=["GET", "POST"])
 @login_required 
 def create_task(workspace_id):
     if not current_user.is_authenticated:
@@ -309,7 +308,18 @@ def create_task(workspace_id):
             return redirect(url_for('adminRoutes.admin_homepage'))
     
     if _new_task_form.validate_on_submit():
-        assigned_user =  User.query.filter_by(email=_new_task_form.email_address.data).first()
+        user =  User.query.filter_by(email=_new_task_form.email_address.data).first()
+
+        if not user:
+            session.pop('_flashes',None)
+            flash('User does not exist','error-msg')
+            return redirect(url_for('adminRoutes.create_task', workspace_id = workspace_id))
+        
+        member = WorkspaceMembers.query.filter(WorkspaceMembers.member_id==user.id, WorkspaceMembers.workspace_id==workspace.workspace_id).first()
+        if not member:
+            session.pop('_flashes', None)
+            flash("Assigned user must be a part of the workspace.", 'error-msg')
+            return redirect(url_for('adminRoutes.create_task', workspace_id=workspace_id))
 
         is_valid_task_name = verify_title(_new_task_form.task_name.data)
         if not is_valid_task_name:
@@ -317,12 +327,7 @@ def create_task(workspace_id):
             flash('Task name is invalid','error-msg')
             return redirect(url_for('adminRoutes.create_task', workspace_id = workspace_id))
     
-        if not assigned_user:
-            session.pop('_flashes',None)
-            flash('User does not exist','error-msg')
-            return redirect(url_for('adminRoutes.create_task', workspace_id = workspace_id))
-        
-        task = Task(_new_task_form.task_name.data,_new_task_form.email_address.data,_new_task_form.due_date.data, _new_task_form.status.data, workspace, assigned_user)
+        task = Task(_new_task_form.task_name.data,_new_task_form.email_address.data,_new_task_form.due_date.data, _new_task_form.status.data, workspace, user)
         db.session.add(task)
         db.session.commit()
         session.pop('_flashes', None)
@@ -456,7 +461,12 @@ def edit_task_assigned_user(workspace_id, task_id):
             logging.warning(f'[{current_user.email} - {current_user.role}] tried to assign [{_updateAssignedUserForm.email_address.data}] to task [{task.task_id} - {task.task_name}]')
             return redirect(url_for('adminRoutes.edit_task', workspace_id=workspace_id, task_id=task_id))
         
-        # TODO: check if the inputted email is a part of the workspace
+        member = WorkspaceMembers.query.filter(WorkspaceMembers.member_id==user.id, WorkspaceMembers.workspace_id==workspace.workspace_id).first()
+        if not member:
+            session.pop('_flashes', None)
+            flash("Assigned user must be a part of the workspace.", 'error-msg')
+            logging.warning(f'[{current_user.email} - {current_user.role}] tried to assign [{_updateAssignedUserForm.email_address.data}] to task [{task.task_id} - {task.task_name}]')
+            return redirect(url_for('adminRoutes.edit_task', workspace_id=workspace_id, task_id=task_id))
         
 
         if task.assigned_user_email_address == _updateAssignedUserForm.email_address.data:
@@ -587,8 +597,6 @@ def delete_task(workspace_id, task_id):
     if _deleteTaskForm.validate_on_submit():
         try:
             task_name = task.task_name
-            # TODO: delete any rows that reference the task
-
             db.session.delete(task)
             db.session.commit()
             session.pop('_flashes', None)
