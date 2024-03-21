@@ -455,7 +455,7 @@ def edit_task_assigned_user(workspace_id, task_id):
 
         new_assigned_user = User.query.filter_by(email=_updateAssignedUserForm.email_address.data).first()
         
-        logging.warning(f'Admin reassigned {task.assigned_user_email_address} to {new_assigned_user.email} in {task_id} from {workspace_id}')     
+        logging.warning(f'Admin reassigned {task.assigned_user_email_address} to {new_assigned_user.email} in Task_id: {task_id} from workspace_id: {workspace_id}')     
            
         task.assigned_user_email_address =_updateAssignedUserForm.email_address.data
         task.user_assigned_details = new_assigned_user
