@@ -447,7 +447,6 @@ def edit_task_assigned_user(workspace_id, task_id):
             flash('Assigned User email is invalid','error-msg')
             return redirect(url_for('adminRoutes.edit_task', workspace_id = workspace_id))
         
-        # TODO: check if the inputted email is a part of the workspace
 
         if task.assigned_user_email_address == _updateAssignedUserForm.email_address.data:
             session.pop('_flashes',None)
@@ -456,9 +455,12 @@ def edit_task_assigned_user(workspace_id, task_id):
 
         new_assigned_user = User.query.filter_by(email=_updateAssignedUserForm.email_address.data).first()
         
+        logging.warning(f'Admin reassigned {task.assigned_user_email_address} to {new_assigned_user.email} in {task_id} from {workspace_id}')     
+           
         task.assigned_user_email_address =_updateAssignedUserForm.email_address.data
         task.user_assigned_details = new_assigned_user
         
+
         db.session.commit()
         session.pop('_flashes', None)
         flash("Successfully changed the task assigned user", 'success-msg')

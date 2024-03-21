@@ -5,7 +5,7 @@ from flask.logging import default_handler
 def setup_configs(app):
     app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:12345@127.0.0.1:5432/CSSECDEV"
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False # Set to false to use less memory
-    app.config['SQLALCHEMY_ECHO'] = True
+    # app.config['SQLALCHEMY_ECHO'] = Trueear
     app.config['SECRET_KEY'] = os.urandom(24)
     app.config['UPLOAD_FOLDER'] = os.getenv('FOLDER_UPLOAD')
     app.config['MAX_CONTENT_LENGTH'] = int(os.getenv('MAX_IMAGE_SIZE')) # 1MB Max
