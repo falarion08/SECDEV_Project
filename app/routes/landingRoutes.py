@@ -58,8 +58,8 @@ def login_page():
             login_user(user)
             flash("Login successful", "success-msg")
             
-            
-            logging.warning(f'{user.email} has logged in')
+            logging.info(f'[{user.email} - {user.role}] has logged in')
+
             if current_user.role == 'admin':
                 return redirect(url_for('adminRoutes.admin_homepage'))
             else:
@@ -79,7 +79,7 @@ def logout():
     logout_user()
     session.pop('_flashes', None)
     flash("You have been logged out.", "success-msg")
-    
+    logging.info(f'[{user.email} - {user.role}] has logged out')
     return redirect(url_for('landingRoutes.login_page'))
 
 @landing_bp.route('/register', methods = ["GET","POST"])
@@ -115,6 +115,7 @@ def register_page():
             phone_number=form.phone_number.data,
             profile_picture=form.profile_picture.data
         )
+        logging.info(f'User with email {form.email.data} has registered')
         flash('Registration successful', 'success-msg')
         return redirect(url_for('landingRoutes.login_page'))
 
