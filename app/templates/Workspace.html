@@ -66,6 +66,7 @@
 
                 {% if workspace.tasks %}
                     {% for task in workspace.tasks %}
+                        {% if not loop.last %} 
                             <div class="row-span-1 grid grid-flow-col grid-cols-5 border-b-4 border-black">
                                 <h2 class="col-span-1 text-center border-r-4 border-black p-4 font-bold"> {{task.task_name}} </h2>
                                 <h2 class="col-span-1 text-center border-r-4 border-black p-4 font-bold"> {{task.assigned_user_email_address}} </h2>
@@ -77,6 +78,20 @@
                                     </a>
                                 </span>
                             </div>
+                        {% else %}
+                            <div class="row-span-1 grid grid-flow-col grid-cols-5">
+                                <h2 class="col-span-1 text-center border-r-4 border-black p-4 font-bold"> {{task.task_name}} </h2>
+                                <h2 class="col-span-1 text-center border-r-4 border-black p-4 font-bold"> {{task.assigned_user_email_address}} </h2>
+                                <h2 class="col-span-1 text-center border-r-4 border-black p-4 font-bold"> {{task.status}} </h2>
+                                <h2 class="col-span-1 text-center border-r-4 border-black p-4 font-bold"> {{task.due_date}} </h2>
+                                <span class="flex justify-center items-center w-full h-full">  
+                                    <!-- <a class="size-full flex justify-center items-center" href="{{ url_for("clientRoutes.open_task_updates", workspace_id=workspace_id, task_id=task_id) }}"> -->
+                                    <a class="size-full flex justify-center items-center" href="{{ url_for("clientRoutes.open_task_updates", workspace_id=workspace_id) }}">
+                                        <button class="w-5/6 h-4/5 rounded-xl bg-btn-dflt font-bold text-white text-base duration-100 hover:cursor-pointer hover:bg-sky-500 active:bg-btn-dflt"> Open Task </button>
+                                    </a>
+                                </span>
+                            </div>
+                        {% endif %}
                     {% endfor %}
                 {% else %}
                 <div class="row-span-1">
