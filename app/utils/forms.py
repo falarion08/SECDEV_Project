@@ -29,12 +29,12 @@ class deleteForm(FlaskForm):
     submit = SubmitField()
 
 class addMemberWorkspaceForm(FlaskForm):
-    email_address = StringField('Add Member', validators=[DataRequired(),Length(min = 12,max=64)])
+    email_address = StringField('Add Member', validators=[DataRequired(), Email()])
     submit = SubmitField('Add Member')
     
 class NewTask(FlaskForm):
     task_name= StringField('Task Name', validators=[DataRequired(),Length(min=1,max=80)])
-    email_address = StringField('Assigned User', validators=[DataRequired(),Length(min=12,max=64)]) 
+    email_address = StringField('Assigned User', validators=[DataRequired(), Email()]) 
     due_date  = DateField('Due Date')
     submit = SubmitField('Save Task')
 

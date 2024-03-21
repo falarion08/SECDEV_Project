@@ -2,6 +2,7 @@ from flask import render_template, flash, redirect, url_for, session,request
 from flask_login import login_required, current_user
 from app.models.User import db, User
 from . import admin_bp,login_manager
+from app.controllers import verify_email, verify_title
 from app.models.Task import Task
 from app.models.Workspace import Workspace
 from app.models.WorkspaceMembers import WorkspaceMembers
@@ -116,7 +117,6 @@ def delete_workspace(workspace_id):
 @admin_bp.route('/<int:workspace_id>/edit_workspace', methods = ["GET","POST"])
 @login_required
 def edit_workspace(workspace_id):
-
     """
         This route is responsible for editing the workspace of the admin. An admin can 
         update the name of the workspace, add an existing user in the workspace, remove
@@ -159,7 +159,13 @@ def edit_workspace(workspace_id):
 
     # Validate if the user tries to modify the workspace name
     if _updateNameForm.validate_on_submit():
-        # TODO: workspace name input validation
+        is_workspace_name_valid = verify_title(_updateNameForm.workspace_name.data)
+        if not is_workspace_name_valid:
+            session.pop('_flashes', None)
+            flash("Please enter a valid workspace name", 'error-msg')
+            logging.info(f'[{current_user.email} - {current_user.role}] tried to change the workspace name of [{workspace.workspace_id} - {workspace.workspace_name}]')
+            return redirect(url_for('adminRoutes.edit_workspace', workspace_id=workspace_id))
+
         original_name = workspace.workspace_name
         workspace.workspace_name = _updateNameForm.workspace_name.data
         db.session.commit()
@@ -201,8 +207,14 @@ def add_member(workspace_id):
     
     # Validate if the user tries to add a new member to the workspace  
     if add_member_form.validate_on_submit():
-        # TODO: Input validation
-        
+        is_email_valid = verify_email(add_member_form.email_address.data)
+        if not is_email_valid:
+            session.pop('_flashes', None)
+            flash("Please enter a valid email.", 'error-msg')
+            logging.warning(f'[{current_user.email} - {current_user.role}] tried to add a user [{add_member_form.email_address.data}] to workspace [{workspace.workspace_id} - {workspace.workspace_name}]')
+            return redirect(url_for('adminRoutes.edit_workspace', workspace_id=workspace_id))
+
+
         # Get the new user that the admin is trying to add
         user = User.query.filter_by(email=add_member_form.email_address.data).first()
 
@@ -298,18 +310,21 @@ def create_task(workspace_id):
     
     if _new_task_form.validate_on_submit():
         assigned_user =  User.query.filter_by(email=_new_task_form.email_address.data).first()
+
+        is_valid_task_name = verify_title(_new_task_form.task_name.data)
+        if not is_valid_task_name:
+            session.pop('_flashes',None)
+            flash('Task name is invalid','error-msg')
+            return redirect(url_for('adminRoutes.create_task', workspace_id = workspace_id))
     
         if not assigned_user:
             session.pop('_flashes',None)
             flash('User does not exist','error-msg')
             return redirect(url_for('adminRoutes.create_task', workspace_id = workspace_id))
         
-        # Add task to the backend
-               
         task = Task(_new_task_form.task_name.data,_new_task_form.email_address.data,_new_task_form.due_date.data,workspace, assigned_user)
         db.session.add(task)
         db.session.commit()
-        
         session.pop('_flashes', None)
         flash('Successfully created a task', 'success-msg')
         return redirect(url_for('clientRoutes.open_workspace',workspace_id = workspace_id))
@@ -384,7 +399,12 @@ def edit_task_name(workspace_id):
     _updateTaskForm = form.createWorkspace(request.form)
     
     if _updateTaskForm.validate_on_submit():
-        # TODO: workspace name input validation
+        is_valid_task_name = verify_title(_updateTaskForm.workspace_name.data)
+        if not is_valid_task_name:
+            session.pop('_flashes',None)
+            flash('Task name is invalid','error-msg')
+            return redirect(url_for('adminRoutes.edit_task', workspace_id = workspace_id))
+
         task.task_name = _updateTaskForm.workspace_name.data
         db.session.commit()
         session.pop('_flashes', None)
@@ -428,7 +448,14 @@ def edit_task_assigned_user(workspace_id):
     _updateAssignedUserForm = form.addMemberWorkspaceForm(request.form)
     
     if _updateAssignedUserForm.validate_on_submit():
-        # TODO: assigned user validation
+        is_valid_assigned_user_email = verify_email(_updateAssignedUserForm.email_address.data)
+        if not is_valid_assigned_user_email:
+            session.pop('_flashes',None)
+            flash('Assigned User email is invalid','error-msg')
+            return redirect(url_for('adminRoutes.edit_task', workspace_id = workspace_id))
+        
+        # TODO: check if the inputted email is a part of the workspace
+
         task.assigned_user = _updateAssignedUserForm.email_address.data
         db.session.commit()
         session.pop('_flashes', None)
