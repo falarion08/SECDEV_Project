@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    <title> task.task_name </title> 
+    <title> {{ task.task_name }} </title> 
 {% endblock %}
 
 {% block styles %}
@@ -48,12 +48,16 @@
             {% if current_user.role == "admin" %}
                 <div class="flex flex-row gap-4">
                     <a class="rounded-full bg-btn-dflt font-bold text-white hover:bg-sky-500 ease-linear duration-100 active:bg-btn-dflt p-2 w-32 text-center" href="{{ url_for('adminRoutes.edit_task', workspace_id=workspace_id, task_id=task_id) }}"> Edit Task </a>
-                    <a class="rounded-full bg-btn-dflt font-bold text-white hover:bg-sky-500 ease-linear duration-100 active:bg-btn-dflt p-2 w-32 text-center" href="#"> Delete Task </a>
+                    <form action="{{url_for('adminRoutes.delete_task',workspace_id=workspace_id, task_id=task_id)}}" method="POST">
+                        {{delete_task_form.csrf_token}}
+                        {{delete_task_form.submit(class="rounded-full bg-btn-dflt font-bold text-white hover:bg-sky-500 ease-linear duration-100 hover:cursor-pointer active:bg-btn-dflt p-2 w-32 text-center")}}
+                    </form>
                 </div>
             {% endif %}
         </div>
 
-        <h2 class="text-2xl font-bold"> Assigned: {{task.assigned_user_email_address}} </h2>
+        <h2 class="text-2xl font-bold"> Assigned: {{ task.assigned_user_email_address }} </h2>
+        <h2 class="text-2xl font-bold pt-3"> Due Date: {{ task.due_date }} </h2>
 
         <div class="flex flex-row pt-3">
             <a class="rounded-tl-md bg-btn-dflt font-bold text-white hover:bg-sky-500 ease-linear duration-100 active:bg-btn-dflt p-2 w-32 text-center" href="#"> Updates </a>
@@ -80,12 +84,9 @@
                 {% if current_user.email_address == update.sender_details.email_address %}
                     <div class="flex self-end pr-2"> 
                         <a class="inline-block w-24 rounded-tl-md bg-btn-dflt font-bold text-white text-center hover:bg-sky-500 ease-linear duration-100 active:bg-btn-dflt" href="#"> Edit </a>
-                        <form class="inline-block" action="{{url_for('clientRoutes.delete_update',workspace_id = workspace_id, task_id = update.task_update_id,update_id=update.task_update_id)}}" method="POST">
-                            {{delete_workspace_form.csrf_token}}
-                            {{delete_workspace_form.submit(class="w-24 rounded-tr-md bg-btn-dflt font-bold text-white text-center hover:bg-sky-500 ease-linear duration-100 active:bg-btn-dflt")}}
-                            
-                            </a>
-                            
+                            <form class="inline-block" action="{{url_for('clientRoutes.delete_update',workspace_id = workspace_id, task_id = update.task_update_id,update_id=update.task_update_id)}}" method="POST">
+                                {{delete_update_form.csrf_token}}
+                                {{delete_update_form.submit(class="w-24 rounded-tr-md bg-btn-dflt font-bold text-white text-center hover:bg-sky-500 ease-linear duration-100 active:bg-btn-dflt")}}
                     </div>
                 {% endif %}
             </div>
