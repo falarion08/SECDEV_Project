@@ -109,7 +109,7 @@ def delete_workspace(workspace_id):
         except:
             session.pop('_flashes', None)
             flash("Error occurred while deleting workspace", 'error-msg')
-            logging.warning(f'[{current_user.email} - {current_user.role}] attempted to delete workspace [{workspace_id} - {workspace_name}]')
+            logging.warning(f'[{current_user.email} - {current_user.role}] attempted to delete workspace [ID: {workspace_id}]')
     return redirect(url_for('adminRoutes.admin_homepage'))
      
     
@@ -447,6 +447,15 @@ def edit_task_assigned_user(workspace_id, task_id):
             flash('Assigned User email is invalid','error-msg')
             return redirect(url_for('adminRoutes.edit_task', workspace_id = workspace_id))
         
+        user = User.query.filter_by(email=_updateAssignedUserForm.email_address.data).first()
+        if not user:
+            session.pop('_flashes', None)
+            flash("Cannot add a user that does not exist.", 'error-msg')
+            logging.warning(f'[{current_user.email} - {current_user.role}] tried to assign [{_updateAssignedUserForm.email_address.data}] to task [{task.task_id} - {task.task_name}]')
+            return redirect(url_for('adminRoutes.edit_task', workspace_id=workspace_id, task_id=task_id))
+        
+        # TODO: check if the inputted email is a part of the workspace
+        
 
         if task.assigned_user_email_address == _updateAssignedUserForm.email_address.data:
             session.pop('_flashes',None)
@@ -505,3 +514,48 @@ def edit_task_due_date(workspace_id, task_id):
         return redirect(url_for('adminRoutes.edit_task', workspace_id=workspace_id, task_id=task_id))
                                 
     return redirect(url_for('adminRoutes.edit_task', workspace_id=workspace_id, task_id=task_id))
+
+
+@admin_bp.post('/<int:workspace_id>/<int:task_id>/delete_task')
+@login_required
+def delete_task(workspace_id, task_id):
+    if not current_user.is_authenticated:
+        session.pop('_flashes', None)
+        flash('You must be logged in to access this page!', 'error-msg')
+        logging.warning(f'An unauthenticated user tried to access /delete')
+        return redirect(url_for('landingRoutes.login_page'))
+    
+    if current_user.role != 'admin':
+        session.pop('_flashes', None)
+        flash('You must be authorized to access this page!', 'error-msg')
+        logging.warning(f'[{current_user.email} - {current_user.role}] tried to access /delete')
+        return redirect(url_for('clientRoutes.client_homepage'))
+    
+    workspace = Workspace.query.get(int(workspace_id))
+    if not workspace:
+        session.pop('_flashes', None)
+        flash("Error occurred while deleting a workspace", 'error-msg')
+        return redirect(url_for('adminRoutes.admin_homepage'))
+    
+    task = Task.query.get(int(task_id))
+    if not task:
+        session.pop('_flashes', None)
+        flash("Error occurred while deleting a task", 'error-msg')
+        return redirect(url_for('clientRoutes.open_task_updates', workspace_id=workspace_id, task_id=task_id))
+    
+    _deleteTaskForm = form.deleteForm(request.form)
+    if _deleteTaskForm.validate_on_submit():
+        try:
+            task_name = task.task_name
+            # TODO: delete any rows that reference the task
+
+            db.session.delete(task)
+            db.session.commit()
+            session.pop('_flashes', None)
+            flash("Successfully deleted a task", 'success-msg')
+            logging.info(f'[{current_user.email} - {current_user.role}] deleted task [{task_id} - {task_name}]')
+        except:
+            session.pop('_flashes', None)
+            flash("Error occurred while deleting workspace", 'error-msg')
+            logging.warning(f'[{current_user.email} - {current_user.role}] attempted to delete task [ID: {task_id}]')
+    return redirect(url_for('clientRoutes.open_workspace', workspace_id=workspace_id))
