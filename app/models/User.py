@@ -1,5 +1,5 @@
 from flask_login import UserMixin
-from . import db,Workspace,WorkspaceMembers,Task,TaskUpdates
+from . import db, Workspace, WorkspaceMembers, Task, TaskUpdates, TaskFiles
 
 
 class User(db.Model, UserMixin):
@@ -27,6 +27,8 @@ class User(db.Model, UserMixin):
     task = db.relationship('Task', backref= 'user_assigned_details')
     # Create a one-to-many relationship with the TaskUpdate with sent_updates column in the User table and sender_details column on the TaskUpdate 
     sent_updates = db.relationship('TaskUpdates', backref='sender_details')
+
+    uploaded_files = db.relationship('TaskFiles', backref='uploader_details')
     
 
     def __init__(self, email, hash, salt, phone_number, full_name, profile_picture, role):

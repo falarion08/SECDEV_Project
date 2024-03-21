@@ -15,17 +15,19 @@ class TaskUpdates(db.Model):
     # Reference the table tasks and set the foreignKey as task_id 
     task_id = db.Column(db.Integer, db.ForeignKey('tasks.task_id'))
 
-    def __init__(self, message, sender_details,task_details):
+    def __init__(self, message, sender_details, task_details, edited):
         """
             DataTypes:
             message = String
             sender_details = User
             task_details = Task
+            edited = Boolean
         """
         self.message = message
         self.date_time_sent = datetime.utcnow()
         self.sender_details = sender_details
         self.task_details = task_details
+        self.edited = edited
         
         
 
