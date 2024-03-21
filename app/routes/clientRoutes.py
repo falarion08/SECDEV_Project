@@ -8,6 +8,9 @@ from app.models.Workspace import Workspace
 from app.models.WorkspaceMembers import WorkspaceMembers
 from  wtforms import Label
 import app.utils.forms as form
+import logging
+
+logging.basicConfig(filename='sys.log', filemode='a', format='%(asctime)s  %(name)s - %(levelname)s - %(message)s',level=logging.DEBUG)
 
 @login_manager.user_loader
 def load_user(id):
@@ -19,6 +22,7 @@ def client_homepage():
     if not current_user.is_authenticated:
         session.pop('_flashes', None)
         flash('You must be logged in to access this page!', 'error-msg')
+        logging.warning(f'An unauthenticated user tried to access /dashboard')
         return redirect(url_for('landingRoutes.login_page'))
     
     _workspaces = []
@@ -33,6 +37,7 @@ def open_workspace(workspace_id):
     if not current_user.is_authenticated:
         session.pop('_flashes', None)
         flash('You must be logged in to access this page!', 'error-msg')
+        logging.warning(f'An unauthenticated user tried to access /workspace')
         return redirect(url_for('landingRoutes.login_page'))
 
     workspace = Workspace.query.get(int(workspace_id))
@@ -49,6 +54,7 @@ def open_task_updates(workspace_id, task_id):
     if not current_user.is_authenticated:
         session.pop('_flashes', None)
         flash('You must be logged in to access this page!', 'error-msg')
+        logging.warning(f'An unauthenticated user tried to access /updates')
         return redirect(url_for('landingRoutes.login_page'))
 
     workspace = Workspace.query.get(int(workspace_id))
@@ -77,22 +83,39 @@ def open_task_updates(workspace_id, task_id):
         return redirect(url_for('clientRoutes.open_task_updates',workspace_id=workspace_id, task_id=task_id))
         
     return render_template('Task.html', workspace_id=workspace_id, task_id=task_id, form=update_form, task=task,view_mode = "UPDATE"
-                           , delete_update_form = _delete_update_form, delete_task_form=_delete_task_form)
+                           , delete_update_form=_delete_update_form, delete_task_form=_delete_task_form)
 
 @client_bp.post('/<int:workspace_id>/task/updates/<int:task_id>/<int:update_id>/delete_update')
 @login_required
 def delete_update(workspace_id,task_id,update_id):
+    if not current_user.is_authenticated:
+        session.pop('_flashes', None)
+        flash('You must be logged in to access this page!', 'error-msg')
+        logging.warning(f'An unauthenticated user tried to access /delete_update')
+        return redirect(url_for('landingRoutes.login_page'))
+    
+    workspace = Workspace.query.get(int(workspace_id))
+    if not workspace:
+        session.pop('_flashes', None)
+        flash("Error occurred while editing a workspace", 'error-msg')
+        return redirect(url_for('adminRoutes.admin_homepage'))
+    
+    task = Task.query.get(int(task_id))
+    if not task:
+        session.pop('_flashes', None)
+        flash("Error occurred while editing a task", 'error-msg')
+        return redirect(url_for('clientRoutes.open_workspace', workspace_id=workspace_id))
     
     _deleteUpdateForm = form.deleteForm(request.form)
     if _deleteUpdateForm.validate_on_submit():
-        try:
+        # try:
             db.session.delete(TaskUpdates.query.get(int(update_id)))
             db.session.commit()
             session.pop('_flashes', None)
             flash("Successfully deleted an update", 'success-msg')
-        except:
-            session.pop('_flashes', None)
-            flash("An error occured while deleting an update", 'error-msg')
+        # except:
+        #     session.pop('_flashes', None)
+        #     flash("An error occured while deleting an update", 'error-msg')
 
-    return redirect(url_for('clientRoutes.open_task_updates', workspace_id=workspace_id,task_id = task_id))
+    return redirect(url_for('clientRoutes.open_task_updates', workspace_id=workspace_id,task_id=task_id))
 
