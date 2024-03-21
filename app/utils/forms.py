@@ -38,6 +38,10 @@ class NewTask(FlaskForm):
     due_date  = DateField('Due Date')
     submit = SubmitField('Save Task')
 
+class UpdateDueDateForm(FlaskForm):
+    due_date = DateField('Due Date')
+    submit = SubmitField('Save Due Date')
+
 class NewUpdate(FlaskForm):
     update = TextAreaField('Update', validators=[DataRequired(),Length(min=1,max=256)])
     submit = SubmitField('Submit Update')

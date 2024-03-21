@@ -52,7 +52,7 @@
             </div>
             <div class="w-1/2 self-center grid grid-cols-2 pt-16">
                 {{ new_task_form.submit(class="w-4/5 p-3 rounded-lg bg-btn-dflt font-bold text-white text-lg duration-100 hover:cursor-pointer hover:bg-sky-500 active:bg-btn-dflt") }}
-                <a class="w-4/5 p-3 rounded-lg bg-btn-dflt font-bold text-white text-center text-lg duration-100 hover:cursor-pointer hover:bg-sky-500 active:bg-btn-dflt" href="{{url_for('adminRoutes.open_workspace', workspace_id=workspace_id)}}"> Back </a>
+                <a class="w-4/5 p-3 rounded-lg bg-btn-dflt font-bold text-white text-center text-lg duration-100 hover:cursor-pointer hover:bg-sky-500 active:bg-btn-dflt" href="{{url_for('clientRoutes.open_workspace', workspace_id=workspace_id)}}"> Back </a>
             </div>
         </form>
     </div>

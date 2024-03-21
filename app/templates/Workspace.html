@@ -23,7 +23,7 @@
             {% if current_user.is_authenticated %}
                 {% if current_user.role == 'admin' %}
                     <span class="w-1/4 h-16">  
-                        <a class="" href="{{url_for('adminRoutes.create_task', workspace_id=workspace_id)}}">
+                        <a class="" href="{{url_for('adminRoutes.create_task', workspace_id=workspace.workspace_id)}}">
                             <button class="w-5/6 h-4/5 rounded-lg bg-btn-dflt font-bold text-white text-xl duration-100 hover:cursor-pointer hover:bg-sky-500 active:bg-btn-dflt"> New Task </button>
                         </a>
                     </span>
@@ -55,7 +55,13 @@
                     <h2 class="col-span-1 text-center border-r-4 border-b-4 border-black p-4 font-bold text-xl"> Assigned </h2>
                     <h2 class="col-span-1 text-center border-r-4 border-b-4 border-black p-4 font-bold text-xl"> Status </h2>
                     <h2 class="col-span-1 text-center border-r-4 border-b-4 border-black p-4 font-bold text-xl"> Due Date </h2>
-                    <span class="col-span-1 text-center border-b-4 border-black"></span>
+                    <span class="col-span-1 size-full flex justify-center items-center border-b-4 border-black">
+                        {% if current_user.role == 'admin' %}
+                            <a class="flex justify-center items-center w-5/6 h-4/5 rounded-lg bg-btn-dflt font-bold text-white text-center text-xl duration-100 hover:cursor-pointer hover:bg-sky-500 active:bg-btn-dflt" href="{{url_for('adminRoutes.admin_homepage', workspace_id=workspace_id)}}"> Back </a>
+                        {% else %}
+                            <a class="flex justify-center items-center w-5/6 h-4/5 rounded-lg bg-btn-dflt font-bold text-white text-center text-xl duration-100 hover:cursor-pointer hover:bg-sky-500 active:bg-btn-dflt" href="{{url_for('clientRoutes.client_homepage', workspace_id=workspace_id)}}"> Back </a>
+                        {% endif %}  
+                    </span>
                 </div>
 
                 {% if tasks %}
@@ -91,6 +97,18 @@
                 {% else %}
                     <div class="row-span-1">
                         <h2 class="col-span-1 text-center p-4 font-bold"> This workspace has no tasks yet! </h2>
+                    </div>
+                    <div class="row-span-1 grid grid-flow-col grid-cols-5">
+                        <h2 class="col-span-1 text-center border-r-4 border-black p-4 font-bold"> task.name </h2>
+                        <h2 class="col-span-1 text-center border-r-4 border-black p-4 font-bold"> task.assigned_user </h2>
+                        <h2 class="col-span-1 text-center border-r-4 border-black p-4 font-bold"> task.status </h2>
+                        <h2 class="col-span-1 text-center border-r-4 border-black p-4 font-bold"> task.due_date </h2>
+                        <span class="flex justify-center items-center w-full h-full">  
+                            <!-- <a class="size-full flex justify-center items-center" href="{{ url_for("clientRoutes.open_task_updates", workspace_id=workspace_id, task_id=task_id) }}"> -->
+                            <a class="size-full flex justify-center items-center" href="{{ url_for("clientRoutes.open_task_updates", workspace_id=workspace_id) }}">
+                                <button class="w-5/6 h-4/5 rounded-xl bg-btn-dflt font-bold text-white text-base duration-100 hover:cursor-pointer hover:bg-sky-500 active:bg-btn-dflt"> Open Task </button>
+                            </a>
+                        </span>
                     </div>
                 {% endif %}
             </div>
