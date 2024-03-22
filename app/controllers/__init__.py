@@ -52,7 +52,4 @@ def verify_image(uploaded_image):
     if not uploaded_image.mimetype in ALLOWED_MIMETYPES:
         return False
 
-    #print(len(cloned_image.read()))
-    #if len(cloned_image.read()) > MAX_SIZE:
-    #    return False
     return True

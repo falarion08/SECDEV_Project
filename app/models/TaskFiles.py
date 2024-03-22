@@ -22,5 +22,3 @@ class TaskFiles(db.Model):
         self.uploader_details = uploader_details
         self.task_details = task_details
         
-
-

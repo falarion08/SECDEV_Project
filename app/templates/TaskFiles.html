@@ -72,10 +72,21 @@
         <div class="pt-8 w-full">
             <form class="flex flex-col gap-8" action="{{ url_for('clientRoutes.open_task_files', workspace_id=workspace_id, task_id=task_id) }}" method="POST" enctype=multipart/form-data>
                 {{ new_file_form.csrf_token }}
-                {{ new_file_form.document(accept=".doc, .docx, .pdf") }}
+                {{ new_file_form.document(accept=".pdf") }}
                 {{ new_file_form.submit(class="self-end rounded-md bg-btn-dflt font-bold text-white hover:bg-sky-500 ease-linear duration-100 hover:cursor-pointer active:bg-btn-dflt p-2 w-32 text-center") }}
             </form>
         </div>
+
+        <div class="flex flex-col gap-4">
+            {% if task.task_files %}
+                {% for file in task.task_files %}
+                    <p> {{ file.file }} - uploaded by [{{ file.uploader_details.email }} - {{ file.uploader_details.full_name }}]  </p>
+                {% endfor %}
+            {% else %}
+                <h2 class="font-bold text-center p-4 "> This task currently has no files. </h2>
+            {% endif %}
+        </div>
+
     </div>
 </div>
 

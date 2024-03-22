@@ -308,11 +308,23 @@ def open_task_files(workspace_id, task_id):
 
     _new_file_form = form.NewFile()
     if _new_file_form.validate_on_submit():
-    #TODO: validate file with fleep
-        file = upload_file(_new_file_form.document.data)
-        new_file = TaskFiles(file, current_user, task)
-        db.session.add(new_file)
-        db.session.commit()
+        try:
+            file = upload_file(_new_file_form.document.data, 'file')
+            if not file:
+                session.pop('_flashes', None)
+                flash("File could not be uploaded", 'error-msg')
+                return redirect(url_for('clientRoutes.open_task_files', workspace_id=workspace_id, task_id=task_id))
+            new_file = TaskFiles(file, current_user, task)
+            db.session.add(new_file)
+            db.session.commit()
+            session.pop('_flashes', None)
+            flash("File uploaded successfully", 'success-msg')
+            return redirect(url_for('clientRoutes.open_task_files', workspace_id=workspace_id, task_id=task_id))
+        except:
+            session.pop('_flashes', None)
+            flash("Error file could not be uploaded", 'error-msg')
+            return redirect(url_for('clientRoutes.open_task_files', workspace_id=workspace_id, task_id=task_id))
+        
 
     return render_template('TaskFiles.html', workspace_id=workspace_id, task_id=task_id, task=task, 
                            delete_task_form=_delete_task_form, new_file_form=_new_file_form)
