@@ -1,11 +1,11 @@
 import os
 from datetime import timedelta
+from flask.logging import default_handler
 
 def setup_configs(app):
-    print(os.getenv('DATABASE_URL'))
     app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:12345@127.0.0.1:5432/CSSECDEV"
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False # Set to false to use less memory
-    app.config['SQLALCHEMY_ECHO'] = True
+    #app.config['SQLALCHEMY_ECHO'] = True
     app.config['SECRET_KEY'] = os.urandom(24)
     app.config['UPLOAD_FOLDER'] = os.getenv('FOLDER_UPLOAD')
     app.config['MAX_CONTENT_LENGTH'] = int(os.getenv('MAX_IMAGE_SIZE')) # 1MB Max
@@ -17,4 +17,6 @@ def setup_configs(app):
     app.config['SESSION_COOKIE_HTTPONLY'] = True
     app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
     app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=30)
+
     #app.config['SECURITY_EMAIL_VALIDATOR_ARGS'] = {'check_deliverability': False}
+

@@ -3,6 +3,8 @@ import uuid as uuid
 import bcrypt
 import os
 
+def verify_title(title):
+    return re.match(r"^[A-Za-z0-9-_ ]+", title)
 
 def verify_full_name(full_name):
     return re.match(r"^[A-Za-z -]+$", full_name)

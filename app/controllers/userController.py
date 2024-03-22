@@ -20,23 +20,6 @@ def create(user_email,password,phone_number,full_name,profile_picture):
         db.session.add(new_user)
         db.session.commit()
 
-def create_admin():
-    admin_user = User.query.filter_by(role="admin").first()
-
-    if admin_user:
-        return
-    password = hashPassword('asdfQWERTY1357!')
-    admin_user = User(
-        email='admin@admin.com',
-        hash= password[1],
-        salt = password[0],
-        full_name = "Admin Account",
-        phone_number='123456789012',
-        profile_picture=None,
-        role="admin"
-    )
-    db.session.add(admin_user)
-    db.session.commit()
 
 def validate_registration(user_email, password, confirm_password, phone_number, profile_picture, full_name):
     # Check email validity

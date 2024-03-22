@@ -3,7 +3,8 @@ window.addEventListener('load', () => {
     if ($recaptcha) {
       $recaptcha.setAttribute('required', 'required');
     }
-  })
+  });
+
 
 document.getElementById("login-form")?.addEventListener("submit", function(e) {
     if (!validate_form()) {
@@ -22,12 +23,12 @@ function validate_form() {
     error_text.style.color = "#fe3e3e";
     // validate email
     if (!is_valid_email(email_input.value)) {
-        error_text.textContent = 'Email address is invalid.';
+        error_text.textContent = 'Please enter a valid email address.';
         return false;
     }
     // validate password
     if (!is_valid_password(password_input.value)) {
-        error_text.textContent = 'Password is invalid.';
+        error_text.textContent = 'Please enter a valid password.';
         return false;
     }
 

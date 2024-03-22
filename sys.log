@@ -1,0 +1,55 @@
+2024-03-21 23:35:16,336  werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on https://127.0.0.1:5000
+2024-03-21 23:35:16,337  werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-03-21 23:35:16,356  werkzeug - INFO -  * Restarting with stat
+2024-03-21 23:35:21,461  werkzeug - WARNING -  * Debugger is active!
+2024-03-21 23:35:21,491  werkzeug - INFO -  * Debugger PIN: 799-224-581
+2024-03-21 23:35:52,831  flask_wtf.csrf - INFO - The CSRF session token is missing.
+2024-03-21 23:35:52,833  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:35:52] "[31m[1mPOST /login HTTP/1.1[0m" 400 -
+2024-03-21 23:35:55,082  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:35:55] "GET /login?next=/1/1/edit_task HTTP/1.1" 200 -
+2024-03-21 23:35:55,306  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:35:55] "[32mGET /static//css/output.css HTTP/1.1[0m" 308 -
+2024-03-21 23:35:55,958  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:35:55] "GET /static/js/loginPage.js HTTP/1.1" 200 -
+2024-03-21 23:35:55,980  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:35:55] "GET /static/css/output.css HTTP/1.1" 200 -
+2024-03-21 23:36:00,658  root - INFO - [admin@workspace.com - admin] has logged in
+2024-03-21 23:36:00,661  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:36:00] "[32mPOST /login HTTP/1.1[0m" 302 -
+2024-03-21 23:36:00,794  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:36:00] "GET /admin HTTP/1.1" 200 -
+2024-03-21 23:36:01,062  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:36:01] "[32mGET /static//css/output.css HTTP/1.1[0m" 308 -
+2024-03-21 23:36:01,128  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:36:01] "GET /static/images/placeholder.jpg HTTP/1.1" 200 -
+2024-03-21 23:36:01,160  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:36:01] "GET /static/css/output.css HTTP/1.1" 200 -
+2024-03-21 23:36:03,501  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:36:03] "GET /1 HTTP/1.1" 200 -
+2024-03-21 23:36:03,687  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:36:03] "[32mGET /static//css/output.css HTTP/1.1[0m" 308 -
+2024-03-21 23:36:03,725  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:36:03] "GET /static/css/output.css HTTP/1.1" 200 -
+2024-03-21 23:36:03,745  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:36:03] "[36mGET /static/images/placeholder.jpg HTTP/1.1[0m" 304 -
+2024-03-21 23:36:05,635  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:36:05] "GET /1/1/updates/ HTTP/1.1" 200 -
+2024-03-21 23:36:05,882  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:36:05] "[32mGET /static//css/output.css HTTP/1.1[0m" 308 -
+2024-03-21 23:36:05,947  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:36:05] "[36mGET /static/images/placeholder.jpg HTTP/1.1[0m" 304 -
+2024-03-21 23:36:06,002  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:36:06] "GET /static/css/output.css HTTP/1.1" 200 -
+2024-03-21 23:36:07,983  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:36:07] "GET /1/1/edit_task HTTP/1.1" 200 -
+2024-03-21 23:36:08,220  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:36:08] "[32mGET /static//css/output.css HTTP/1.1[0m" 308 -
+2024-03-21 23:36:08,254  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:36:08] "[36mGET /static/images/placeholder.jpg HTTP/1.1[0m" 304 -
+2024-03-21 23:36:08,276  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:36:08] "GET /static/css/output.css HTTP/1.1" 200 -
+2024-03-21 23:36:13,451  root - WARNING - Admin reassigned alex@workspace.com to john@workspace.com in 1 from 1
+2024-03-21 23:36:13,526  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:36:13] "[32mPOST /1/1/edit_task/edit_task_assigned_user HTTP/1.1[0m" 302 -
+2024-03-21 23:36:13,599  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:36:13] "GET /1/1/edit_task HTTP/1.1" 200 -
+2024-03-21 23:36:13,904  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:36:13] "[32mGET /static//css/output.css HTTP/1.1[0m" 308 -
+2024-03-21 23:36:13,944  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:36:13] "GET /static/css/output.css HTTP/1.1" 200 -
+2024-03-21 23:36:13,956  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:36:13] "[36mGET /static/images/placeholder.jpg HTTP/1.1[0m" 304 -
+2024-03-21 23:38:49,388  werkzeug - INFO -  * Detected change in 'D:\\Github_Repositories\\SECDEV_Project\\app\\routes\\adminRoutes.py', reloading
+2024-03-21 23:38:50,260  werkzeug - INFO -  * Restarting with stat
+2024-03-21 23:38:58,059  werkzeug - WARNING -  * Debugger is active!
+2024-03-21 23:38:58,094  werkzeug - INFO -  * Debugger PIN: 799-224-581
+2024-03-21 23:42:04,036  werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on https://127.0.0.1:5000
+2024-03-21 23:42:04,036  werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-03-21 23:42:04,041  werkzeug - INFO -  * Restarting with stat
+2024-03-21 23:42:08,882  werkzeug - WARNING -  * Debugger is active!
+2024-03-21 23:42:08,904  werkzeug - INFO -  * Debugger PIN: 799-224-581
+2024-03-21 23:42:28,321  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:42:28] "[32mGET /1/1/updates/ HTTP/1.1[0m" 302 -
+2024-03-21 23:42:28,496  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:42:28] "GET /login?next=/1/1/updates/ HTTP/1.1" 200 -
+2024-03-21 23:42:28,754  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:42:28] "[32mGET /static//css/output.css HTTP/1.1[0m" 308 -
+2024-03-21 23:42:29,197  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:42:29] "GET /static/js/loginPage.js HTTP/1.1" 200 -
+2024-03-21 23:42:29,212  werkzeug - INFO - 127.0.0.1 - - [21/Mar/2024 23:42:29] "GET /static/css/output.css HTTP/1.1" 200 -
+2024-03-21 23:43:35,828  werkzeug - INFO -  * Detected change in 'D:\\Github_Repositories\\SECDEV_Project\\app\\routes\\adminRoutes.py', reloading
+2024-03-21 23:43:36,299  werkzeug - INFO -  * Restarting with stat
+2024-03-21 23:43:43,414  werkzeug - WARNING -  * Debugger is active!
+2024-03-21 23:43:43,436  werkzeug - INFO -  * Debugger PIN: 799-224-581
