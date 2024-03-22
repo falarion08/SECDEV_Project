@@ -4,6 +4,7 @@ import uuid
 from werkzeug.utils import secure_filename
 from app.controllers import verify_password, hashPassword, verify_image, verify_email, verify_phone_number, verify_full_name
 from app.models.User import User,db
+from app.models.TaskFiles import TaskFiles, db
 
 def create(user_email,password,phone_number,full_name,profile_picture):
         profile_picture_file_name = upload_file(profile_picture)  
@@ -55,11 +56,11 @@ def check_password_hash(hashed_password, password):
     hashed_pw = hashed_password.encode('utf-8')
     return bcrypt.checkpw(user_bytes, hashed_pw)
 
-def upload_file(uploaded_image):
-    if not uploaded_image:
+def upload_file(file):
+    if not file:
         return None
     FOLDER_UPLOAD = os.environ.get('FOLDER_UPLOAD')
-    picture_filename = secure_filename(uploaded_image.filename)
-    new_filename = str(uuid.uuid1()) + '_' + picture_filename
-    uploaded_image.save(os.path.join(FOLDER_UPLOAD, new_filename))
+    filename = secure_filename(file.filename)
+    new_filename = str(uuid.uuid1()) + '_' + filename
+    file.save(os.path.join(FOLDER_UPLOAD, new_filename))
     return new_filename

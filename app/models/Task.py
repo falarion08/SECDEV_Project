@@ -16,6 +16,7 @@ class Task(db.Model):
     # Createa a one-to-many relationship with taskUpdates and create an invisible columns on tasks  as 'task_updates' 
     # and create an invisible column in task_updates as 'task_detials'
     task_updates = db.relationship('TaskUpdates', backref = 'task_details',cascade="all, delete")
+    task_files = db.relationship('TaskFiles', backref='task_details', cascade="all, delete")
     
     def __init__(self, task_name, assigned_user_email_address, due_date, status, owning_workspace, user_assigned_details):
         self.status = "To-Do"
