@@ -5,6 +5,7 @@ from app.controllers import userController
 from app.utils.forms import RegistrationForm, LoginForm
 from . import landing_bp, login_manager, limiter, admin_permission
 import logging
+import fleep
 
 # Initalize formatting for logging
 logging.basicConfig(filename='sys.log', filemode='a', format='%(asctime)s  %(name)s - %(levelname)s - %(message)s',level=logging.DEBUG)
@@ -21,6 +22,9 @@ def load_user(id):
 
 @landing_bp.route('/', methods=["GET", "POST"])
 def home_page():
+    # print(fleep.supported_mimes())
+    # print(fleep.supported_extensions())
+    # print(fleep.supported_types())
     if current_user.is_authenticated:
         if current_user.role == 'admin':
             if current_user.role == 'admin':

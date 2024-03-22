@@ -13,12 +13,12 @@ class TaskFiles(db.Model):
     # Reference the table tasks and set the foreignKey as task_id 
     task_id = db.Column(db.Integer, db.ForeignKey('tasks.task_id'))
 
-    def __init__(self, file):
+    def __init__(self, file, uploader_details, task_details):
         """
             DataTypes:
             file = String
         """
-        self.file_path = file
+        self.file = file
+        self.uploader_details = uploader_details
+        self.task_details = task_details
         
-
-

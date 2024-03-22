@@ -3,6 +3,8 @@ from markupsafe import escape
 from flask_login import login_required, current_user
 from app.models.User import db, User
 from . import client_bp, login_manager
+from app.controllers.userController import upload_file
+from app.models.TaskFiles import TaskFiles
 from app.models.Task import Task
 from app.models.TaskUpdates import TaskUpdates
 from app.models.Workspace import Workspace
@@ -175,7 +177,7 @@ def write_update(workspace_id, task_id):
     update_form = form.NewUpdate()
     if update_form.validate_on_submit():
         try:
-            task_update = TaskUpdates(escape(update_form.update.data), current_user, task)
+            task_update = TaskUpdates(escape(update_form.update.data), current_user, task, False)
             db.session.add(task_update)
             db.session.commit()
         except:
@@ -280,7 +282,7 @@ def edit_update(workspace_id, task_id, update_id):
             return redirect(url_for('clientRoutes.open_task_updates',workspace_id=workspace_id, task_id=task_id))
     return render_template('editUpdate.html', workspace_id=workspace_id, task_id=task_id, update_id=update_id, edit_update_form=edit_update_form)
 
-@client_bp.route('/<int:workspace_id>/<int:task_id>/files/', methods=["GET"])
+@client_bp.route('/<int:workspace_id>/<int:task_id>/files/', methods=["GET", "POST"])
 @login_required 
 def open_task_files(workspace_id, task_id):
     if not current_user.is_authenticated:
@@ -305,8 +307,24 @@ def open_task_files(workspace_id, task_id):
     _delete_task_form.submit.label = Label(_delete_task_form.submit.id, "Delete Task")
 
     _new_file_form = form.NewFile()
-
-    #TODO: validate file with fleep
+    if _new_file_form.validate_on_submit():
+        try:
+            file = upload_file(_new_file_form.document.data, 'file')
+            if not file:
+                session.pop('_flashes', None)
+                flash("File could not be uploaded", 'error-msg')
+                return redirect(url_for('clientRoutes.open_task_files', workspace_id=workspace_id, task_id=task_id))
+            new_file = TaskFiles(file, current_user, task)
+            db.session.add(new_file)
+            db.session.commit()
+            session.pop('_flashes', None)
+            flash("File uploaded successfully", 'success-msg')
+            return redirect(url_for('clientRoutes.open_task_files', workspace_id=workspace_id, task_id=task_id))
+        except:
+            session.pop('_flashes', None)
+            flash("Error file could not be uploaded", 'error-msg')
+            return redirect(url_for('clientRoutes.open_task_files', workspace_id=workspace_id, task_id=task_id))
         
-    return render_template('TaskFiles.html', workspace_id=workspace_id, task_id=task_id, task=task, view_mode = "UPDATE", 
+
+    return render_template('TaskFiles.html', workspace_id=workspace_id, task_id=task_id, task=task, 
                            delete_task_form=_delete_task_form, new_file_form=_new_file_form)

@@ -52,7 +52,7 @@ class NewUpdate(FlaskForm):
     submit = SubmitField('Submit Update')
 
 class NewFile(FlaskForm):
-    document = FileField('Select File', validators=[FileAllowed(['doc', 'docx', 'pdf']), FileSize(max_size=400000)])
+    document = FileField('Select File', validators=[FileAllowed(['pdf']), FileSize(max_size=5000000)])
     submit = SubmitField('Upload File')
 
 

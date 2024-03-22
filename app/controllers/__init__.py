@@ -46,14 +46,10 @@ def hashPassword(user_password):
 def verify_image(uploaded_image):
     ALLOWED_MIMETYPES = {"image/png", "image/jpeg", "image/jpg", "image/gif"}
     MAX_SIZE = int(os.getenv('MAX_IMAGE_SIZE'))
-    print(MAX_SIZE)
     if not uploaded_image:
         return True
 
     if not uploaded_image.mimetype in ALLOWED_MIMETYPES:
         return False
 
-    #print(len(cloned_image.read()))
-    #if len(cloned_image.read()) > MAX_SIZE:
-    #    return False
     return True
