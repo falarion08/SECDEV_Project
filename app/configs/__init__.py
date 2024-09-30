@@ -3,7 +3,7 @@ from datetime import timedelta
 from flask.logging import default_handler
 
 def setup_configs(app):
-    app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("ONLINE_DATABASE_URL")
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DATABASE_URL")
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False # Set to false to use less memory
     app.config['SQLALCHEMY_ECHO'] = True
     app.config['SECRET_KEY'] = os.urandom(24)

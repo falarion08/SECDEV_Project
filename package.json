@@ -1,8 +1,11 @@
 {
+  "name": "workbox-revamped",
+  "description": "Project management web application built with Flask and TailwindCSS",
+  "version": "1.0.0",
   "devDependencies": {
     "tailwindcss": "^3.4.1"
   },
-  "scripts":{
+  "scripts": {
     "dev": "npx tailwindcss -i ./app/static/src/input.css -o ./app/static/css/output.css --watch"
   }
 }
