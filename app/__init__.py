@@ -20,7 +20,7 @@ def create_app():
     
 
     # Create an instance of flask to run application
-    app = Flask(__name__)
+    app = Flask(__name__, static_folder='../static', template_folder="../templates")
     csrf = CSRFProtect(app)
     migrate = Migrate()
     app.logger.removeHandler(default_handler)
