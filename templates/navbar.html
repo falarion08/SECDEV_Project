@@ -1,43 +1,71 @@
-<nav class="flex bg-slate-100 py-3 px-12 z-10">
-    <div class="flex-1 text-5xl font-extrabold underline">
-        {% if current_user.is_authenticated %}
-            {% if current_user.role == "admin" %}
-                <a href="{{ url_for('adminRoutes.admin_homepage') }}"> workbox </a>
-            {% else %}
-            <a href="{{ url_for('clientRoutes.client_homepage')}}"> workbox </a>
-            {% endif %}
-        {% else %} 
-            <a href="{{ url_for('landingRoutes.home_page')}}"> workbox </a>
-        {% endif %}
-        
-    </div>
+<nav class="flex justify-between items-center bg-slate-100 px-4 h-16 w-full z-10">
+  {% if current_user.is_authenticated %}
+    {% if current_user.role == "admin" %}
+      <a class="logo" href="{{ url_for('adminRoutes.admin_homepage') }}"> workbox </a>
+    {% else %}
+      <a class="logo" href="{{ url_for('clientRoutes.client_homepage')}}"> workbox </a>
+    {% endif %}
+  {% else %} 
+    <a class="logo" href="{{ url_for('landingRoutes.home_page')}}"> workbox </a>
+  {% endif %}
 
-    <div class="flex-1">
-        <ul class="navbar-list text-xl flex justify-end h-full font-bold space-x-12">
-            {% if current_user.is_authenticated %}
-                <li class="ml-5 align-middle flex flex-row items-center space-x-4">
-                    {% if current_user.profile_picture %}
-                        <img id="preview-img" class="w-16 h-16 border-none outline-none" src="{{url_for('static', filename='./upload/'+current_user.profile_picture)}}" alt="">
-                    {% else %}
-                    <img id="preview-img" class="w-16 h-16 border-none outline-none" src="{{url_for('static', filename='./images/placeholder.jpg')}}" alt="">
-                    {% endif %}
-                    <p class="cursor-default"> {{ current_user.full_name }} </p> 
-                </li>
+  <button id="menu-button" class="text-2xl md:hidden focus:outline-none">
+    ☰
+  </button>
 
-                {% if current_user.role == "admin" %}
-                    <li class="ml-5 align-middle flex items-center"> <a class="hover:underline"  href="{{ url_for('adminRoutes.admin_homepage') }}"> Home </a> </li> 
-                {% else %}
-                    <li class="ml-5 align-middle flex items-center"> <a class="hover:underline"  href="{{ url_for('clientRoutes.client_homepage') }}"> Home </a> </li> 
-                {% endif %}
-
-                <li class="ml-5 align-middle flex items-center"> <a class="rounded-full bg-btn-dflt text-white ease-linear duration-100 hover:bg-sky-500 active:bg-btn-dflt p-2" href="{{ url_for('landingRoutes.logout') }}"> Logout </a> </li>
-
-            {% else %} 
-                <li class="ml-5 align-middle flex items-center"> <a class="hover:underline" href="{{ url_for('landingRoutes.home_page')}}"> Home </a> </li> 
-                <li class="ml-5 align-middle flex items-center"><a class="hover:underline" href="{{ url_for('landingRoutes.login_page') }}"> Login </a> </li>
-                <li class="ml-5 align-middle flex items-center"> <a class="rounded-full bg-btn-dflt text-white ease-linear duration-100 hover:bg-sky-500 active:bg-btn-dflt px-6 py-2" href="{{ url_for('landingRoutes.register_page') }}"> Get Started </a> </li>
-            {% endif %}
-            
-        </ul>
-    </div>
+  <div class="hidden md:flex items-center h-full">
+    {% if current_user.is_authenticated %}
+      {% if current_user.profile_picture %}
+        <img src="{{url_for('static', filename='./upload/'+current_user.profile_picture)}}" alt="user_image">
+      {% else %}
+        <img src="{{url_for('static', filename='./images/placeholder.jpg')}}" alt="user_placeholder">
+      {% endif %}
+      <p class="cursor-default"> {{ current_user.full_name }} </p> 
+      <a class="nav-link" href="{{ url_for('landingRoutes.logout') }}"> 
+        LOGOUT
+      </a>
+    {% else %}
+      <div class="h-full flex flex-row items-centerpx-4">
+        <a class="nav-link" href="{{ url_for('landingRoutes.login_page') }}"> 
+          LOGIN
+        </a>
+        <a class="nav-link" href="{{ url_for('landingRoutes.register_page') }}">
+          GET STARTED
+        </a>
+      </div>
+    {% endif %}
+  </div>
 </nav>
+
+
+<div id="mobile-menu" class="hidden md:hidden bg-slate-100 flex-col z-10 border-t-[0.3px] border-slate-500 border-solid">
+  {% if current_user.is_authenticated %}
+    <div class="flex items-center space-x-2">
+      {% if current_user.profile_picture %}
+        <img class="w-8 h-8 rounded-full" src="{{url_for('static', filename='./upload/'+current_user.profile_picture)}}" alt="user_image">
+      {% else %}
+        <img class="w-8 h-8 rounded-full" src="{{url_for('static', filename='./images/placeholder.jpg')}}" alt="user_placeholder">
+      {% endif %}
+      <p class="cursor-default"> {{ current_user.full_name }} </p>
+    </div>
+    <a class="mobile-menu-btn" href="{{ url_for('landingRoutes.logout') }}"> 
+      LOGOUT
+    </a>
+  {% else %} 
+    <a class="mobile-menu-btn" href="{{ url_for('landingRoutes.login_page') }}"> 
+      LOGIN
+    </a>
+    <a class="mobile-menu-btn" href="{{ url_for('landingRoutes.register_page') }}">
+      GET STARTED
+    </a>
+  {% endif %}
+</div>
+
+<script>
+  const menuButton = document.getElementById('menu-button');
+  const mobileMenu = document.getElementById('mobile-menu');
+
+  menuButton.addEventListener('click', () => {
+    mobileMenu.classList.toggle('hidden');
+  });
+</script>
