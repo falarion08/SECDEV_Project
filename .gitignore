@@ -12,3 +12,4 @@ key.pem
 .env.bak
 *.gif
 sys.log
+static/css/output.css

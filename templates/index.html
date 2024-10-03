@@ -9,24 +9,23 @@
 
 
 {% block content %}
-<div class="flex grow">
-    <div class="flex size-full">
-
-        <div class="flex-1 flex justify-center items-center">
-            <div>
-                <h1 class="font-extrabold text-6xl mb-4">Your Work Platform</h1>
-                <p class="text-xl mb-4">Run and manage your all your work in one place</p>
-    
-                <button class="bg-sky-800  hover:bg-sky-700 hover:underline active:bg-sky-800 w-32 h-12 rounded-full text-white"><a href="/register">Get Started</a></button>
-            </div>
-        </div>
-
-        <div class="flex-1 flex items-center justify-center">
-                <img class="size-3/4 rounded-3xl shadow-2xl" src="{{url_for('static', filename = './images/teamwork.jpg')}}" alt="">
-        </div>
+  <div class="flex flex-grow flex-col lg:flex-row justify-center items-center gap-8 px-8 py-16">
+    <div class="flex flex-col gap-4 text-white lg:min-w-[28rem]">
+      <h1 class="hero-header text-4xl xs:text-5xl lg:text-7xl">
+        One Platform, All Your Work
+      </h1>
+      <p class="hero-header text-base xs:text-xl lg:text-3xl">
+        Manage tasks, projects, and deadlines seamlessly from start to finish.
+      </p>
+      <button class="w-fit text-base xs:text-xl lg:text-3xl border-solid border-2 border-white rounded-lg px-4 py-2 transition-all hover:scale-125">
+        <a class="hero-header" href="/register">
+          Get Started
+        </a>
+      </button>
     </div>
-</div>
 
-
-
+    <div class="rounded-3xl bg-neutral-50 max-w-full xs:max-w-screen-sm">
+      <img src="{{url_for('static', filename = './images/teamwork.png')}}" alt="teamwork">
+    </div>
+  </div>
 {% endblock %}
