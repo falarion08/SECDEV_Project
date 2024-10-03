@@ -1,4 +1,4 @@
-<nav class="flex justify-between items-center bg-slate-100 px-4 h-16 w-full z-10">
+<nav class="flex justify-between items-center bg-slate-100 px-8 h-16 w-full z-10">
   {% if current_user.is_authenticated %}
     {% if current_user.role == "admin" %}
       <a class="logo" href="{{ url_for('adminRoutes.admin_homepage') }}"> workbox </a>
@@ -38,7 +38,7 @@
 </nav>
 
 
-<div id="mobile-menu" class="hidden md:hidden bg-slate-100 flex-col z-10 border-t-[0.3px] border-slate-500 border-solid">
+<div id="mobile-menu" class="hidden md:hidden bg-slate-100 flex-col absolute z-10 w-full top-16 border-t-[0.3px] border-slate-500 border-solid">
   {% if current_user.is_authenticated %}
     <div class="flex items-center space-x-2">
       {% if current_user.profile_picture %}
