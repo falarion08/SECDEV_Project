@@ -37,8 +37,8 @@
     @apply font-fredoka text-xl cursor-default;
   }
 
-  .form-title {
-    @apply text-5xl font-semibold;
+  .form-title, .title {
+    @apply text-4xl xs:text-5xl font-semibold;
   }
 
   .form-group, #picture-inner-div {
@@ -58,6 +58,12 @@
     @apply text-xl font-medium w-fit py-1 px-2;
     @apply border-2 border-solid border-black rounded-xl;
     @apply transition-all hover:text-sky-500 hover:cursor-pointer hover:border-sky-500;
+  }
+
+  .workspace-btn {
+    @apply text-xl font-medium w-fit py-1 px-2;
+    @apply border-[3px] border-solid border-black rounded-xl;
+    @apply transition-all hover:text-sky-500 hover:border-sky-500 hover:cursor-pointer;
   }
 }
 
