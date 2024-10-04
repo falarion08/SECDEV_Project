@@ -27,12 +27,27 @@
     @apply hover:transition-all hover:duration-300 hover:bg-slate-300;
   }
 
+  .form-title {
+    @apply text-5xl font-semibold;
+  }
+
   .form-group, #picture-inner-div {
     @apply flex flex-col;
   }
 
   .form-input {
-    @apply border-2 border-gray-300 rounded-lg py-1 px-2; 
+    @apply border-2 border-gray-300 rounded-lg py-1 px-2;
+    @apply focus:border-sky-500 focus:outline-none;
+  }
+
+  .form-label, #picture-label {
+    @apply text-xl font-medium;
+  }
+
+  .form-btn {
+    @apply text-xl font-medium w-fit py-1 px-2;
+    @apply border-2 border-solid border-black rounded-xl;
+    @apply transition-all hover:text-sky-500 hover:cursor-pointer hover:border-sky-500;
   }
 }
 
