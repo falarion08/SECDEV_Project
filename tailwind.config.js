@@ -9,11 +9,15 @@ module.exports = {
       screens: {
         xs: "375px",
       },
-      colors : {
-        "bg-theme": "#0284C7",
+      colors: {
+        "theme": "#0284C7",
         "btn-dflt":"#3B82F6",
         "workspace-item-bg": "#F0F9FF",
-      }
+      },
+      fontFamily: {
+        "fredoka": ["Fredoka", "sans-serif"],
+        "inter": ["Inter", "sans-serif"],
+      },
     },
   },
   plugins: [],

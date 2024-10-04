@@ -16,8 +16,11 @@ document.getElementById("register-form")?.addEventListener("submit", function(e)
 })
 
 function picture_preview() {
-    let picture_input = document.getElementById("picture-input");
-    let preview_image = document.getElementById("preview-img");
+    const picture_input = document.getElementById("picture-input");
+    const preview_image = document.getElementById("preview-img");
+
+    if (!picture_input || !preview_image)
+      throw new Error("picture input or preview image not found");
 
     if (picture_input.files && picture_input.files[0]) {
         let reader = new FileReader();
@@ -42,7 +45,7 @@ function validate_form() {
     let confirm_password_input = document.getElementById("confirm-password-input");
     let picture_input = document.getElementById("picture-input");
 
-    if (!error_text || !email_input || !password_input || !phone_input || !confirm_password_input)
+    if (!name_input || !error_text || !email_input || !password_input || !phone_input || !confirm_password_input)
         return false;
 
     error_text.style.color = "#fe3e3e";

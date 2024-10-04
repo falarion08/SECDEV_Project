@@ -6,36 +6,48 @@
 
 @layer base {
   html, body {
-    font-family: "Fredoka", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 300;
-    font-style: normal;
-    font-variation-settings:
-      "wdth" 100;
+    @apply font-inter font-light;
   }
 }
 
 @layer components {
   .logo {
     @apply text-4xl p-1 border-4 border-solid border-black rounded-2xl;
-    @apply font-medium;
+    @apply font-fredoka font-medium;
   }
 
   .nav-link {
     @apply h-full flex items-center px-4 transition-all hover:bg-slate-300;
-    @apply text-lg;
+    @apply font-fredoka text-xl;
   }
 
   .mobile-menu-btn {
     @apply flex items-center justify-center text-xl px-4 py-4 h-full;
+    @apply font-fredoka text-xl;
     @apply hover:transition-all hover:duration-300 hover:bg-slate-300;
   }
 
-  .hero-header {
-    font-family: "Inter", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 500;
-    font-style: normal;
+  .form-title {
+    @apply text-5xl font-semibold;
+  }
+
+  .form-group, #picture-inner-div {
+    @apply flex flex-col;
+  }
+
+  .form-input {
+    @apply border-2 border-gray-300 rounded-lg py-1 px-2;
+    @apply focus:border-sky-500 focus:outline-none;
+  }
+
+  .form-label, #picture-label {
+    @apply text-xl font-medium;
+  }
+
+  .form-btn {
+    @apply text-xl font-medium w-fit py-1 px-2;
+    @apply border-2 border-solid border-black rounded-xl;
+    @apply transition-all hover:text-sky-500 hover:cursor-pointer hover:border-sky-500;
   }
 }
 
