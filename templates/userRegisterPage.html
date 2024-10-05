@@ -13,16 +13,16 @@
 {% endblock %}
 
 {% block content %}
-  <div class="flex flex-1 justify-center items-center flex-row bg-white px-8 py-16 w-full md:bg-transparent md:px-0 md:py-8">
-    <form action="{{ url_for('landingRoutes.register_page') }}" method="post" class="flex flex-col w-full md:max-w-2xl gap-4 md:bg-white md:px-16 md:py-8 md:rounded-[2.5rem] md:border-solid md:border-4 md:border-black" id="register-form" enctype=multipart/form-data>
+  <div class="outer-container">
+    <form action="{{ url_for('landingRoutes.register_page') }}" method="post" class="inner-container md:max-w-2xl" id="register-form" enctype=multipart/form-data>
       {{ form.hidden_tag() }}
       {{ form.csrf_token }}
 
       <h1 class="form-title"> Sign Up </h1>
 
-      <div class="">
-        {%  with messages = get_flashed_messages(with_categories=true) %}
-          {% if messages %}
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          <div class="">
             {% for category, message in messages %}
               {% if category == 'success-msg' %}
                 <span class="text-green-500" id="message-text"> {{ message }} </span>
@@ -30,12 +30,10 @@
                 <span class="text-red-700" id="message-text"> {{ message }} </span>
               {% endif %}
             {% endfor %}
-          {% else %}
-            <span id="message-text"></span>
-          {% endif %}
-        {% endwith %}
-      </div>
-
+          </div>
+        {% endif %}
+      {% endwith %}
+      
       <div id="picture-group" class="">
         <div id="picture-inner-div" class="">
           {{ form.profile_picture.label(id="picture-label", class="form-label") }}

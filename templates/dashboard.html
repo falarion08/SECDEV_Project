@@ -8,11 +8,11 @@
 {% endblock %} 
 
 {% block content %}
-  <div class="flex flex-1 flex-col py-16 justify-start md:justify-center items-center bg-white md:bg-transparent">
-    <div class="flex flex-col px-8 pb-8 min-w-[66.67%] md:bg-white md:px-16 md:py-8 md:rounded-[2.5rem] md:border-solid md:border-4 md:border-black">
-      <div class="text-center">
-        {%  with messages = get_flashed_messages(with_categories=true) %}
-          {% if messages %}
+  <div class="outer-container">
+    <div class="inner-container md:max-w-7xl">
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          <div class="">
             {% for category, message in messages %}
               {% if category == 'success-msg' %}
                 <span class="text-green-500" id="message-text"> {{ message }} </span>
@@ -20,23 +20,20 @@
                 <span class="text-red-700" id="message-text"> {{ message }} </span>
               {% endif %}
             {% endfor %}
-          {% else %}
-            <span id="message-text"></span>
-          {% endif %}
-        {% endwith %}
-      </div>
-      <div class="flex flex-row justify-between items-center flex-wrap gap-4">
+          </div>
+        {% endif %}
+      {% endwith %}
+      <div class="flex flex-row justify-between items-end flex-wrap gap-4">
           <h1 class="title">
             Workspaces
           </h1>
           {% if current_user.role == 'admin' %}
-            <a class="workspace-btn" href="{{ url_for('adminRoutes.create_workspace') }}">
+            <a class="form-btn" href="{{ url_for('adminRoutes.create_workspace') }}">
               Add Workspace
             </a>
           {% endif %}
       </div>
-      <hr class="mt-4">
-      <div class="flex flex-col bg-blue-50 rounded-b-2xl">
+      <div class="flex flex-col bg-blue-50 rounded-b-2xl border-t-2 border-gray-100">
         {% if workspaces %}
           {% for workspace in workspaces %}
             <div class="flex flex-col gap-2 py-4 px-8 border-b-2 border-slate-50">
@@ -44,19 +41,19 @@
                   {{workspace.workspace_name}}
               </div>
               <div class="flex flex-row flex-wrap gap-4">
-                <a class="workspace-btn" href="{{ url_for('clientRoutes.open_workspace', workspace_id=workspace.workspace_id) }}">
+                <a class="form-btn" href="{{ url_for('clientRoutes.open_workspace', workspace_id=workspace.workspace_id) }}">
                   Open Workspace
                 </a>
                   
                 {% if current_user.is_authenticated %}
                   {% if current_user.role == 'admin' %}
-                    <a class="workspace-btn" href="{{ url_for('adminRoutes.edit_workspace', workspace_id=workspace.workspace_id) }}">
+                    <a class="form-btn" href="{{ url_for('adminRoutes.edit_workspace', workspace_id=workspace.workspace_id) }}">
                       Edit Workspace
                     </a>
                       
                     <form action="{{url_for('adminRoutes.delete_workspace', workspace_id = workspace.workspace_id)}}" method="POST" class="">
-                        {{delete_form.csrf_token()}}
-                        {{delete_form.submit(class="workspace-btn")}}
+                        {{delete_form.csrf_token}}
+                        {{delete_form.submit(class="form-btn")}}
                     </form>
                   {% endif %}
                 {% endif %}
