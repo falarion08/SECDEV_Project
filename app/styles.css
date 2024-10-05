@@ -16,6 +16,11 @@
     @apply font-fredoka font-medium;
   }
 
+  .nav-user {
+    @apply h-full flex items-center px-4 cursor-default;
+    @apply font-fredoka text-xl;
+  }
+
   .nav-link {
     @apply h-full flex items-center px-4 transition-all hover:bg-slate-300;
     @apply font-fredoka text-xl;
@@ -27,8 +32,13 @@
     @apply hover:transition-all hover:duration-300 hover:bg-slate-300;
   }
 
-  .form-title {
-    @apply text-5xl font-semibold;
+  .mobile-menu-user {
+    @apply flex items-center justify-center text-xl px-4 py-4 h-full;
+    @apply font-fredoka text-xl cursor-default;
+  }
+
+  .form-title, .title {
+    @apply text-4xl xs:text-5xl font-semibold;
   }
 
   .form-group, #picture-inner-div {
@@ -48,6 +58,12 @@
     @apply text-xl font-medium w-fit py-1 px-2;
     @apply border-2 border-solid border-black rounded-xl;
     @apply transition-all hover:text-sky-500 hover:cursor-pointer hover:border-sky-500;
+  }
+
+  .workspace-btn {
+    @apply text-xl font-medium w-fit py-1 px-2;
+    @apply border-[3px] border-solid border-black rounded-xl;
+    @apply transition-all hover:text-sky-500 hover:border-sky-500 hover:cursor-pointer;
   }
 }
 
