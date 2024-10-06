@@ -38,7 +38,7 @@
           {% for workspace in workspaces %}
             <div class="workspace-list-item flex-col gap-2">
               <h2 class="text-xl font-medium"> {{workspace.workspace_name}} </h2>
-              <div class="flex flex-row flex-wrap gap-4">
+              <div class="flex flex-row flex-wrap gap-2">
                 <a class="form-btn" href="{{ url_for('clientRoutes.open_workspace', workspace_id=workspace.workspace_id) }}">
                   Open Workspace
                 </a>

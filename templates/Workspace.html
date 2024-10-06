@@ -53,7 +53,7 @@
       <div class="workspace-list">
         {% if workspace.tasks %}
           {% for task in workspace.tasks %}
-            <div class="workspace-list-item flex-row justify-between items-end">
+            <div class="workspace-list-item flex-row justify-between items-end gap-2">
               <div>
                 <h2 class="text-xl font-medium cursor-default"> {{task.task_name}} </h2>
                 <p class="cursor-default"> Assignee: {{task.assigned_user_email_address}} </p>
