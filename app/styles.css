@@ -69,6 +69,14 @@
     @apply border-2 border-solid border-black rounded-xl;
     @apply transition-all hover:text-sky-500 hover:cursor-pointer hover:border-sky-500;
   }
+
+  .workspace-list {
+    @apply flex flex-col bg-blue-50 rounded-b-2xl border-t-2 border-gray-100;
+  }
+
+  .workspace-list-item {
+    @apply flex flex-wrap py-4 px-8 border-b-2 border-slate-50;
+  }
 }
 
 @layer utilities {

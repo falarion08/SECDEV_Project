@@ -33,13 +33,11 @@
             </a>
           {% endif %}
       </div>
-      <div class="flex flex-col bg-blue-50 rounded-b-2xl border-t-2 border-gray-100">
+      <div class="workspace-list">
         {% if workspaces %}
           {% for workspace in workspaces %}
-            <div class="flex flex-col gap-2 py-4 px-8 border-b-2 border-slate-50">
-              <div class="text-xl font-medium">
-                  {{workspace.workspace_name}}
-              </div>
+            <div class="workspace-list-item flex-col gap-2">
+              <h2 class="text-xl font-medium"> {{workspace.workspace_name}} </h2>
               <div class="flex flex-row flex-wrap gap-4">
                 <a class="form-btn" href="{{ url_for('clientRoutes.open_workspace', workspace_id=workspace.workspace_id) }}">
                   Open Workspace
@@ -62,7 +60,7 @@
           {%endfor%}
         {% else %}
           {% if current_user.is_authenticated %}
-            {%if current_user.role == 'admin' %}
+            {% if current_user.role == 'admin' %}
               <h2 class="text-xl font-medium">
                 There are currently no workspaces.
               </h2>
