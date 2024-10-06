@@ -65,7 +65,7 @@
   }
 
   .form-btn {
-    @apply text-xl font-medium w-fit py-1 px-2;
+    @apply text-base xs:text-xl font-medium w-fit py-1 px-2;
     @apply border-2 border-solid border-black rounded-xl;
     @apply transition-all hover:text-sky-500 hover:cursor-pointer hover:border-sky-500;
   }
@@ -76,6 +76,18 @@
 
   .workspace-list-item {
     @apply flex flex-wrap py-4 px-8 border-b-2 border-slate-50;
+  }
+
+  .task-curr-tab {
+    @apply text-base xs:text-lg font-medium w-fit py-1 px-2;
+    @apply border-2 border-solid border-purple-800 text-purple-800 rounded-xl;
+    @apply hover:cursor-default;
+  }
+
+  .update-btn {
+    @apply text-sm xs:text-base font-medium w-fit py-1 px-2;
+    @apply border-2 border-solid border-black rounded-xl;
+    @apply transition-all hover:text-sky-500 hover:cursor-pointer hover:border-sky-500;
   }
 }
 

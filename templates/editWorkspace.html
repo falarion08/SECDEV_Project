@@ -41,21 +41,21 @@
         {{ updateWorkspaceNameForm.csrf_token }}
         {{ updateWorkspaceNameForm.workspace_name.label(class="form-label") }}
         {{ updateWorkspaceNameForm.workspace_name(class="form-input") }}
-        {{ updateWorkspaceNameForm.submit(class="form-btn my-4") }}
+        {{ updateWorkspaceNameForm.submit(class="form-btn my-2") }}
       </form>
       <form class="form-group" action="{{url_for('adminRoutes.add_member', workspace_id=workspace_id)}}" method="POST">
         {{ new_member_form.csrf_token }}
         {{ new_member_form.email_address.label(class="form-label") }}
         {{ new_member_form.email_address(class="form-input") }}
-        {{ new_member_form.submit(class="form-btn my-4") }}
+        {{ new_member_form.submit(class="form-btn my-2") }}
       </form>
       <div class="">
         <h2 class="form-label"> Members: </h2>
         {% for member in workspace_members %}
-          <form class="flex flex-row flex-wrap items-center gap-2" action="{{url_for('adminRoutes.remove_member', workspace_id=workspace.workspace_id, member_id=member.member_id)}}" method="POST">
+          <form class="flex flex-row flex-wrap items-center gap-x-2 gap-y-1" action="{{url_for('adminRoutes.remove_member', workspace_id=workspace.workspace_id, member_id=member.member_id)}}" method="POST">
             <span class="text-lg"> {{ member.member_details.email }} </span>
             {{remove_member_form.csrf_token()}}
-            {{remove_member_form.submit(class="form-btn")}}
+            {{remove_member_form.submit(class="update-btn")}}
           </form>
         {% endfor %}
       </div>
