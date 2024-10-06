@@ -37,6 +37,16 @@
     @apply font-fredoka text-xl cursor-default;
   }
 
+  .outer-container {
+    @apply flex flex-1 justify-start items-start flex-row bg-white px-8 py-16 w-full;
+    @apply md:items-center md:justify-center md:bg-transparent md:px-0 md:py-8;
+  }
+
+  .inner-container {
+    @apply flex flex-col w-full gap-4;
+    @apply md:bg-white md:m-8 md:px-16 md:py-8 md:rounded-[2.5rem] md:border-solid md:border-4 md:border-black;
+  }
+
   .form-title, .title {
     @apply text-4xl xs:text-5xl font-semibold;
   }
@@ -60,10 +70,12 @@
     @apply transition-all hover:text-sky-500 hover:cursor-pointer hover:border-sky-500;
   }
 
-  .workspace-btn {
-    @apply text-xl font-medium w-fit py-1 px-2;
-    @apply border-[3px] border-solid border-black rounded-xl;
-    @apply transition-all hover:text-sky-500 hover:border-sky-500 hover:cursor-pointer;
+  .workspace-list {
+    @apply flex flex-col bg-blue-50 rounded-b-2xl border-t-2 border-gray-100;
+  }
+
+  .workspace-list-item {
+    @apply flex flex-wrap py-4 px-8 border-b-2 border-slate-50;
   }
 }
 

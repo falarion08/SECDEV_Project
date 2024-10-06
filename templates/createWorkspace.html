@@ -8,8 +8,8 @@
 {% endblock %} 
 
 {% block content %}
-  <div class="flex flex-1 justify-center items-start md:items-center flex-row bg-white px-8 py-16 w-full md:bg-transparent md:px-0 md:py-8">
-    <form class="flex flex-col w-full gap-4 md:bg-white md:max-w-[66.67%] md:px-16 md:py-8 md:rounded-[2.5rem] md:border-solid md:border-4 md:border-black" action="{{ url_for('adminRoutes.create_workspace')}}" method="POST">
+  <div class="outer-container">
+    <form class="inner-container md:max-w-7xl" action="{{ url_for('adminRoutes.create_workspace')}}" method="POST">
       <h1 class="title">
         Create New Workspace
       </h1>
