@@ -8,6 +8,6 @@
     "tailwindcss": "^3.4.1"
   },
   "scripts": {
-    "build": "npx tailwindcss -i ./app/styles.css -o ./static/css/output.css --minify"
+    "build": "npx tailwindcss -i ./app/styles.css -o ./static/css/output.css --watch --minify"
   }
 }
