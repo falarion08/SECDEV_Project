@@ -1,0 +1,17 @@
+{
+  "builds": [
+    {
+      "src": "app.py",
+      "use": "@vercel/python"
+    },
+    {
+      "src": "tailwind.config.js",
+      "use": "@vercel/static-build",
+      "config": { "distDir": "static/css" }
+    }
+  ],
+  "routes": [
+    { "src": "/static/css/(.*)", "dest": "/static/css/$1" },
+    { "src": "/(.*)", "dest": "app.py" }
+  ]
+}

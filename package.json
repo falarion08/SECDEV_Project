@@ -3,6 +3,8 @@
   "description": "Project management web application built with Flask and TailwindCSS",
   "version": "1.0.0",
   "devDependencies": {
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.47",
     "tailwindcss": "^3.4.1"
   },
   "scripts": {
