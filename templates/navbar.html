@@ -1,12 +1,21 @@
 <nav class="flex justify-between items-center bg-slate-100 px-8 h-16 w-full z-10">
   {% if current_user.is_authenticated %}
     {% if current_user.role == "admin" %}
-      <a class="logo" href="{{ url_for('adminRoutes.admin_homepage') }}"> workbox </a>
+      <a class="logo" href="{{ url_for('adminRoutes.admin_homepage') }}">
+        <span class="hidden xs:block"> workbox </span>
+        <span class="xs:hidden"> wb </span>
+      </a>
     {% else %}
-      <a class="logo" href="{{ url_for('clientRoutes.client_homepage')}}"> workbox </a>
+      <a class="logo" href="{{ url_for('clientRoutes.client_homepage')}}">
+        <span class="hidden xs:block"> workbox </span>
+        <span class="xs:hidden"> wb </span>
+      </a>
     {% endif %}
   {% else %} 
-    <a class="logo" href="{{ url_for('landingRoutes.home_page')}}"> workbox </a>
+    <a class="logo" href="{{ url_for('landingRoutes.home_page')}}">
+      <span class="hidden"> workbox </span>
+      <span class="xs:hidden"> wb </span>
+    </a>
   {% endif %}
 
   <button id="menu-button" class="text-2xl md:hidden focus:outline-none">
