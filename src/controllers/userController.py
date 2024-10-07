@@ -2,9 +2,9 @@ import os
 import bcrypt
 import uuid
 from werkzeug.utils import secure_filename
-from app.controllers import verify_password, hashPassword, verify_image, verify_email, verify_phone_number, verify_full_name
-from app.models.User import User,db
-from app.models.TaskFiles import TaskFiles, db
+from src.controllers import verify_password, hashPassword, verify_image, verify_email, verify_phone_number, verify_full_name
+from src.models.User import User,db
+from src.models.TaskFiles import TaskFiles, db
 import fleep
 
 def create(user_email,password,phone_number,full_name,profile_picture):

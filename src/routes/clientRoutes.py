@@ -1,16 +1,16 @@
 from flask import render_template, flash, redirect, url_for, session,request
 from markupsafe import escape
 from flask_login import login_required, current_user
-from app.models.User import db, User
+from src.models.User import db, User
 from . import client_bp, login_manager
-from app.controllers.userController import upload_file
-from app.models.TaskFiles import TaskFiles
-from app.models.Task import Task
-from app.models.TaskUpdates import TaskUpdates
-from app.models.Workspace import Workspace
-from app.models.WorkspaceMembers import WorkspaceMembers
+from src.controllers.userController import upload_file
+from src.models.TaskFiles import TaskFiles
+from src.models.Task import Task
+from src.models.TaskUpdates import TaskUpdates
+from src.models.Workspace import Workspace
+from src.models.WorkspaceMembers import WorkspaceMembers
 from  wtforms import Label
-import app.utils.forms as form
+import src.utils.forms as form
 from sqlalchemy import func
 import logging
 

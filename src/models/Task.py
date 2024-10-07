@@ -1,4 +1,4 @@
-from app.models import db
+from src.models import db
 from datetime import datetime
 from . import Workspace, User,TaskUpdates
 

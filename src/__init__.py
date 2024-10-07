@@ -4,15 +4,14 @@ from flask_principal import Principal
 from flask_migrate import Migrate
 from flask_talisman import Talisman
 from dotenv import load_dotenv
-from app.utils.talisman import setup_talisman
-from app.models import db
-from app.routes import register_blueprints, setup_login, limiter
-from app.configs import setup_configs
-from flask import render_template
-import app.db_seed.seed as seed
+# from src.utils.talisman import setup_talisman
+from src.models import db
+from src.routes import register_blueprints, setup_login, limiter
+from src.configs import setup_configs
+import src.db_seed.seed as seed
 from flask.logging import default_handler
 
-import app.models
+import src.models
 
 def create_app():
     # Allows you to load your .env file
