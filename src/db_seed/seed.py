@@ -1,6 +1,6 @@
-from app.models.User import User,db
+from src.models.User import User,db
 from bcrypt import hashpw
-from app.controllers import hashPassword
+from src.controllers import hashPassword
 
 """
     This file is responsible for filling the database with dummy

@@ -1,8 +1,8 @@
 from flask import render_template, flash, redirect, url_for, session
 from flask_login import login_user, login_required, logout_user, current_user
-from app.models.User import db, User
-from app.controllers import userController
-from app.utils.forms import RegistrationForm, LoginForm
+from src.models.User import db, User
+from src.controllers import userController
+from src.utils.forms import RegistrationForm, LoginForm
 from . import landing_bp, login_manager, limiter, admin_permission
 import logging
 import fleep

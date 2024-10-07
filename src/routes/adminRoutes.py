@@ -1,14 +1,14 @@
 from flask import render_template, flash, redirect, url_for, session,request
 from flask_login import login_required, current_user
-from app.models.User import db, User
+from src.models.User import db, User
 from . import admin_bp,login_manager
-from app.controllers import verify_email, verify_title
-from app.models.Task import Task
-from app.models.Workspace import Workspace
-from app.models.WorkspaceMembers import WorkspaceMembers
-from app.models.Task import Task
+from src.controllers import verify_email, verify_title
+from src.models.Task import Task
+from src.models.Workspace import Workspace
+from src.models.WorkspaceMembers import WorkspaceMembers
+from src.models.Task import Task
 from  wtforms import Label
-import app.utils.forms as form
+import src.utils.forms as form
 import logging
 
 logging.basicConfig(filename='sys.log', filemode='a', format='%(asctime)s  %(name)s - %(levelname)s - %(message)s',level=logging.DEBUG)
