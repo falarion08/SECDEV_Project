@@ -47,11 +47,11 @@
                 Edit Task
               </a>
               <form action="{{url_for('adminRoutes.delete_task',workspace_id=workspace_id, task_id=task_id)}}" method="POST">
-                  {{ delete_task_form.csrf_token }}
-                  {{ delete_task_form.submit(class="form-btn") }}
+                {{ delete_task_form.csrf_token }}
+                {{ delete_task_form.submit(class="form-btn") }}
               </form>
             {% else %}
-              <a class="" href="{{ url_for('clientRoutes.edit_task', workspace_id=workspace_id, task_id=task_id) }}">
+              <a class="form-btn" href="{{ url_for('clientRoutes.edit_task', workspace_id=workspace_id, task_id=task_id) }}">
                 Edit Status 
               </a>
             {% endif %}
@@ -60,7 +60,9 @@
 
         <div class="flex flex-row gap-2 my-4">
           <p class="task-curr-tab"> Updates </p>
-          <a class="form-btn text-base xs:text-lg" href="{{ url_for('clientRoutes.open_task_files', workspace_id=workspace_id, task_id=task_id) }}"> Files </a>
+          <a class="form-btn text-base xs:text-lg" href="{{ url_for('clientRoutes.open_task_files', workspace_id=workspace_id, task_id=task_id) }}">
+            Files
+          </a>
         </div>
 
         <form class="flex flex-col gap-2" action="{{ url_for('clientRoutes.write_update', workspace_id=workspace_id, task_id=task_id) }}" method="POST">
