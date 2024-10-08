@@ -4,7 +4,7 @@ from flask_principal import Principal
 from flask_migrate import Migrate
 from flask_talisman import Talisman
 from dotenv import load_dotenv
-# from src.utils.talisman import setup_talisman
+from src.utils.talisman import setup_talisman
 from src.models import db
 from src.routes import register_blueprints, setup_login, limiter
 from src.configs import setup_configs
@@ -24,10 +24,11 @@ def create_app():
     migrate = Migrate()
     app.logger.removeHandler(default_handler)
     principals = Principal(app)
+    talisman = Talisman(app)
 
     # set app db configs
     setup_configs(app)
-    # setup_talisman(talisman)
+    setup_talisman(talisman)
     setup_login(app)
     db.init_app(app)
     

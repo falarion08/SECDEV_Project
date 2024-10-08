@@ -74,6 +74,10 @@ def login_page():
             session.pop('_flashes', None)
             flash("Email address or password incorrect", 'error-msg')
             return redirect(url_for('landingRoutes.login_page'))
+    else:
+        if form.recaptcha.errors:
+            flash('Please complete the reCAPTCHA to proceed.', 'error-msg')
+            return redirect(url_for('landingRoutes.login_page'))
             
             
     return render_template('userLogin.html', form=form)
@@ -126,6 +130,10 @@ def register_page():
         logging.info(f'User with email {form.email.data} has registered')
         flash('Registration successful', 'success-msg')
         return redirect(url_for('landingRoutes.login_page'))
+    else:
+        if form.recaptcha.errors:
+            flash('Please complete the reCAPTCHA to proceed.', 'error-msg')
+            return redirect(url_for('landingRoutes.login_page'))
 
     return render_template('userRegisterPage.html', form=form)
 

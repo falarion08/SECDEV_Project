@@ -2,17 +2,26 @@
 SELF = "\'self\'"
 
 csp = {
-   'default-src': ['\'self\'',
-                   'https://www.google.com/recaptcha/api.js',
-                    'https://www.gstatic.com/'],
-    'script-src': ['\'self\'',
-                   'https://www.google.com/recaptcha/api.js',
-                   ' https://www.gstatic.com/'],
-    'frame-src':['\'self\'',
-                 'https://www.google.com/recaptcha/api.js',
-                   ' https://www.gstatic.com/']
-
-
+  'default-src': [
+    '\'self\'',
+  ],
+  'script-src': [
+    '\'self\'',
+    'https://www.google.com',
+    'https://www.gstatic.com/'
+  ],
+  'frame-src': [
+    'https://www.google.com',
+  ],
+  'font-src': [
+    '\'self\'',
+    'https://fonts.googleapis.com', 
+    'https://fonts.gstatic.com'
+  ],
+  'style-src': [
+    '\'self\'',
+    'https://fonts.googleapis.com'
+  ]
 }
 
 # HTTP Strict Transport Security (HSTS) Header
@@ -34,3 +43,4 @@ def setup_talisman(talisman):
     talisman.content_security_policy = csp
     talisman.strict_transport_security = hsts
     talisman.content_security_policy_nonce_in = nonce_list
+    talisman.cache_headers = False
