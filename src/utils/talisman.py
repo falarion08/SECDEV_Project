@@ -43,3 +43,4 @@ def setup_talisman(talisman):
     talisman.content_security_policy = csp
     talisman.strict_transport_security = hsts
     talisman.content_security_policy_nonce_in = nonce_list
+    talisman.cache_headers = False
