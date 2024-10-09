@@ -1,4 +1,4 @@
-# Workbox
+# Workbox (https://workbox-revamped.vercel.app/)
 
 A **simple project management web application** designed to streamline workspace and task management, built with Flask PostgreSQL, Jinja2, and TailwindCSS. Workbox prioritizes security by aligning with the OWASP Top 10 security guidelines.
 
