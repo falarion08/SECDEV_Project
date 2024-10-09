@@ -110,6 +110,14 @@ Alternatively, if you've already built the Tailwind CSS output file, and don't p
 
 ## Notes
 
+**Dummy Users**: You can login to pre-existing accounts by taking a look into the seed.py file in src/db_seed for the user details.
+
+**Creating a Workspace**: Use the admin account to create a workspace. Current version does not support non-admin workspace creation.
+
+**Task File Upload**: This feature might be broken.
+
 **Development Website URL**: http://localhost:5000/
 
-**The website is live on:** https://workbox-revamped.vercel.app/ (deployed from a forked repo)
+**The website is live on**: https://workbox-revamped.vercel.app/ (deployed from a forked repo)
+
+
