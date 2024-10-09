@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block title %} 
+  <title> {{ workspace.workspace_name }} </title> 
+{% endblock %}
+
+{% block styles %}
+{% endblock %} 
+
+{% block scripts %}
+  <!-- TODO: input validation (if any)
+  <script src="{{url_for('static', filename='js/registerPage.js')}}" async></script>
+  <script src='https://www.google.com/recaptcha/api.js' async defer></script>
+  -->
+{% endblock %}
+
+
+{% block content %}
+  <div class="outer-container">
+    <div class="inner-container md:max-w-7xl">
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          <div class="">
+            {% for category, message in messages %}
+              {% if category == 'success-msg' %}
+                <span class="text-green-500" id="message-text"> {{ message }} </span>
+              {% else %}
+                <span class="text-red-700" id="message-text"> {{ message }} </span>
+              {% endif %}
+            {% endfor %}
+          </div>
+        {% endif %}
+      {% endwith %}
+
+      <div class="flex flex-row justify-between items-end flex-wrap gap-2"> 
+        <h1 class="title"> {{workspace.workspace_name}} </h1>
+        <div class="flex flex-row flex-wrap gap-2">
+          {% if current_user.is_authenticated %}
+            {% if current_user.role == 'admin' %}
+              <a class="form-btn" href="{{url_for('adminRoutes.create_task', workspace_id=workspace.workspace_id)}}">
+                New Task
+              </a>
+            {% endif %}
+          {% endif %}
+          {% if current_user.role == 'admin' %}
+            <a class="form-btn" href="{{url_for('adminRoutes.admin_homepage', workspace_id=workspace_id)}}"> Back </a>
+          {% else %}
+            <a class="form-btn" href="{{url_for('clientRoutes.client_homepage', workspace_id=workspace_id)}}"> Back </a>
+          {% endif %}
+        </div>
+      </div>
+      
+      <div class="workspace-list">
+        {% if workspace.tasks %}
+          {% for task in workspace.tasks %}
+            <div class="workspace-list-item flex-row justify-between items-end gap-2">
+              <div>
+                <h2 class="text-xl font-medium cursor-default"> {{task.task_name}} </h2>
+                <p class="cursor-default"> Assignee: {{task.assigned_user_email_address}} </p>
+                <p class="cursor-default"> Status: {{task.status}} </p>
+                <p class="cursor-default"> Due: {{task.due_date}} </p>
+              </div>
+              <a class="form-btn" href="{{ url_for('clientRoutes.open_task_updates', workspace_id=workspace_id, task_id=task.task_id) }}">
+                Open Task
+              </a>
+            </div>
+          {% endfor %}
+        {% else %}
+          <h2 class="text-xl font-medium"> This workspace has no tasks yet! </h2>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+{% endblock %}

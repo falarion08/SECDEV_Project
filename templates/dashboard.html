@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block title %} 
+  <title> Dashboard </title> 
+{% endblock %}
+
+{% block styles %}
+{% endblock %} 
+
+{% block content %}
+  <div class="outer-container">
+    <div class="inner-container md:max-w-7xl">
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          <div class="">
+            {% for category, message in messages %}
+              {% if category == 'success-msg' %}
+                <span class="text-green-500" id="message-text"> {{ message }} </span>
+              {% else %}
+                <span class="text-red-700" id="message-text"> {{ message }} </span>
+              {% endif %}
+            {% endfor %}
+          </div>
+        {% endif %}
+      {% endwith %}
+      <div class="flex flex-row justify-between items-end flex-wrap gap-2">
+          <h1 class="title">
+            Workspaces
+          </h1>
+          {% if current_user.role == 'admin' %}
+            <a class="form-btn" href="{{ url_for('adminRoutes.create_workspace') }}">
+              Add Workspace
+            </a>
+          {% endif %}
+      </div>
+      <div class="workspace-list">
+        {% if workspaces %}
+          {% for workspace in workspaces %}
+            <div class="workspace-list-item flex-col gap-2">
+              <h2 class="text-xl font-medium"> {{workspace.workspace_name}} </h2>
+              <div class="flex flex-row flex-wrap gap-2">
+                <a class="form-btn" href="{{ url_for('clientRoutes.open_workspace', workspace_id=workspace.workspace_id) }}">
+                  Open Workspace
+                </a>
+                  
+                {% if current_user.is_authenticated %}
+                  {% if current_user.role == 'admin' %}
+                    <a class="form-btn" href="{{ url_for('adminRoutes.edit_workspace', workspace_id=workspace.workspace_id) }}">
+                      Edit Workspace
+                    </a>
+                      
+                    <form action="{{url_for('adminRoutes.delete_workspace', workspace_id = workspace.workspace_id)}}" method="POST" class="">
+                        {{delete_form.csrf_token}}
+                        {{delete_form.submit(class="form-btn")}}
+                    </form>
+                  {% endif %}
+                {% endif %}
+              </div>
+            </div>
+          {%endfor%}
+        {% else %}
+          {% if current_user.is_authenticated %}
+            {% if current_user.role == 'admin' %}
+              <h2 class="text-xl font-medium">
+                There are currently no workspaces.
+              </h2>
+            {% else %}
+              <h2 class="text-xl font-medium">
+                You are currently not a part of any workspace.
+              </h2>
+            {% endif %}
+          {% endif %}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+{% endblock %}
