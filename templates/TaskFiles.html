@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    <title> {{ task.task_name }} </title> 
+{% endblock %}
+
+{% block styles %}
+{% endblock %} 
+
+{% block scripts %}
+
+{% endblock %}
+
+
+{% block content %}
+  <div class="outer-container">
+    <div class="inner-container md:max-w-7xl"> 
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, message in messages %}
+            {% if category == 'success-msg' %}
+              <span class="text-green-500" id="message-text"> {{ message }} </span>
+            {% else %}
+              <span class="text-red-700" id="message-text"> {{ message }} </span>
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+
+      <div class="flex flex-col gap-2">
+        <div class="flex flex-row justify-between items-end flex-wrap gap-2">
+          <h1 class="title"> {{ task.task_name }} </h1>
+          <a class="form-btn" href="{{ url_for('clientRoutes.open_workspace', workspace_id=workspace_id) }}">
+            Back
+          </a>
+        </div>
+              
+        <div class="flex flex-row flex-wrap-reverse items-end justify-between gap-2">
+          <div class="flex flex-col min-w-fit">
+            <h2 class="text-2xl font-medium"> Status: {{ task.status }}</h2>
+            <h2 class="text-xl font-medium"> Assigned: {{ task.assigned_user_email_address }} </h2>
+            <h2 class="text-xl font-medium"> Due Date: {{ task.due_date }} </h2>
+          </div>
+          <div class="flex flex-row flex-wrap xs:justify-end gap-2">
+            {% if current_user.role == "admin" %}
+              <a class="form-btn" href="{{ url_for('clientRoutes.edit_task', workspace_id=workspace_id, task_id=task_id) }}">
+                Edit Task
+              </a>
+              <form action="{{url_for('adminRoutes.delete_task',workspace_id=workspace_id, task_id=task_id)}}" method="POST">
+                {{ delete_task_form.csrf_token }}
+                {{ delete_task_form.submit(class="form-btn") }}
+              </form>
+            {% else %}
+              <a class="form-btn" href="{{ url_for('clientRoutes.edit_task', workspace_id=workspace_id, task_id=task_id) }}">
+                Edit Status
+              </a>
+            {% endif %}
+          </div>
+        </div>
+
+        <div class="flex flex-row gap-2 my-4">
+          <a class="form-btn text-base xs:text-lg" href="{{ url_for('clientRoutes.open_task_updates', workspace_id=workspace_id, task_id=task_id) }}">
+            Updates
+          </a>
+          <a class="task-curr-tab" href="#"> Files </a>
+        </div>
+
+        <form class="flex flex-col gap-2" action="{{ url_for('clientRoutes.open_task_files', workspace_id=workspace_id, task_id=task_id) }}" method="POST" enctype=multipart/form-data>
+          {{ new_file_form.csrf_token }}
+          {{ new_file_form.document(accept=".pdf") }}
+          {{ new_file_form.submit(class="update-btn") }}
+        </form>
+
+        <div class="workspace-list">
+          {% if task.task_files %}
+            {% for file in task.task_files %}
+            <div class="workspace-list-item flex-col">
+              <p> {{ file.file }} - uploaded by [{{ file.uploader_details.email }} - {{ file.uploader_details.full_name }}]  </p>
+            </div>
+            {% endfor %}
+          {% else %}
+            <h2 class=""> This task currently has no files. </h2>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

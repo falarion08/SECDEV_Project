@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %} 
+  <title> Create Workspace </title> 
+{% endblock %}
+
+{% block styles %}
+{% endblock %} 
+
+{% block content %}
+  <div class="outer-container">
+    <form class="inner-container md:max-w-7xl" action="{{ url_for('adminRoutes.create_workspace')}}" method="POST">
+      <h1 class="title">
+        Create New Workspace
+      </h1>
+      <div class="form-group">
+        {{form.csrf_token}}
+        {{form.workspace_name.label(class="form-label")}}
+        {{form.workspace_name(class="form-input")}}
+      </div>
+      <div class="flex flex-row flex-wrap gap-4">
+        <a class="form-btn" href="{{ url_for('adminRoutes.admin_homepage') }} ">
+          Cancel
+        </a>
+        {{form.submit(class="form-btn")}}
+      </div>
+    </form>
+  </div>
+{% endblock %}

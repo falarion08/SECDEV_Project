@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block title %} 
+  <title> Edit Workspace </title> 
+{% endblock %}
+
+{% block styles %}
+{% endblock %} 
+
+{% block scripts %}
+  <!-- TODO: frontend validation of inputs
+  <script src="{{url_for('static', filename='js/registerPage.js')}}" async></script>
+  <script src='https://www.google.com/recaptcha/api.js' async defer></script>
+  -->
+{% endblock %}
+
+{% block content %}
+  <div class="outer-container">
+    <div class="inner-container md:max-w-7xl">
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          <div class="">
+            {% for category, message in messages %}
+              {% if category == 'success-msg' %}
+                <span class="text-green-500" id="message-text"> {{ message }} </span>
+              {% else %}
+                <span class="text-red-700" id="message-text"> {{ message }} </span>
+              {% endif %}
+            {% endfor %}
+          </div>
+        {% endif %}
+      {% endwith %}
+      
+      <div class="flex flex-row justify-between items-end flex-wrap gap-2">
+        <h1 class="title">Edit {{ workspace.workspace_name }} </h1>  
+        <a class="form-btn" href="{{url_for('adminRoutes.admin_homepage')}}"> 
+          Back 
+        </a>
+      </div>
+      <form class="form-group" action="{{ url_for('adminRoutes.edit_workspace', workspace_id=workspace_id) }}" method="POST">
+        {{ updateWorkspaceNameForm.csrf_token }}
+        {{ updateWorkspaceNameForm.workspace_name.label(class="form-label") }}
+        {{ updateWorkspaceNameForm.workspace_name(class="form-input") }}
+        {{ updateWorkspaceNameForm.submit(class="form-btn my-2") }}
+      </form>
+      <form class="form-group" action="{{url_for('adminRoutes.add_member', workspace_id=workspace_id)}}" method="POST">
+        {{ new_member_form.csrf_token }}
+        {{ new_member_form.email_address.label(class="form-label") }}
+        {{ new_member_form.email_address(class="form-input") }}
+        {{ new_member_form.submit(class="form-btn my-2") }}
+      </form>
+      <div class="">
+        <h2 class="form-label"> Members: </h2>
+        {% for member in workspace_members %}
+          <form class="flex flex-row flex-wrap items-center gap-x-2 gap-y-1" action="{{url_for('adminRoutes.remove_member', workspace_id=workspace.workspace_id, member_id=member.member_id)}}" method="POST">
+            <span class="text-lg"> {{ member.member_details.email }} </span>
+            {{remove_member_form.csrf_token()}}
+            {{remove_member_form.submit(class="update-btn")}}
+          </form>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+{% endblock %}

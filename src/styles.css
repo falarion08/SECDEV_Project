@@ -1,0 +1,96 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html, body {
+    @apply font-inter font-light;
+  }
+}
+
+@layer components {
+  .logo {
+    @apply text-4xl p-1 border-4 border-solid border-black rounded-2xl;
+    @apply font-fredoka font-medium;
+  }
+
+  .nav-user {
+    @apply h-full flex items-center px-4 cursor-default;
+    @apply font-fredoka text-xl;
+  }
+
+  .nav-link {
+    @apply h-full flex items-center px-4 transition-all hover:bg-slate-300;
+    @apply font-fredoka text-xl;
+  }
+
+  .mobile-menu-btn {
+    @apply flex items-center justify-center text-xl px-4 py-4 h-full;
+    @apply font-fredoka text-xl;
+    @apply hover:transition-all hover:duration-300 hover:bg-slate-300;
+  }
+
+  .mobile-menu-user {
+    @apply flex items-center justify-center text-xl px-4 py-4 h-full;
+    @apply font-fredoka text-xl cursor-default;
+  }
+
+  .outer-container {
+    @apply flex flex-1 justify-start items-start flex-row bg-white px-8 py-16 w-full;
+    @apply md:items-center md:justify-center md:bg-transparent md:px-0 md:py-8;
+  }
+
+  .inner-container {
+    @apply flex flex-col w-full gap-4;
+    @apply md:bg-white md:m-8 md:px-16 md:py-8 md:rounded-[2.5rem] md:border-solid md:border-4 md:border-black;
+  }
+
+  .form-title, .title {
+    @apply text-4xl xs:text-5xl font-semibold;
+  }
+
+  .form-group, #picture-inner-div {
+    @apply flex flex-col;
+  }
+
+  .form-input {
+    @apply border-2 border-gray-300 rounded-lg py-1 px-2;
+    @apply focus:border-sky-500 focus:outline-none;
+  }
+
+  .form-label, #picture-label {
+    @apply text-xl font-medium;
+  }
+
+  .form-btn {
+    @apply text-base xs:text-xl font-medium w-fit py-1 px-2;
+    @apply border-2 border-solid border-black rounded-xl;
+    @apply transition-all hover:text-sky-500 hover:cursor-pointer hover:border-sky-500;
+  }
+
+  .workspace-list {
+    @apply flex flex-col bg-blue-50 rounded-b-2xl border-t-2 border-gray-100;
+  }
+
+  .workspace-list-item {
+    @apply flex flex-wrap py-4 px-8 border-b-2 border-slate-50;
+  }
+
+  .task-curr-tab {
+    @apply text-base xs:text-lg font-medium w-fit py-1 px-2;
+    @apply border-2 border-solid border-purple-800 text-purple-800 rounded-xl;
+    @apply hover:cursor-default;
+  }
+
+  .update-btn {
+    @apply text-sm xs:text-base font-medium w-fit py-1 px-2;
+    @apply border-2 border-solid border-black rounded-xl;
+    @apply transition-all hover:text-sky-500 hover:cursor-pointer hover:border-sky-500;
+  }
+}
+
+@layer utilities {
+
+}
