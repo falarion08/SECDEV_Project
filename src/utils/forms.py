@@ -5,9 +5,12 @@ from flask_wtf.file import FileAllowed, FileField, FileSize
 from flask_wtf.recaptcha import RecaptchaField
 from PIL import Image
 from datetime import datetime
+import os
+
+max_image_size = int(os.getenv('MAX_IMAGE_SIZE', '1000000'))
 class RegistrationForm(FlaskForm):
     recaptcha = RecaptchaField()
-    profile_picture = FileField('Profile Picture', validators=[FileAllowed(['jpg', 'jpeg', 'png', 'gif']), FileSize(max_size=1000000)])
+    profile_picture = FileField('Profile Picture', validators=[FileAllowed(['jpg', 'jpeg', 'png', 'gif']), FileSize(max_size=max_image_size)])
     full_name = StringField('Full Name', validators=[DataRequired(), Length(max=120)])
     # email = StringField('Email Address', validators=[DataRequired(), Email(), Length(max=120)])
     email = StringField('Email Address', validators=[DataRequired(), Length(max=120)]) # use this temporarily to bypass wtforms email validation and use custom regex
